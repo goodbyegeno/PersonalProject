@@ -232,6 +232,22 @@ bool DXDevice::LoadDevice_(int nScreenWidth, int nScreenHeight)
 	NormalRTTexDesc.CPUAccessFlags = 0;
 	NormalRTTexDesc.MiscFlags = 0;
 
+	Result = m_pDevice->CreateTexture2D(&NormalRTTexDesc, NULL, &m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::NORMAL)]);
+	if (FAILED(Result))
+		return false;
+
+	Result = m_pDevice->CreateRenderTargetView(	m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::NORMAL)], 
+												NULL, 
+												&m_lstRTV[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::NORMAL)]);
+	if (FAILED(Result))
+		return false;
+
+	Result = m_pDevice->CreateShaderResourceView(	m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::NORMAL)],
+													NULL,
+													&m_lstSRV[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::NORMAL)]);
+	if (FAILED(Result))
+		return false;
+
 	D3D11_TEXTURE2D_DESC AlbedoRTTexDesc;
 	AlbedoRTTexDesc.Width = nScreenWidth;
 	AlbedoRTTexDesc.Height = nScreenHeight;
@@ -244,6 +260,22 @@ bool DXDevice::LoadDevice_(int nScreenWidth, int nScreenHeight)
 	AlbedoRTTexDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
 	AlbedoRTTexDesc.CPUAccessFlags = 0;
 	AlbedoRTTexDesc.MiscFlags = 0;
+
+	Result = m_pDevice->CreateTexture2D(&AlbedoRTTexDesc, NULL, &m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::ALBEDO)]);
+	if (FAILED(Result))
+		return false;
+
+	Result = m_pDevice->CreateRenderTargetView(m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::ALBEDO)],
+		NULL,
+		&m_lstRTV[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::ALBEDO)]);
+	if (FAILED(Result))
+		return false;
+
+	Result = m_pDevice->CreateShaderResourceView(m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::ALBEDO)],
+		NULL,
+		&m_lstSRV[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::ALBEDO)]);
+	if (FAILED(Result))
+		return false;
 
 	D3D11_TEXTURE2D_DESC DepthRTTexDesc;
 	DepthRTTexDesc.Width = nScreenWidth;
@@ -258,6 +290,22 @@ bool DXDevice::LoadDevice_(int nScreenWidth, int nScreenHeight)
 	DepthRTTexDesc.CPUAccessFlags = 0;
 	DepthRTTexDesc.MiscFlags = 0;
 
+	Result = m_pDevice->CreateTexture2D(&DepthRTTexDesc, NULL, &m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::DEPTH)]);
+	if (FAILED(Result))
+		return false;
+
+	Result = m_pDevice->CreateRenderTargetView(m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::DEPTH)],
+		NULL,
+		&m_lstRTV[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::DEPTH)]);
+	if (FAILED(Result))
+		return false;
+
+	Result = m_pDevice->CreateShaderResourceView(m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::DEPTH)],
+		NULL,
+		&m_lstSRV[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::DEPTH)]);
+	if (FAILED(Result))
+		return false;
+
 	D3D11_TEXTURE2D_DESC SpecularRTTexDesc;
 	SpecularRTTexDesc.Width = nScreenWidth;
 	SpecularRTTexDesc.Height = nScreenHeight;
@@ -271,10 +319,21 @@ bool DXDevice::LoadDevice_(int nScreenWidth, int nScreenHeight)
 	SpecularRTTexDesc.CPUAccessFlags = 0;
 	SpecularRTTexDesc.MiscFlags = 0;
 
-	ID3D11Texture2D*				m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::MAX)];
-	ID3D11ShaderResourceView*		m_lstSRV[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::MAX)];
-	ID3D11RenderTargetView*			m_lstRTV[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::MAX)];
+	Result = m_pDevice->CreateTexture2D(&SpecularRTTexDesc, NULL, &m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::SPACULAR)]);
+	if (FAILED(Result))
+		return false;
 
+	Result = m_pDevice->CreateRenderTargetView(m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::SPACULAR)],
+		NULL,
+		&m_lstRTV[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::SPACULAR)]);
+	if (FAILED(Result))
+		return false;
 
+	Result = m_pDevice->CreateShaderResourceView(m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::SPACULAR)],
+		NULL,
+		&m_lstSRV[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::SPACULAR)]);
+	if (FAILED(Result))
+		return false;
+	
 	return true;
 }
