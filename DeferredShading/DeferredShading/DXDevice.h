@@ -15,6 +15,8 @@ public:
 	bool Initilize();
 	bool Reset();
 
+	bool Render();
+	bool RenderGBuffer();
 private:
 
 	bool LoadDevice_();

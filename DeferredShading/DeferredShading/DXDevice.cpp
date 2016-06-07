@@ -1,5 +1,5 @@
 #include "DXDevice.h"
-
+#include "CameraBase.h"
 
 DXDevice::DXDevice()
 {
@@ -23,9 +23,9 @@ DXDevice::~DXDevice()
 {
 
 }
-bool Initilize()
+bool DXDevice::Initilize()
 {
-
+	LoadDevice_(1024, 1024);
 	return true;
 }
 
@@ -336,4 +336,31 @@ bool DXDevice::LoadDevice_(int nScreenWidth, int nScreenHeight)
 		return false;
 	
 	return true;
+}
+bool DXDevice::Render()
+{
+	//camera
+	DirectX::XMMATRIX worldMatrix;
+	DirectX::XMMATRIX viewMatrix = CommonVariable::g_pCameraObject->GetViewMatrix();
+	DirectX::XMMATRIX projectionMatrix;
+
+	//Fill Constants
+
+	//Geometry
+
+	//render 4 RenderTarget
+	RenderGBuffer();
+	//compute Light, composite
+
+}
+bool DXDevice::RenderGBuffer()
+{
+
+	//Init variable
+
+	//SetRenderTarget
+
+	//Set Shader
+
+	//clear renderTarget
 }
