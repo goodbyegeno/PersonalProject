@@ -28,4 +28,4 @@ namespace CommonVariable
 {
 	CameraBase* g_pCameraObject;
 
-}
+};
