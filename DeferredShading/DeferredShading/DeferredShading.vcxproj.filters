@@ -19,6 +19,9 @@
     <Filter Include="RenderEngine\Shader">
       <UniqueIdentifier>{4ab8c3f8-04b3-4563-91a3-959260083e9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RenderEngine\TestCode">
+      <UniqueIdentifier>{8e7b92ad-7a7c-425f-8a98-b0289ac542b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -75,6 +78,12 @@
     <ClInclude Include="CameraBase.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
+    <ClInclude Include="TestHeaderCommon.h">
+      <Filter>RenderEngine\TestCode</Filter>
+    </ClInclude>
+    <ClInclude Include="TestModelObject.h">
+      <Filter>RenderEngine\TestCode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -98,13 +107,16 @@
     <ClCompile Include="RenderingManager.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
-    <ClCompile Include="ModelManager.cpp">
-      <Filter>RenderEngine</Filter>
-    </ClCompile>
     <ClCompile Include="DeferredShadingMethod.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
     <ClCompile Include="CameraBase.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="TestModelObject.cpp">
+      <Filter>RenderEngine\TestCode</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelManager.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -122,7 +134,13 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="DeferredVS.hlsl">
+    <FxCompile Include="Render_PS.hlsl">
+      <Filter>RenderEngine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Render_VS.hlsl">
+      <Filter>RenderEngine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="ComputeShader_Composite.hlsl">
       <Filter>RenderEngine\Shader</Filter>
     </FxCompile>
   </ItemGroup>
