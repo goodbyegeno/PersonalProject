@@ -7,4 +7,7 @@ public:
 
 	void Initialize();
 	void Reset();
+
+	void Render();
+
 };
