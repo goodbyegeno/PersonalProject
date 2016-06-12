@@ -11,8 +11,8 @@ namespace RenderEngine
 	{
 		ALBEDO,
 		NORMAL,
-		SPACULAR,
-		DEPTH,
+		SPECULAR,
+		MOTIONVECTOR,
 		MAX
 	};
 

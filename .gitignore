@@ -1,10 +1,4 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/DeferredShading/DeferredShading.VC.VC.opendb
-/DeferredShading/DeferredShading.VC.db
-/DeferredShading/ipch/DEFERREDSHADING-d3e90242/DEFERREDSHADING-b8cc1e89.ipch
-/DeferredShading/ipch/DEFERREDSHADING-d3e90242
-/DeferredShading/.vs/DeferredShading/v14/.suo
-/DeferredShading/.vs/DeferredShading/v14
+﻿*.opendb
+*.suo
+*.db
+*.ipch
