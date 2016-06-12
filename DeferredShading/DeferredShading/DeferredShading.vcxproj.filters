@@ -16,6 +16,9 @@
     <Filter Include="RenderEngine">
       <UniqueIdentifier>{962f170d-81dc-4c92-b099-cac9a4a50ff5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RenderEngine\Shader">
+      <UniqueIdentifier>{4ab8c3f8-04b3-4563-91a3-959260083e9c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -69,6 +72,9 @@
     <ClInclude Include="DeferredShadingMethod.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
+    <ClInclude Include="CameraBase.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -98,6 +104,9 @@
     <ClCompile Include="DeferredShadingMethod.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
+    <ClCompile Include="CameraBase.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DeferredShading.rc">
@@ -111,5 +120,10 @@
     <Image Include="DeferredShading.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="DeferredVS.hlsl">
+      <Filter>RenderEngine\Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

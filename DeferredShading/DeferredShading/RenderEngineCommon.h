@@ -3,14 +3,16 @@
 #include "IShaderObejct.h"
 #include "IRenderingMethod.h"
 #include "IGraphicsDevice.h"
+class CameraBase;
+
 namespace RenderEngine
 {
 	enum class DeferredShadingRenderTarget
 	{
 		ALBEDO,
 		NORMAL,
-		SPACULAR,
-		DEPTH,
+		SPECULAR,
+		MOTIONVECTOR,
 		MAX
 	};
 
@@ -21,4 +23,9 @@ namespace RenderEngine
 		Forward,
 		MAX
 	};
+};
+namespace CommonVariable
+{
+	CameraBase* g_pCameraObject;
+
 };

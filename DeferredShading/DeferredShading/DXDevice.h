@@ -15,6 +15,8 @@ public:
 	bool Initilize();
 	bool Reset();
 
+	bool Render();
+	bool RenderGBuffer();
 private:
 
 	bool LoadDevice_();
@@ -29,6 +31,7 @@ private:
 	ID3D11DepthStencilView*		m_pDepthStencilView;
 	ID3D11RasterizerState*		m_pRasterState;
 	ULONG						m_nVCMemory;
+
 
 	ID3D11Texture2D*				m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::MAX)];
 	ID3D11ShaderResourceView*		m_lstSRV[static_cast<UINT>(RenderEngine::DeferredShadingRenderTarget::MAX)];
