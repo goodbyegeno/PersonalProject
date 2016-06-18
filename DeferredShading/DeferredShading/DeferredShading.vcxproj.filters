@@ -22,6 +22,9 @@
     <Filter Include="RenderEngine\TestCode">
       <UniqueIdentifier>{8e7b92ad-7a7c-425f-8a98-b0289ac542b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RenderEngine\DXModule">
+      <UniqueIdentifier>{1083bb26-2a4d-4ec4-b9f6-a5ccdb5bc3d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -43,9 +46,6 @@
       <Filter>RenderEngine</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsSystem.h">
-      <Filter>RenderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="DXDevice.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
     <ClInclude Include="ShaderManager.h">
@@ -84,6 +84,9 @@
     <ClInclude Include="TestModelObject.h">
       <Filter>RenderEngine\TestCode</Filter>
     </ClInclude>
+    <ClInclude Include="DXDevice.h">
+      <Filter>RenderEngine\DXModule</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -96,9 +99,6 @@
       <Filter>RenderEngine</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsSystem.cpp">
-      <Filter>RenderEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="DXDevice.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
     <ClCompile Include="ShaderManager.cpp">
@@ -118,6 +118,9 @@
     </ClCompile>
     <ClCompile Include="ModelManager.cpp">
       <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="DXDevice.cpp">
+      <Filter>RenderEngine\DXModule</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

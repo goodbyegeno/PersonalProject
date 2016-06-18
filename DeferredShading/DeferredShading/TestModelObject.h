@@ -1,22 +1,32 @@
 #pragma once
 #include "TestHeaderCommon.h"
 #include "RenderEngineCommon.h"
-class TestModelObject : public IModelObject
+#include "CharacterRenderedObject.h"
+
+class DeviceManager;
+
+class TestModelObject : public CharacterRenderedObject
 {
 public:
 	TestModelObject();
 	virtual ~TestModelObject();
 
-	void Initialize();
+	void Initialize(DeviceManager* pDeviceManager);
 	void Reset();
 
-	void Render();
+	virtual void FlushRender();
+	RenderEngineTest::MeshVertex_Test* GetMesh()	{ return m_lstVertex; }
+	int* GetVerticesIndex()							{ return m_lstVerticesIndex; }
+	int	 GetVerticesCount()							{ return m_nNumVertices;  }
 
 private:
 
 	RenderEngineTest::MeshVertex_Test*	m_lstVertex;
-	int*						m_lstVeticesIndex;
-	int							m_nNumVertices;
+	void*								m_pVertexBuffer;
+	void*								m_pIndexBuffer;
+	int*								m_lstVerticesIndex;
+	int									m_nNumVertices;
 
-	bool						m_bIsUsePool;
+	bool								m_bIsUsePool;
+
 };
