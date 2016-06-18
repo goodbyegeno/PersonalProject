@@ -16,6 +16,7 @@ public:
 
 	virtual void	Render(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, float fDeltaTime);
 
+	RenderEngine::RenderingMode GetRenderingMode() final { return RenderEngine::RenderingMode::Indexed_Deferred; }
 private:
 
 	RenderingManager*	m_pRenderingMananger;

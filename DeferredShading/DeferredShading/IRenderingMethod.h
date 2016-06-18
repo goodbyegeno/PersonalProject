@@ -1,4 +1,5 @@
 #pragma once
+#include "RenderEngineCommon.h"
 class ShaderManager;
 class DeviceManager;
 class RenderingManager;
@@ -12,6 +13,6 @@ public:
 
 	virtual bool Initialize() = 0;
 	virtual bool Reset() = 0;
-	virtual void Render(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, float fDeltaTime);
-
+	virtual void Render(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, float fDeltaTime) = 0;
+	virtual RenderEngine::RenderingMode GetRenderingMode() = 0;
 };

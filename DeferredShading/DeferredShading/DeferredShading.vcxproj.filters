@@ -60,12 +60,6 @@
     <ClInclude Include="IRenderingMethod.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
-    <ClInclude Include="ModelManager.h">
-      <Filter>RenderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="IModelObject.h">
-      <Filter>RenderEngine</Filter>
-    </ClInclude>
     <ClInclude Include="RenderEngineCommon.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
@@ -87,6 +81,21 @@
     <ClInclude Include="DXDevice.h">
       <Filter>RenderEngine\DXModule</Filter>
     </ClInclude>
+    <ClInclude Include="IRenderedObject.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelData_Dynamic.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelData_Static.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterRenderedObject.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderedObjectManager.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -95,13 +104,7 @@
     <ClCompile Include="DeferredShading.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DeviceManager.cpp">
-      <Filter>RenderEngine</Filter>
-    </ClCompile>
     <ClCompile Include="GraphicsSystem.cpp">
-      <Filter>RenderEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderManager.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
     <ClCompile Include="RenderingManager.cpp">
@@ -116,11 +119,20 @@
     <ClCompile Include="TestModelObject.cpp">
       <Filter>RenderEngine\TestCode</Filter>
     </ClCompile>
-    <ClCompile Include="ModelManager.cpp">
-      <Filter>RenderEngine</Filter>
-    </ClCompile>
     <ClCompile Include="DXDevice.cpp">
       <Filter>RenderEngine\DXModule</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelData_Dynamic.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelData_Static.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterRenderedObject.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderedObjectManager.cpp">
+      <Filter>RenderEngine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

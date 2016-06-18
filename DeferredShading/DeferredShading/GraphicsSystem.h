@@ -1,7 +1,7 @@
 #pragma once
 class RenderingManager;
 class DeviceManager;
-class ModelManager;
+class RenderedObjectManager;
 class ShaderManager;
 
 class  GraphicsSystem
@@ -12,10 +12,18 @@ public:
 
 	bool Inititalize();
 	bool Reset();
+	void PreUpdate	(float fDeltaTime);
+	void Update		(float fDeltaTime);
+	void PostUpdate	(float fDeltaTime);
+	void Render(float fDeltaTime);
 
+	RenderingManager*		GetRenderingManager()				{ return m_pRenderingMananger; }
+	DeviceManager*			GetDeviceManager()					{ return m_pDeviceManager; }
+	RenderedObjectManager*	GetRenderedObjectManager()			{ return m_pRenderedObjectManager; }
+	ShaderManager*			GetShaderManager()					{ return m_pShaderManager; }
 private:
-	RenderingManager*	m_pRenderingMananger;
-	DeviceManager*		m_pDeviceManager;
-	ModelManager*		m_pModelManager;
-	ShaderManager*		m_pShaderManager;
+	RenderingManager*		m_pRenderingMananger;
+	DeviceManager*			m_pDeviceManager;
+	RenderedObjectManager*	m_pRenderedObjectManager;
+	ShaderManager*			m_pShaderManager;
 };
