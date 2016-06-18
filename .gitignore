@@ -2,3 +2,6 @@
 *.suo
 *.db
 *.ipch
+*.tlog
+*.cso
+DeferredShading/DeferredShading/x64/Debug/DeferredShading.log
