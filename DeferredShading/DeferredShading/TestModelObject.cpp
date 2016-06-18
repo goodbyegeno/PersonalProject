@@ -19,8 +19,10 @@ TestModelObject::~TestModelObject()
 	}
 }
 
-void TestModelObject::Initialize()
+void TestModelObject::Initialize(DeviceManager* pDeviceManager)
 {
+
+
 	m_lstVertex = new RenderEngineTest::MeshVertex_Test[3];
 	m_lstVeticesIndex = new int[3];
 	m_nNumVertices = 3;
@@ -61,8 +63,14 @@ void TestModelObject::Reset()
 
 }
 
+void TestModelObject::FlushRender()
+{
+	g_pRenderingManager->AddRenderedObject(this);
+}
+
 void TestModelObject::Render()
 {
+
 
 	unsigned int stride;
 	unsigned int offset;
