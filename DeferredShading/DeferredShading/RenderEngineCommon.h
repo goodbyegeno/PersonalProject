@@ -1,5 +1,5 @@
 #pragma once
-#include "IModelObject.h"
+#include "IRenderedObject.h"
 #include "IShaderObejct.h"
 #include "IRenderingMethod.h"
 #include "IGraphicsDevice.h"
@@ -7,20 +7,31 @@ class CameraBase;
 
 namespace RenderEngine
 {
-	enum class DeferredShadingRenderTarget
+	enum class RenderTargetIndex
 	{
+		//deferred
 		ALBEDO,
 		NORMAL,
 		SPECULAR,
-		MOTIONVECTOR,
+		POSITION,
 		MAX
 	};
 
 	enum class RenderingMode
 	{
-		Deferred,
-		indexed_Deferred,
+		Deferred_Lighting,
+		Deferred_Shading,
+		Indexed_Deferred,
 		Forward,
+		Forward_Plus,
+
+		MAX
+	};
+
+	enum class RenderedType
+	{
+		Character,
+		SkyBox,
 		MAX
 	};
 };
