@@ -14,9 +14,13 @@ public:
 	virtual bool	Initialize();
 	virtual bool	Reset();
 
-	virtual void	Render(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, float fDeltaTime);
+	virtual void	Render(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, std::vector<IRenderedObject>* lstRederRequestObject, float fDeltaTime);
 
 	RenderEngine::RenderingMode GetRenderingMode() final { return RenderEngine::RenderingMode::Indexed_Deferred; }
+
+private:
+	void RenderGBuffer_();
+
 private:
 
 	RenderingManager*	m_pRenderingMananger;

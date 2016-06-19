@@ -9,6 +9,8 @@ public:
 
 	bool Initialize();
 	bool Reset();
+	void PreUpdate(float fDeltaTime);
+	void PostUpdate(float fDeltaTime);
 	void Update(float fDeltaTime);
 
 	IGraphcisDevice* GetDevice() { return m_Device; }

@@ -10,6 +10,8 @@ public:
 	void Reset();
 
 	void Render();
+	void PreUpdate(float fDeltaTime);
+	void PostUpdate(float fDeltaTime);
 
 	void Update(float fDeltaTime);
 private:

@@ -16,10 +16,11 @@ public:
 	void Render(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, float fDeltaTime);
 	bool IsVsyncOn() { return m_bVsync; }
 	int	 GetFPS() { return m_nFPS; }
-	bool RequestRender(IRenderedObject* pTarget);
 	void PreUpdate(float fDeltaTime);
 	void Update(float fDeltaTime);
 	void PostUpdate(float fDeltaTime);
+	bool RequestRender(IRenderedObject* pTarget);
+	std::vector<IRenderedObject*>& GetRenderRequestObject(RenderEngine::RenderingMode eRenderMode);
 
 private:
 	IRenderMethod* CreateRenderingMethod(RenderEngine::RenderingMode eRenderMode);

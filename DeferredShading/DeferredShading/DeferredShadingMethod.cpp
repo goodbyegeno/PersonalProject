@@ -33,7 +33,25 @@ bool DeferredShadingMethod::Reset()
 	return true;
 }
 
-void DeferredShadingMethod::Render(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, float fDeltaTime)
+void DeferredShadingMethod::Render(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, std::vector<IRenderedObject>* lstRederRequestObject, float fDeltaTime)
 {
+	pDeviceManager->SetMatrix(MatrixType::VIEW, viewMatrix);
+	pDeviceManager->SetMatrix(MatrixType::PROJECTION, projectionMatrix);
 
+	RenderGBuffer_();
+
+}
+
+
+void DeferredShadingMethod::RenderGBuffer_()
+{
+	//Init variable
+
+	//SetRenderTarget
+
+	//Set Shader
+
+	//clear renderTarget
+
+	
 }

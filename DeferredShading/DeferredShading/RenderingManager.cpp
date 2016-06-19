@@ -60,7 +60,7 @@ void RenderingManager::Render(DeviceManager* pDeviceManager, ShaderManager* pSha
 	{
 		if (m_lstRenderingMethod[iRenderMethod])
 		{
-
+			m_lstRenderingMethod[iRenderMethod]->Render(pDeviceManager, pShaderManager, &(m_lstRequestRender[iRenderMethod]), fDeltaTime);
 		}
 	}
 }
@@ -100,4 +100,9 @@ IRenderMethod* RenderingManager::CreateRenderingMethod(RenderEngine::RenderingMo
 
 	return pRenderingMethod;
 
+}
+
+std::vector<IRenderedObject*>& RenderingManager::GetRenderRequestObject(RenderEngine::RenderingMode eRenderMode)
+{
+	return m_lstRequestRender[static_cast<int>(eRenderMode)];
 }
