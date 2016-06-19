@@ -143,11 +143,14 @@
   <ItemGroup>
     <ClInclude Include="CameraBase.h" />
     <ClInclude Include="CharacterRenderedObject.h" />
+    <ClInclude Include="DeferredShaderObject.h" />
     <ClInclude Include="DeferredShading.h" />
     <ClInclude Include="DeferredShadingMethod.h" />
+    <ClInclude Include="DeferredShadingMethodDX.h" />
     <ClInclude Include="DeviceManager.h" />
     <ClInclude Include="DXDevice.h" />
     <ClInclude Include="GraphicsSystem.h" />
+    <ClInclude Include="IDeferredShadingMethodImpl.h" />
     <ClInclude Include="IGraphicsDevice.h" />
     <ClInclude Include="IRenderedObject.h" />
     <ClInclude Include="IRenderingMethod.h" />
@@ -169,12 +172,14 @@
     <ClCompile Include="CharacterRenderedObject.cpp" />
     <ClCompile Include="DeferredShading.cpp" />
     <ClCompile Include="DeferredShadingMethod.cpp" />
+    <ClCompile Include="DeferredShadingMethodDX.cpp" />
     <ClCompile Include="DXDevice.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
     <ClCompile Include="ModelData_Dynamic.cpp" />
     <ClCompile Include="ModelData_Static.cpp" />
     <ClCompile Include="RenderedObjectManager.cpp" />
     <ClCompile Include="RenderingManager.cpp" />
+    <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

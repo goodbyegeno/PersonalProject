@@ -51,6 +51,8 @@ void DeferredShadingMethod::RenderGBuffer_()
 
 	//Set Shader
 
+	//render mesh
+
 	//clear renderTarget
 
 	

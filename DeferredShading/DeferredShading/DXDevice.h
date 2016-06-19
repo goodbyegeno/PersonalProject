@@ -32,9 +32,8 @@ private:
 	ID3D11RasterizerState*		m_pRasterState;
 	ULONG						m_nVCMemory;
 
-
 	ID3D11Texture2D*				m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::RenderTargetIndex::MAX)];
-	ID3D11ShaderResourceView*		m_lstSRV[static_cast<UINT>(RenderEngine::RenderTargetIndex::MAX)];
-	ID3D11RenderTargetView*			m_lstRTV[static_cast<UINT>(RenderEngine::RenderTargetIndex::MAX)];
+	ID3D11ShaderResourceView*		m_lstSRV			[static_cast<UINT>(RenderEngine::RenderTargetIndex::MAX)];
+	ID3D11RenderTargetView*			m_lstRTV			[static_cast<UINT>(RenderEngine::RenderTargetIndex::MAX)];
 
 };

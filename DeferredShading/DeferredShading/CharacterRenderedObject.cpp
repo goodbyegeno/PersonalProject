@@ -8,7 +8,10 @@ CharacterRenderedObject::~CharacterRenderedObject()
 {
 
 }
-bool CharacterRenderedObject::IsGotAlphaBlend() { return false; }
+bool CharacterRenderedObject::IsGotAlphaBlend() 
+{ 
+	return false; 
+}
 
 void CharacterRenderedObject::FlushRender()
 {

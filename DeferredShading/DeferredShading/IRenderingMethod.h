@@ -1,9 +1,10 @@
 #pragma once
 #include "RenderEngineCommon.h"
+#include <vector>
+
 class ShaderManager;
 class DeviceManager;
 class RenderingManager;
-#include <vector>
 class IRenderMethod
 {
 public:

@@ -25,6 +25,12 @@
     <Filter Include="RenderEngine\DXModule">
       <UniqueIdentifier>{1083bb26-2a4d-4ec4-b9f6-a5ccdb5bc3d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RenderEngine\ShadingMethod">
+      <UniqueIdentifier>{e03ba4e2-3f12-4c29-b493-ec7fbcba1633}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEngine\ShadingMethod\Indexed_Deferred">
+      <UniqueIdentifier>{7a61739c-4c89-4a71-b0b9-4d1057fd67db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -66,9 +72,6 @@
     <ClInclude Include="IGraphicsDevice.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
-    <ClInclude Include="DeferredShadingMethod.h">
-      <Filter>RenderEngine</Filter>
-    </ClInclude>
     <ClInclude Include="CameraBase.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
@@ -96,6 +99,18 @@
     <ClInclude Include="RenderedObjectManager.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
+    <ClInclude Include="DeferredShaderObject.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="DeferredShadingMethod.h">
+      <Filter>RenderEngine\ShadingMethod\Indexed_Deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="IDeferredShadingMethodImpl.h">
+      <Filter>RenderEngine\ShadingMethod\Indexed_Deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="DeferredShadingMethodDX.h">
+      <Filter>RenderEngine\ShadingMethod\Indexed_Deferred</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -108,9 +123,6 @@
       <Filter>RenderEngine</Filter>
     </ClCompile>
     <ClCompile Include="RenderingManager.cpp">
-      <Filter>RenderEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="DeferredShadingMethod.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
     <ClCompile Include="CameraBase.cpp">
@@ -133,6 +145,15 @@
     </ClCompile>
     <ClCompile Include="RenderedObjectManager.cpp">
       <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderManager.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="DeferredShadingMethod.cpp">
+      <Filter>RenderEngine\ShadingMethod\Indexed_Deferred</Filter>
+    </ClCompile>
+    <ClCompile Include="DeferredShadingMethodDX.cpp">
+      <Filter>RenderEngine\ShadingMethod\Indexed_Deferred</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
