@@ -8,7 +8,10 @@ public:
 	virtual ~DeviceManager();
 
 	bool Initialize();
+	bool PostInitialize();
+
 	bool Reset();
+	bool PostReset();
 	void PreUpdate(float fDeltaTime);
 	void PostUpdate(float fDeltaTime);
 	void Update(float fDeltaTime);

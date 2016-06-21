@@ -5,6 +5,7 @@
 #include "RenderEngineCommon.h"
 #include <d3d11.h>
 #include <directxmath.h>
+#include <unordered_map>
 
 class DXDevice
 {
@@ -32,8 +33,12 @@ private:
 	ID3D11RasterizerState*		m_pRasterState;
 	ULONG						m_nVCMemory;
 
+	std::unordered_map<UINT, ID3D11Texture2D*>			m_mapRenderTargetTex;
+	std::unordered_map<UINT, ID3D11ShaderResourceView*>	m_mapShaderResourceView;
+	std::unordered_map<UINT, ID3D11RenderTargetView*>	m_mapRenderTargetView;
+	/*
 	ID3D11Texture2D*				m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::RenderTargetIndex::MAX)];
 	ID3D11ShaderResourceView*		m_lstSRV			[static_cast<UINT>(RenderEngine::RenderTargetIndex::MAX)];
 	ID3D11RenderTargetView*			m_lstRTV			[static_cast<UINT>(RenderEngine::RenderTargetIndex::MAX)];
-
+	*/
 };

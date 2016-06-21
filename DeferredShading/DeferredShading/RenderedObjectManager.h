@@ -6,8 +6,8 @@ public:
 	RenderedObjectManager(GraphicsSystem* pGraphicSystem);
 	virtual ~RenderedObjectManager();
 
-	void Initialize();
-	void Reset();
+	bool Initialize();
+	bool Reset();
 
 	void Render();
 	void PreUpdate(float fDeltaTime);

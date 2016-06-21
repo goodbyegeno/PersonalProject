@@ -1,12 +1,13 @@
 #pragma once
-#include "IRenderedObject.h"
-#include "IShaderObejct.h"
-#include "IRenderingMethod.h"
-#include "IGraphicsDevice.h"
-class CameraBase;
 
 namespace RenderEngine
 {
+	enum class MiddlewareType
+	{
+		DirectX,
+		OpenGL,
+		MAX
+	};
 	enum class RenderTargetIndex
 	{
 		//deferred
@@ -34,9 +35,4 @@ namespace RenderEngine
 		SkyBox,
 		MAX
 	};
-};
-namespace CommonVariable
-{
-	CameraBase* g_pCameraObject;
-
 };

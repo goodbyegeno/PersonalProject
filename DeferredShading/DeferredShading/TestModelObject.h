@@ -11,8 +11,8 @@ public:
 	TestModelObject();
 	virtual ~TestModelObject();
 
-	void Initialize(DeviceManager* pDeviceManager);
-	void Reset();
+	bool Initialize(DeviceManager* pDeviceManager);
+	bool Reset();
 
 	virtual void FlushRender();
 	RenderEngineTest::MeshVertex_Test* GetMesh()	{ return m_lstVertex; }

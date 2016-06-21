@@ -31,6 +31,9 @@
     <Filter Include="RenderEngine\ShadingMethod\Indexed_Deferred">
       <UniqueIdentifier>{7a61739c-4c89-4a71-b0b9-4d1057fd67db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RenderEngine\Resources">
+      <UniqueIdentifier>{194d639e-000a-4203-9c23-3e76798ae50b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -108,8 +111,11 @@
     <ClInclude Include="IDeferredShadingMethodImpl.h">
       <Filter>RenderEngine\ShadingMethod\Indexed_Deferred</Filter>
     </ClInclude>
+    <ClInclude Include="ShaderRenderTarget.h">
+      <Filter>RenderEngine\Resources</Filter>
+    </ClInclude>
     <ClInclude Include="DeferredShadingMethodDX.h">
-      <Filter>RenderEngine\ShadingMethod\Indexed_Deferred</Filter>
+      <Filter>RenderEngine\DXModule</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -152,8 +158,11 @@
     <ClCompile Include="DeferredShadingMethod.cpp">
       <Filter>RenderEngine\ShadingMethod\Indexed_Deferred</Filter>
     </ClCompile>
+    <ClCompile Include="ShaderRenderTarget.cpp">
+      <Filter>RenderEngine\Resources</Filter>
+    </ClCompile>
     <ClCompile Include="DeferredShadingMethodDX.cpp">
-      <Filter>RenderEngine\ShadingMethod\Indexed_Deferred</Filter>
+      <Filter>RenderEngine\DXModule</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

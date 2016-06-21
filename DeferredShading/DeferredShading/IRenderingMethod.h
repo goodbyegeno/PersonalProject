@@ -5,6 +5,7 @@
 class ShaderManager;
 class DeviceManager;
 class RenderingManager;
+class IRenderedObject;
 class IRenderMethod
 {
 public:
