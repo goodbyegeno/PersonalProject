@@ -3,6 +3,7 @@
 #include <vector>
 class GraphicsSystem;
 class DeviceManager;
+class IRenderedObject;
 
 class RenderingManager
 {

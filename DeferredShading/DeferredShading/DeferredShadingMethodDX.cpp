@@ -109,3 +109,20 @@ void DeferredShadingMethodDX::SetRenderTarget()
 {
 
 }
+void DeferredShadingMethodDX::Render(std::vector<IRenderedObject*> lstRederedObject)
+{
+	//SetMatrix;
+
+	RenderGBuffer();
+	RenderLight_();
+}
+void DeferredShadingMethodDX::RenderGBuffer()
+{
+	//SetRenderTarget
+
+	//Set WorldMatrix
+
+}
+void DeferredShadingMethodDX::RenderLight_()
+{
+}

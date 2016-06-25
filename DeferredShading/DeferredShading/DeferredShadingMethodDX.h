@@ -2,8 +2,10 @@
 
 #include "IDeferredShadingMethodImpl.h"
 #include <d3d11.h>
+#include <vector>
 class DeviceManager;
 class ShaderManager;
+class IRenderedObject;
 
 class DeferredShadingMethodDX : public IDeferredShadingMethodImpl
 {
@@ -15,6 +17,10 @@ public:
 	bool Reset(DeviceManager* pDeviceManager, ShaderManager* pShaderManager);
 	void SetConstVariables();
 	void SetRenderTarget();
+	void Render(std::vector<IRenderedObject*> lstRederedObject);
+
+	void RenderMesh();
+	void RenderLighting();
 
 private:
 	bool SetShader_(ShaderManager* pShaderManager, ID3D11Device* pDeviceDX);
@@ -32,4 +38,5 @@ private:
 	size_t							m_nVertexShaderHash;
 	size_t							m_nPixelShaderHash;
 	size_t							m_nComputeShaderHash;
+
 };
