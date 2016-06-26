@@ -1,9 +1,11 @@
 #include "DeferredShadingMethod.h"
 #include "RenderingManager.h"
+#include "IDeferredShadingMethodImpl.h"
 
 DeferredShadingMethod::DeferredShadingMethod(RenderingManager* pRenderingMnanger)
 {
 	m_pRenderingMananger = pRenderingMnanger;
+	m_pRendingMethodImpl = nullptr;
 	m_bVsync = false;
 	m_fMSecPerFrame = 0.0f;
 	m_fCurrentMSecPerFrame = 0.0f;
@@ -35,25 +37,21 @@ bool DeferredShadingMethod::Reset()
 
 void DeferredShadingMethod::Render(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, std::vector<IRenderedObject>* lstRederRequestObject, float fDeltaTime)
 {
-	pDeviceManager->SetMatrix(MatrixType::VIEW, viewMatrix);
-	pDeviceManager->SetMatrix(MatrixType::PROJECTION, projectionMatrix);
+	m_pRendingMethodImpl->SetMatrix();
 
-	RenderGBuffer_();
+	RenderGBuffer_	(pDeviceManager, pShaderManager, lstRederRequestObject, fDeltaTime);
+	RenderLighting_	(pDeviceManager, pShaderManager, lstRederRequestObject, fDeltaTime);
 
 }
 
-
-void DeferredShadingMethod::RenderGBuffer_()
+void DeferredShadingMethod::RenderGBuffer_(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, std::vector<IRenderedObject>* lstRederRequestObject, float fDeltaTime)
 {
-	//Init variable
-
-	//SetRenderTarget
-
-	//Set Shader
-
-	//render mesh
-
-	//clear renderTarget
-
-	
+	m_pRendingMethodImpl->SetShader();
+	m_pRendingMethodImpl->SetConstVariables();
+	m_pRendingMethodImpl->SetRenderTarget();
+	m_pRendingMethodImpl->RenderMesh();
+}
+void DeferredShadingMethod::RenderLighting_(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, std::vector<IRenderedObject>* lstRederRequestObject, float fDeltaTime)
+{
+	m_pRendingMethodImpl->RenderLighting();
 }

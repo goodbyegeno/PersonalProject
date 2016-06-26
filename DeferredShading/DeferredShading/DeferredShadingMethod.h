@@ -4,6 +4,7 @@ class ShaderManager;
 class DeviceManager;
 class RenderingManager;
 #include <d3d11.h>
+class IDeferredShadingMethodImpl;
 
 class DeferredShadingMethod : public IRenderMethod
 {
@@ -15,14 +16,15 @@ public:
 	virtual bool	Reset();
 
 	virtual void	Render(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, std::vector<IRenderedObject>* lstRederRequestObject, float fDeltaTime);
-
 	RenderEngine::RenderingMode GetRenderingMode() final { return RenderEngine::RenderingMode::Indexed_Deferred; }
 
 private:
-	void RenderGBuffer_();
+	void	RenderGBuffer_(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, std::vector<IRenderedObject>* lstRederRequestObject, float fDeltaTime);
+	void	RenderLighting_(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, std::vector<IRenderedObject>* lstRederRequestObject, float fDeltaTime);
 
 private:
 
+	IDeferredShadingMethodImpl* m_pRendingMethodImpl;
 	RenderingManager*	m_pRenderingMananger;
 	bool				m_bVsync;
 	float				m_fMSecPerFrame;

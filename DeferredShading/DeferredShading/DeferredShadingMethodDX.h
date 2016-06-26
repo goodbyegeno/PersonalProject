@@ -15,16 +15,24 @@ public:
 
 	bool Initialize(DeviceManager* pDeviceManager, ShaderManager* pShaderManager);
 	bool Reset(DeviceManager* pDeviceManager, ShaderManager* pShaderManager);
-	void SetConstVariables();
-	void SetRenderTarget();
-	void Render(std::vector<IRenderedObject*> lstRederedObject);
 
-	void RenderMesh();
-	void RenderLighting();
+
+	virtual bool SetMatrix();
+	virtual bool SetShader();
+	virtual bool SetConstVariables();
+	virtual bool SetRenderTarget();
+	virtual bool RenderMesh();
+	virtual bool RenderLighting();
+	
 
 private:
 	bool SetShader_(ShaderManager* pShaderManager, ID3D11Device* pDeviceDX);
 private:
+
+	ShaderManager*					m_pShaderManager;
+
+	ID3D11Device*					m_pDevice;
+	ID3D11DeviceContext*			m_pDeviceContext;
 
 	ID3D11Texture2D*				m_lstRenderTargetTex[4];
 	ID3D11ShaderResourceView*		m_lstSRV[4];

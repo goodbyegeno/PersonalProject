@@ -5,6 +5,9 @@
 #include "IGraphicsDevice.h"
 DeferredShadingMethodDX::DeferredShadingMethodDX()
 {
+	m_pDevice				= nullptr;
+	m_pDeviceContext		= nullptr;
+
 	m_pVertexShader			= nullptr;
 	m_pPixelShader			= nullptr;
 	m_pComputeShader		= nullptr;
@@ -18,15 +21,18 @@ DeferredShadingMethodDX::~DeferredShadingMethodDX()
 }
 bool DeferredShadingMethodDX::Initialize(DeviceManager* pDeviceManager, ShaderManager* pShaderManager)
 {
+	m_pShaderManager = pShaderManager;
 	IGraphcisDevice* pDevice = pDeviceManager->GetDevice();
 	if (pDevice == nullptr || pDevice->GetMiddlewareType() != RenderEngine::MiddlewareType::DirectX)
 		return false;
 
-	ID3D11Device* pDeviceDX = static_cast<ID3D11Device*>(pDevice->GetBuffer());
-	if (pDeviceDX == nullptr)
+	m_pDevice = static_cast<ID3D11Device*>(pDevice->GetBuffer());
+	if (m_pDevice == nullptr)
 	{
 		return false;
 	}
+	m_pDeviceContext		= nullptr;
+
 	m_pVertexShader			= nullptr;
 	m_pPixelShader			= nullptr;
 	m_pComputeShader		= nullptr;
@@ -35,13 +41,20 @@ bool DeferredShadingMethodDX::Initialize(DeviceManager* pDeviceManager, ShaderMa
 	m_nPixelShaderHash		= 0;
 	m_nComputeShaderHash	= 0;
 
-	if (SetShader_(pShaderManager, pDeviceDX) == false)
+	if (SetShader_(pShaderManager, m_pDevice) == false)
 		return false;
 
 	
 }
 bool DeferredShadingMethodDX::Reset(DeviceManager* pDeviceManager, ShaderManager* pShaderManager)
 {
+	m_pShaderManager = pShaderManager;
+	IGraphcisDevice* pDevice = pDeviceManager->GetDevice();
+	if (pDevice == nullptr || pDevice->GetMiddlewareType() != RenderEngine::MiddlewareType::DirectX)
+		return false;
+
+	m_pDevice = static_cast<ID3D11Device*>(pDevice->GetBuffer());
+
 	m_pVertexShader			= nullptr;
 	m_pPixelShader			= nullptr;
 	m_pComputeShader		= nullptr;
@@ -50,7 +63,7 @@ bool DeferredShadingMethodDX::Reset(DeviceManager* pDeviceManager, ShaderManager
 	m_nPixelShaderHash		= 0;
 	m_nComputeShaderHash	= 0;
 
-	SetShader_(pShaderManager);
+	SetShader_(pShaderManager, m_pDevice);
 }
 bool DeferredShadingMethodDX::SetShader_(ShaderManager* pShaderManager, ID3D11Device* pDeviceDX)
 {
@@ -101,28 +114,27 @@ bool DeferredShadingMethodDX::SetShader_(ShaderManager* pShaderManager, ID3D11De
 	m_pComputeShader = static_cast<ID3D11ComputeShader*>(pTempShaderObject->GetShader());
 	pTempShaderObject = nullptr;
 }
-void DeferredShadingMethodDX::SetConstVariables()
+bool DeferredShadingMethodDX::SetMatrix()
 {
-
+	return false;
 }
-void DeferredShadingMethodDX::SetRenderTarget()
+bool DeferredShadingMethodDX::SetShader()
 {
-
+	return false;
 }
-void DeferredShadingMethodDX::Render(std::vector<IRenderedObject*> lstRederedObject)
+bool DeferredShadingMethodDX::SetConstVariables()
 {
-	//SetMatrix;
-
-	RenderGBuffer();
-	RenderLight_();
+	return false;
 }
-void DeferredShadingMethodDX::RenderGBuffer()
+bool DeferredShadingMethodDX::SetRenderTarget()
 {
-	//SetRenderTarget
-
-	//Set WorldMatrix
-
+	return false;
 }
-void DeferredShadingMethodDX::RenderLight_()
+bool DeferredShadingMethodDX::RenderMesh()
 {
+	return false;
+}
+bool DeferredShadingMethodDX::RenderLighting()
+{
+	return false;
 }
