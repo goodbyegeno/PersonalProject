@@ -1,7 +1,9 @@
 #pragma once
+/*
 #include <directxmath.h>
 #include <d3d11.h>
-
+*/
+#include "ICameraMovement.h"
 class CameraBase
 {
 public:
@@ -26,4 +28,5 @@ private:
 	DirectX::XMVECTOR m_vecUpVector;
 	DirectX::XMVECTOR m_vecRightVector;
 
+	ICameraMovement* m_pCameraMovement;
 };

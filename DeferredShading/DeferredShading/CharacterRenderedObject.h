@@ -2,7 +2,8 @@
 #include "RenderEngineCommon.h"
 #include "ModelData_Dynamic.h"
 #include "ModelData_Static.h"
-class RenderingManager
+#include "IRenderedObject.h"
+
 class CharacterRenderedObject : public IRenderedObject
 {
 public:

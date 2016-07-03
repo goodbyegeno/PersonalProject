@@ -34,6 +34,15 @@
     <Filter Include="RenderEngine\Resources">
       <UniqueIdentifier>{194d639e-000a-4203-9c23-3e76798ae50b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{29970b2f-af28-407d-a3b4-ef048e4f9420}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera\CameraMovement">
+      <UniqueIdentifier>{584595ef-ab23-4b9f-b83f-2f92075d747e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CustomMath">
+      <UniqueIdentifier>{5fb65fa6-82fb-4846-8e46-b770814d392c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -75,9 +84,6 @@
     <ClInclude Include="IGraphicsDevice.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
-    <ClInclude Include="CameraBase.h">
-      <Filter>RenderEngine</Filter>
-    </ClInclude>
     <ClInclude Include="TestHeaderCommon.h">
       <Filter>RenderEngine\TestCode</Filter>
     </ClInclude>
@@ -117,6 +123,21 @@
     <ClInclude Include="DeferredShadingMethodDX.h">
       <Filter>RenderEngine\DXModule</Filter>
     </ClInclude>
+    <ClInclude Include="CameraBase.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="ICameraMovement.h">
+      <Filter>Camera\CameraMovement</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomVector.h">
+      <Filter>CustomMath</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomMatrix.h">
+      <Filter>CustomMath</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomQuarternion.h">
+      <Filter>CustomMath</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -129,9 +150,6 @@
       <Filter>RenderEngine</Filter>
     </ClCompile>
     <ClCompile Include="RenderingManager.cpp">
-      <Filter>RenderEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraBase.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
     <ClCompile Include="TestModelObject.cpp">
@@ -163,6 +181,18 @@
     </ClCompile>
     <ClCompile Include="DeferredShadingMethodDX.cpp">
       <Filter>RenderEngine\DXModule</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraBase.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomVector.cpp">
+      <Filter>CustomMath</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomMatrix.cpp">
+      <Filter>CustomMath</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomQuarternion.cpp">
+      <Filter>CustomMath</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

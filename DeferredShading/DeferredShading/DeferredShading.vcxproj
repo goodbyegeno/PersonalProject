@@ -143,6 +143,9 @@
   <ItemGroup>
     <ClInclude Include="CameraBase.h" />
     <ClInclude Include="CharacterRenderedObject.h" />
+    <ClInclude Include="CustomMatrix.h" />
+    <ClInclude Include="CustomQuarternion.h" />
+    <ClInclude Include="CustomVector.h" />
     <ClInclude Include="DeferredShaderObject.h" />
     <ClInclude Include="DeferredShading.h" />
     <ClInclude Include="DeferredShadingMethod.h" />
@@ -150,6 +153,7 @@
     <ClInclude Include="DeviceManager.h" />
     <ClInclude Include="DXDevice.h" />
     <ClInclude Include="GraphicsSystem.h" />
+    <ClInclude Include="ICameraMovement.h" />
     <ClInclude Include="IDeferredShadingMethodImpl.h" />
     <ClInclude Include="IGraphicsDevice.h" />
     <ClInclude Include="IRenderedObject.h" />
@@ -171,6 +175,9 @@
   <ItemGroup>
     <ClCompile Include="CameraBase.cpp" />
     <ClCompile Include="CharacterRenderedObject.cpp" />
+    <ClCompile Include="CustomMatrix.cpp" />
+    <ClCompile Include="CustomQuarternion.cpp" />
+    <ClCompile Include="CustomVector.cpp" />
     <ClCompile Include="DeferredShading.cpp" />
     <ClCompile Include="DeferredShadingMethod.cpp" />
     <ClCompile Include="DeferredShadingMethodDX.cpp" />
