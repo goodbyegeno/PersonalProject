@@ -4,39 +4,40 @@
 class GraphicsSystem;
 class DeviceManager;
 class IRenderedObject;
+class IRenderMethod;
 
 class RenderingManager
 {
 public:
-	RenderingManager(GraphicsSystem* pGraphicSystem);
+	RenderingManager(GraphicsSystem* graphicSystem);
 	virtual ~RenderingManager();
 
 	bool Initialize();
 	bool Reset();
 
-	void Render(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, float fDeltaTime);
-	bool IsVsyncOn() { return m_bVsync; }
-	int	 GetFPS() { return m_nFPS; }
-	void PreUpdate(float fDeltaTime);
-	void Update(float fDeltaTime);
-	void PostUpdate(float fDeltaTime);
-	bool RequestRender(IRenderedObject* pTarget);
-	std::vector<IRenderedObject*>& GetRenderRequestObject(RenderEngine::RenderingMode eRenderMode);
+	void Render(DeviceManager* deviceManager, ShaderManager* shaderManager, float deltaTime);
+	bool IsVsyncOn() { return _Vsync; }
+	int	 GetFPS() { return _FPS; }
+	void PreUpdate(float deltaTime);
+	void Update(float deltaTime);
+	void PostUpdate(float deltaTime);
+	bool RequestRender(IRenderedObject* target);
+	std::vector<IRenderedObject*>& GetRenderRequestObject(RenderEngine::RenderingMode renderMode);
 
 private:
-	IRenderMethod* CreateRenderingMethod(RenderEngine::RenderingMode eRenderMode);
+	IRenderMethod* CreateRenderingMethod(RenderEngine::RenderingMode renderMode);
 
 private:
 
-	IRenderMethod*					m_lstRenderingMethod[static_cast<int>(RenderEngine::RenderingMode::MAX)];
-	std::vector<IRenderedObject*>	m_lstRequestRender	[static_cast<int>(RenderEngine::RenderingMode::MAX)];
+	IRenderMethod*					_renderingMethod[static_cast<int>(RenderEngine::RenderingMode::MAX)];
+	std::vector<IRenderedObject*>	_requestRender	[static_cast<int>(RenderEngine::RenderingMode::MAX)];
 
-	GraphicsSystem*					m_pGraphicsSystem;
-	DeviceManager*					m_pDeviceManager;
+	GraphicsSystem*					_graphicsSystem;
+	DeviceManager*					_deviceManager;
 
 	//settings
-	int m_nFPS;
-	bool m_bVsync;
+	int								_FPS;
+	bool							_Vsync;
 
 
 };

@@ -2,13 +2,8 @@
 
 namespace RenderEngine
 {
-	enum class MiddlewareType
-	{
-		DirectX,
-		OpenGL,
-		MAX
-	};
-	enum class RenderTargetIndex
+
+	enum class RENDERTARGETTYPE
 	{
 		//deferred
 		ALBEDO,
@@ -18,21 +13,20 @@ namespace RenderEngine
 		MAX
 	};
 
-	enum class RenderingMode
+	enum class RENDERINGMODE
 	{
-		Deferred_Lighting,
-		Deferred_Shading,
-		Indexed_Deferred,
-		Forward,
-		Forward_Plus,
-
+		DEFERRED_LIGHTING,
+		DEFERRED_SHADING,
+		INDEXED_DEFERRED_SHADING,
+		FORWARD,
+		FORWARD_PLUS,
 		MAX
 	};
 
-	enum class RenderedType
+	enum class RENDERTYPE
 	{
-		Character,
-		SkyBox,
+		CHARACTER,
+		SKYBOX,
 		MAX
 	};
 };

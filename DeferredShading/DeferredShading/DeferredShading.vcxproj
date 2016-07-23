@@ -143,6 +143,8 @@
   <ItemGroup>
     <ClInclude Include="CameraBase.h" />
     <ClInclude Include="CharacterRenderedObject.h" />
+    <ClInclude Include="CoreEngineCommon.h" />
+    <ClInclude Include="CoreSystem.h" />
     <ClInclude Include="CustomMatrix.h" />
     <ClInclude Include="CustomQuarternion.h" />
     <ClInclude Include="CustomVector.h" />
@@ -175,6 +177,7 @@
   <ItemGroup>
     <ClCompile Include="CameraBase.cpp" />
     <ClCompile Include="CharacterRenderedObject.cpp" />
+    <ClCompile Include="CoreSystem.cpp" />
     <ClCompile Include="CustomMatrix.cpp" />
     <ClCompile Include="CustomQuarternion.cpp" />
     <ClCompile Include="CustomVector.cpp" />

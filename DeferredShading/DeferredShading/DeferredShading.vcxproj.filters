@@ -43,6 +43,9 @@
     <Filter Include="CustomMath">
       <UniqueIdentifier>{5fb65fa6-82fb-4846-8e46-b770814d392c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="1.System">
+      <UniqueIdentifier>{2a743a37-74e5-420e-82c7-a70233ccf3f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -138,6 +141,12 @@
     <ClInclude Include="CustomQuarternion.h">
       <Filter>CustomMath</Filter>
     </ClInclude>
+    <ClInclude Include="CoreSystem.h">
+      <Filter>1.System</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreEngineCommon.h">
+      <Filter>1.System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -193,6 +202,9 @@
     </ClCompile>
     <ClCompile Include="CustomQuarternion.cpp">
       <Filter>CustomMath</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreSystem.cpp">
+      <Filter>1.System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

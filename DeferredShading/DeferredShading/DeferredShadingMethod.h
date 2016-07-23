@@ -1,35 +1,37 @@
 #pragma once
+#include <d3d11.h>
 #include "RenderEngineCommon.h"
+#include "IRenderingMethod.h"
+
 class ShaderManager;
 class DeviceManager;
 class RenderingManager;
-#include <d3d11.h>
 class IDeferredShadingMethodImpl;
 
 class DeferredShadingMethod : public IRenderMethod
 {
 public:
-	DeferredShadingMethod(RenderingManager* pRenderingMnanger);
+	DeferredShadingMethod(RenderingManager* renderingMnanger);
 	virtual ~DeferredShadingMethod();
 
 	virtual bool	Initialize();
 	virtual bool	Reset();
 
-	virtual void	Render(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, std::vector<IRenderedObject>* lstRederRequestObject, float fDeltaTime);
+	virtual void	Render(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject>* rederRequestObject, float deltaTime);
 	RenderEngine::RenderingMode GetRenderingMode() final { return RenderEngine::RenderingMode::Indexed_Deferred; }
 
 private:
-	void	RenderGBuffer_(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, std::vector<IRenderedObject>* lstRederRequestObject, float fDeltaTime);
-	void	RenderLighting_(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, std::vector<IRenderedObject>* lstRederRequestObject, float fDeltaTime);
+	void	RenderGBuffer_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject>* rederRequestObject, float deltaTime);
+	void	RenderLighting_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject>* rederRequestObject, float deltaTime);
 
 private:
 
-	IDeferredShadingMethodImpl* m_pRendingMethodImpl;
-	RenderingManager*	m_pRenderingMananger;
-	bool				m_bVsync;
-	float				m_fMSecPerFrame;
-	float				m_fCurrentMSecPerFrame;
-	int					m_nFPS;
+	IDeferredShadingMethodImpl* _rendingMethodImpl;
+	RenderingManager*			_renderingMananger;
+	bool						_Vsync;
+	float						_mSecPerFrame;
+	float						_currentMSecPerFrame;
+	int							_FPS;
 
 	
 
