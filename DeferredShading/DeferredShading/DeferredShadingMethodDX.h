@@ -17,7 +17,7 @@ public:
 	bool Initialize(DeviceManager* deviceManager, ShaderManager* shaderManager);
 	bool Reset(DeviceManager* deviceManager, ShaderManager* shaderManager);
 
-	virtual RenderEngine::MIDDLEWARETYPE GetMiddleWareType() { return RenderEngine::MIDDLEWARETYPE::DIRECTX;  }
+	virtual CoreEngine::GRAPHICSAPITYPE GetMiddleWareType() { return CoreEngine::GRAPHICSAPITYPE::DIRECTX;  }
 
 	virtual bool SetMatrix();
 	virtual bool SetShader();

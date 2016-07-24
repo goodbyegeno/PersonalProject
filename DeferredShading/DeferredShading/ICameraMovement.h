@@ -4,11 +4,12 @@
 class ICameraMovement
 {
 public:
-	ICameraMovement();
-	virtual ~ICameraMovement();
+	ICameraMovement() {}
+
+	virtual ~ICameraMovement() {}
 
 private:
-	void Update();
+	virtual void Update(float deltaTime) = 0;
 
 
 };

@@ -8,5 +8,4 @@ CoreSystem::CoreSystem() :
 }
 CoreSystem::~CoreSystem()
 {
-
 }

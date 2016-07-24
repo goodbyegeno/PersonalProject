@@ -7,4 +7,10 @@ namespace CoreEngine
 		OPENGL,
 		MAX
 	};
+	enum class PROJECTIONMODE
+	{
+		ISOMETRIC,
+		PERSPECTIVE,
+		MAX
+	};
 }

@@ -147,6 +147,9 @@
     <ClInclude Include="CoreEngineCommon.h">
       <Filter>1.System</Filter>
     </ClInclude>
+    <ClInclude Include="TestCamera.h">
+      <Filter>Camera\CameraMovement</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -205,6 +208,9 @@
     </ClCompile>
     <ClCompile Include="CoreSystem.cpp">
       <Filter>1.System</Filter>
+    </ClCompile>
+    <ClCompile Include="TestCamera.cpp">
+      <Filter>Camera\CameraMovement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

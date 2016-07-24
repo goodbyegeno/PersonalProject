@@ -14,9 +14,9 @@ DXDevice::DXDevice()
 
 	for( int iRT = 0; iRT < static_cast<UINT>(RenderEngine::RenderTargetIndex::MAX); iRT++)
 	{ 
-		m_lstRenderTargetTex[iRT] = nullptr;
-		m_lstSRV[iRT] = nullptr;
-		m_lstRTV[iRT] = nullptr;
+		_renderTargetTex[iRT] = nullptr;
+		_SRV[iRT] = nullptr;
+		_RTV[iRT] = nullptr;
 	}
 }
 DXDevice::~DXDevice()

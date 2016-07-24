@@ -1,60 +1,91 @@
 #pragma once
 
 
-class IORBITVECTOR
+class IORBITFLOAT
 {
 public:
-	IORBITVECTOR();
-	virtual ~IORBITVECTOR();
+	IORBITFLOAT() {}
+	virtual ~IORBITFLOAT() {}
 
-	virtual void Normalized() = 0;
 };
 
 
-class ORBITVECTOR2 : public IORBITVECTOR
+class ORBITFLOAT2 : public IORBITFLOAT
 {
 public:
-	ORBITVECTOR2();
-	ORBITVECTOR2(float x, float y);
+	ORBITFLOAT2();
+	ORBITFLOAT2(float x, float y);
 
-	virtual ~ORBITVECTOR2();
+	virtual ~ORBITFLOAT2();
 
-	virtual void Normalized();
-	ORBITVECTOR2 Normalize();
 
+	ORBITFLOAT2 operator*(const int& rNum) const
+	{
+		return ORBITFLOAT2(_x * rNum, _y * rNum);
+	}
+	ORBITFLOAT2 operator+(const ORBITFLOAT2& rParam) const
+	{
+		return ORBITFLOAT2(_x + rParam._x, _y + rParam._y);
+	}
+	ORBITFLOAT2 operator-(const ORBITFLOAT2& rParam) const
+	{
+		return ORBITFLOAT2(_x - rParam._x, _y - rParam._y);
+	}
 private:
 	float _x;
 	float _y;
 
 };
-class ORBITVECTOR3 : public IORBITVECTOR
+class ORBITFLOAT3 : public IORBITFLOAT
 {
 public:
-	ORBITVECTOR3();
-	ORBITVECTOR3(float x, float y, float z);
+	ORBITFLOAT3();
+	ORBITFLOAT3(float x, float y, float z);
 
-	virtual ~ORBITVECTOR3();
+	virtual ~ORBITFLOAT3();
 
-	virtual void Normalized();
-	ORBITVECTOR3 Normalize();
 
+	ORBITFLOAT3 operator*(const int& rNum) const
+	{
+		return ORBITFLOAT3(_x * rNum, _y * rNum, _z * rNum);
+	}
+	ORBITFLOAT3 operator+(const ORBITFLOAT3& rParam) const
+	{
+		return ORBITFLOAT3(_x + rParam._x, _y + rParam._y, _z + rParam._z);
+	}
+
+	ORBITFLOAT3 operator-(const ORBITFLOAT3& rParam) const
+	{
+		return ORBITFLOAT3(_x - rParam._x, _y - rParam._y, _z - rParam._z);
+	}
 private:
 	float _x;
 	float _y;
 	float _z;
 
 };
-class ORBITVECTOR4 : public IORBITVECTOR
+class ORBITFLOAT4 : public IORBITFLOAT
 {
 public:
-	ORBITVECTOR4();
-	ORBITVECTOR4(float x, float y, float z, float w);
+	ORBITFLOAT4();
+	ORBITFLOAT4(float x, float y, float z, float w);
 
-	virtual ~ORBITVECTOR4();
+	virtual ~ORBITFLOAT4();
 
-	virtual void Normalized();
-	ORBITVECTOR4 Normalize();
+	ORBITFLOAT4 operator*(const int &rNum) const
+	{
+		return ORBITFLOAT4(_x * rNum, _y + rNum, _z + rNum, _w + rNum);
+	}
 
+	ORBITFLOAT4 operator+(const ORBITFLOAT4& rParam) const
+	{
+		return ORBITFLOAT4(_x + rParam._x, _y + rParam._y, _z + rParam._z, _w + rParam._w);
+	}
+
+	ORBITFLOAT4 operator-(const ORBITFLOAT4& rParam) const
+	{
+		return ORBITFLOAT4(_x - rParam._x, _y - rParam._y, _z - rParam._z, _w - rParam._w);
+	}
 private:
 	float _x;
 	float _y;

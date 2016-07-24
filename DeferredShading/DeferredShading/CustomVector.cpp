@@ -1,21 +1,15 @@
 #include "CustomVector.h"
-ORBITVECTOR2::ORBITVECTOR2()
+ORBITFLOAT2::ORBITFLOAT2()
 {
 
 }
-ORBITVECTOR2::ORBITVECTOR2(float x, float y)
+ORBITFLOAT2::ORBITFLOAT2(float x, float y) :
+	_x(x),
+	_y(y)
 {
 
 }
-ORBITVECTOR2::~ORBITVECTOR2()
-{
-
-}
-void ORBITVECTOR2::Normalized()
-{
-
-}
-ORBITVECTOR2 ORBITVECTOR2::Normalize()
+ORBITFLOAT2::~ORBITFLOAT2()
 {
 
 }
@@ -23,25 +17,19 @@ ORBITVECTOR2 ORBITVECTOR2::Normalize()
 
 
 
-ORBITVECTOR3::ORBITVECTOR3()
+ORBITFLOAT3::ORBITFLOAT3()
 {
 
 }
-ORBITVECTOR3::ORBITVECTOR3(float x, float y, float z)
+ORBITFLOAT3::ORBITFLOAT3(float x, float y, float z) :
+	_x(x),
+	_y(y),
+	_z(z)
 {
 
 }
 
-ORBITVECTOR3::~ORBITVECTOR3()
-{
-
-}
-
-void ORBITVECTOR3::Normalized()
-{
-
-}
-ORBITVECTOR3 ORBITVECTOR3::Normalize()
+ORBITFLOAT3::~ORBITFLOAT3()
 {
 
 }
@@ -49,11 +37,12 @@ ORBITVECTOR3 ORBITVECTOR3::Normalize()
 
 
 
-ORBITVECTOR4::ORBITVECTOR4()
+
+ORBITFLOAT4::ORBITFLOAT4()
 {
 
 }
-ORBITVECTOR4::ORBITVECTOR4(float x, float y, float z, float w) :
+ORBITFLOAT4::ORBITFLOAT4(float x, float y, float z, float w) :
 	_x(x),
 	_y(y),
 	_z(z),
@@ -61,15 +50,7 @@ ORBITVECTOR4::ORBITVECTOR4(float x, float y, float z, float w) :
 {
 
 }
-ORBITVECTOR4::~ORBITVECTOR4()
-{
-
-}
-void ORBITVECTOR4::Normalized()
-{
-
-}
-ORBITVECTOR4 ORBITVECTOR4::Normalize()
+ORBITFLOAT4::~ORBITFLOAT4()
 {
 
 }
