@@ -3,7 +3,7 @@
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 #include "RenderEngineCommon.h"
-#include <d3d11.h>
+#include <d3d11_2.h>
 #include <directxmath.h>
 #include <unordered_map>
 

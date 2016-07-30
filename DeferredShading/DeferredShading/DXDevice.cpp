@@ -12,11 +12,11 @@ DXDevice::DXDevice()
 	m_pDepthStencilView		= nullptr;
 	m_pRasterState			= nullptr;
 
-	for( int iRT = 0; iRT < static_cast<UINT>(RenderEngine::RenderTargetIndex::MAX); iRT++)
+	for( int iRT = 0; iRT < static_cast<UINT>(CoreEngine::GRAPHICSAPITYPE::MAX); iRT++)
 	{ 
 		_renderTargetTex[iRT] = nullptr;
-		_SRV[iRT] = nullptr;
-		_RTV[iRT] = nullptr;
+		_shaderRenderView[iRT] = nullptr;
+		_renderingTargetView[iRT] = nullptr;
 	}
 }
 DXDevice::~DXDevice()
@@ -35,75 +35,75 @@ bool DXDevice::Reset()
 	return true;
 }
 
-bool DXDevice::LoadDevice_(int nScreenWidth, int nScreenHeight)
+bool DXDevice::LoadDevice_(int screenWidth, int screenHeight)
 {
-	HRESULT Result;
-	IDXGIFactory* pFactory;
-	IDXGIAdapter* pAdapter;
-	IDXGIOutput* pAdapterOutput;
-	DXGI_MODE_DESC* pDisplayModeList;
-	DXGI_ADAPTER_DESC AdapterDesc;
-	DXGI_SWAP_CHAIN_DESC SwapChainDesc;
-	D3D_FEATURE_LEVEL FeatureLevel;
-	ID3D11Texture2D* pBackBufferPtr;
-	D3D11_TEXTURE2D_DESC DepthBufferDesc;
-	D3D11_DEPTH_STENCIL_DESC DepthStencilDesc;
-	D3D11_DEPTH_STENCIL_VIEW_DESC DepthStencilViewDesc;
-	D3D11_RASTERIZER_DESC RasterDesc;
-	D3D11_VIEWPORT Viewport;
+	HRESULT result;
+	IDXGIFactory* factory;
+	IDXGIAdapter* adapter;
+	IDXGIOutput* adapterOutput;
+	DXGI_MODE_DESC* displayModeList;
+	DXGI_ADAPTER_DESC adapterDesc;
+	DXGI_SWAP_CHAIN_DESC swapChainDesc;
+	D3D_FEATURE_LEVEL featureLevel;
+	ID3D11Texture2D* backBufferPtr;
+	D3D11_TEXTURE2D_DESC depthBufferDesc;
+	D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
+	D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc;
+	D3D11_RASTERIZER_DESC rasterDesc;
+	D3D11_VIEWPORT viewport;
 	float fieldOfView, screenAspect;
 
-	Result = CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&pFactory);
-	if (FAILED(Result))
+	result = CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&factory);
+	if (FAILED(result))
 		return false;
 
-	Result = pFactory->EnumAdapters(0, &pAdapter);
-	if (FAILED(Result))
+	result = factory->EnumAdapters(0, &adapter);
+	if (FAILED(result))
 		return false;
 
-	Result = pAdapter->EnumOutputs(0, &pAdapterOutput);
-	if (FAILED(Result))
+	result = adapter->EnumOutputs(0, &adapterOutput);
+	if (FAILED(result))
 		return false;
 
-	UINT nNumModes = 0;
-	bool bIsHDRMonitor = true;
-	int nNumerator, nDenominator;
+	UINT numModes = 0;
+	bool isHDRMonitor = true;
+	int numerator, denominator;
 
-	Result = pAdapterOutput->GetDisplayModeList(DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_ENUM_MODES_INTERLACED, &nNumModes, NULL);
-	if (FAILED(Result))
+	result = adapterOutput->GetDisplayModeList(DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_ENUM_MODES_INTERLACED, &numModes, NULL);
+	if (FAILED(result))
 		return false;
 	
 	// Create a list to hold all the possible display modes for this monitor/video card combination.
-	pDisplayModeList = new DXGI_MODE_DESC[nNumModes];
-	if (!pDisplayModeList)
+	displayModeList = new DXGI_MODE_DESC[numModes];
+	if (!displayModeList)
 		return false;
 
-	nNumerator = pDisplayModeList[0].RefreshRate.Numerator;
-	nDenominator = pDisplayModeList[0].RefreshRate.Denominator;
+	numerator = displayModeList[0].RefreshRate.Numerator;
+	denominator = displayModeList[0].RefreshRate.Denominator;
 	
-	Result = pAdapter->GetDesc(&AdapterDesc);
-	if (FAILED(Result))
+	result = adapter->GetDesc(&adapterDesc);
+	if (FAILED(result))
 		return false;
 
-	m_nVCMemory = static_cast<ULONG>(AdapterDesc.DedicatedVideoMemory);
+	m_nVCMemory = static_cast<ULONG>(adapterDesc.DedicatedVideoMemory);
 
-	delete[] pDisplayModeList;
-	pDisplayModeList = nullptr;
+	delete[] displayModeList;
+	displayModeList = nullptr;
 
-	pAdapterOutput->Release();
-	pAdapterOutput = nullptr;
+	adapterOutput->Release();
+	adapterOutput = nullptr;
 
-	pAdapter->Release();
-	pAdapter = nullptr;
+	adapter->Release();
+	adapter = nullptr;
 
-	pFactory->Release();
-	pFactory = nullptr;
+	factory->Release();
+	factory = nullptr;
 
 	memset(&SwapChainDesc, 0, sizeof(SwapChainDesc));
 
 	SwapChainDesc.BufferCount = 2;
-	SwapChainDesc.BufferDesc.Width = nScreenWidth;
-	SwapChainDesc.BufferDesc.Height = nScreenHeight;
+	SwapChainDesc.BufferDesc.Width = screenWidth;
+	SwapChainDesc.BufferDesc.Height = screenHeight;
 
 	SwapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 
@@ -119,25 +119,25 @@ bool DXDevice::LoadDevice_(int nScreenWidth, int nScreenHeight)
 	SwapChainDesc.Flags = 0;
 	FeatureLevel = D3D_FEATURE_LEVEL::D3D_FEATURE_LEVEL_11_1;
 
-	Result = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, &FeatureLevel, 1, D3D11_SDK_VERSION, &SwapChainDesc, &m_pSwapChain, &m_pDevice, NULL, &m_pDeviceContext);
-	if (FAILED(Result))
+	result = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, &FeatureLevel, 1, D3D11_SDK_VERSION, &SwapChainDesc, &m_pSwapChain, &m_pDevice, NULL, &m_pDeviceContext);
+	if (FAILED(result))
 		return false;
 	
-	Result = m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<LPVOID*>(&pBackBufferPtr));
-	if (FAILED(Result))
+	result = m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<LPVOID*>(&backBufferPtr));
+	if (FAILED(result))
 		return false;
 
-	Result = m_pDevice->CreateRenderTargetView(pBackBufferPtr, NULL, &m_pRenderTargetView);
-	if (FAILED(Result))
+	result = m_pDevice->CreateRenderTargetView(backBufferPtr, NULL, &_renderTargetView);
+	if (FAILED(result))
 		return false;
 
-	pBackBufferPtr->Release();
-	pBackBufferPtr = nullptr;
+	backBufferPtr = nullptr;
+	backBufferPtr->Release();
 	
 	memset(&DepthBufferDesc, 0, sizeof(DepthBufferDesc));
 
-	DepthBufferDesc.Width = nScreenWidth;
-	DepthBufferDesc.Height = nScreenHeight;
+	DepthBufferDesc.Width = screenWidth;
+	DepthBufferDesc.Height = screenHeight;
 	DepthBufferDesc.MipLevels = 1;
 	DepthBufferDesc.ArraySize = 1;
 	DepthBufferDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -148,11 +148,11 @@ bool DXDevice::LoadDevice_(int nScreenWidth, int nScreenHeight)
 	DepthBufferDesc.CPUAccessFlags = 0;
 	DepthBufferDesc.MiscFlags = 0;
 
-	Result = m_pDevice->CreateTexture2D(&DepthBufferDesc, NULL, &m_pDepthStencilBuffer);
-	if (FAILED(Result))
+	result = m_pDevice->CreateTexture2D(&DepthBufferDesc, NULL, &m_pDepthStencilBuffer);
+	if (FAILED(result))
 		return false;
 
-	memset(&DepthStencilDesc, 0, sizeof(DepthStencilDesc));
+	memset(&depthStencilDesc, 0, sizeof(depthStencilDesc));
 
 	DepthStencilDesc.DepthEnable = true;
 	DepthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;

@@ -4,12 +4,12 @@
 
 DeferredShadingMethod::DeferredShadingMethod(RenderingManager* pRenderingMnanger)
 {
-	m_pRenderingMananger = pRenderingMnanger;
-	m_pRendingMethodImpl = nullptr;
-	m_bVsync = false;
-	m_fMSecPerFrame = 0.0f;
-	m_fCurrentMSecPerFrame = 0.0f;
-	m_nFPS = 0;
+	_renderingMananger = pRenderingMnanger;
+	_rendingMethodImpl = nullptr;
+	_VSync = false;
+	_mSecPerFrame = 0.0f;
+	_currentMSecPerFrame = 0.0f;
+	_FPS = 0;
 }
 DeferredShadingMethod::~DeferredShadingMethod()
 {
@@ -18,40 +18,40 @@ DeferredShadingMethod::~DeferredShadingMethod()
 
 bool DeferredShadingMethod::Initialize()
 {
-	m_bVsync = m_pRenderingMananger->IsVsyncOn();
-	m_nFPS = m_pRenderingMananger->GetFPS();
-	m_fMSecPerFrame = 1000 / m_nFPS; 
-	m_fCurrentMSecPerFrame = 0.0f;
+	_VSync = _renderingMananger->IsVsyncOn();
+	_FPS = _renderingMananger->GetFPS();
+	_mSecPerFrame = 1000 / _FPS; 
+	_currentMSecPerFrame = 0.0f;
 
 	return true;
 }
 bool DeferredShadingMethod::Reset()
 {
-	m_bVsync = m_pRenderingMananger->IsVsyncOn();
-	m_nFPS = m_pRenderingMananger->GetFPS();
-	m_fMSecPerFrame = 1000 / m_nFPS;
-	m_fCurrentMSecPerFrame = 0.0f;
+	_VSync = _renderingMananger->IsVsyncOn();
+	_FPS = _renderingMananger->GetFPS();
+	_mSecPerFrame = 1000 / _FPS;
+	_currentMSecPerFrame = 0.0f;
 
 	return true;
 }
 
-void DeferredShadingMethod::Render(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, std::vector<IRenderedObject>* lstRederRequestObject, float fDeltaTime)
+void DeferredShadingMethod::Render(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject>* rederRequestObjects, float deltaTime)
 {
-	m_pRendingMethodImpl->SetMatrix();
+	_rendingMethodImpl->SetCameraMatrix();
 
-	RenderGBuffer_	(pDeviceManager, pShaderManager, lstRederRequestObject, fDeltaTime);
-	RenderLighting_	(pDeviceManager, pShaderManager, lstRederRequestObject, fDeltaTime);
+	RenderGBuffer_	(deviceManager, shaderManager, rederRequestObjects, deltaTime);
+	RenderLighting_	(deviceManager, shaderManager, rederRequestObjects, deltaTime);
 
 }
 
-void DeferredShadingMethod::RenderGBuffer_(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, std::vector<IRenderedObject>* lstRederRequestObject, float fDeltaTime)
+void DeferredShadingMethod::RenderGBuffer_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject>* rederRequestObjects, float deltaTime)
 {
-	m_pRendingMethodImpl->SetShader();
-	m_pRendingMethodImpl->SetConstVariables();
-	m_pRendingMethodImpl->SetRenderTarget();
-	m_pRendingMethodImpl->RenderMesh();
+	_rendingMethodImpl->SettingShaderOptions();
+	_rendingMethodImpl->SetConstVariables();
+	_rendingMethodImpl->SetRenderTarget();
+	_rendingMethodImpl->RenderMesh();
 }
-void DeferredShadingMethod::RenderLighting_(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, std::vector<IRenderedObject>* lstRederRequestObject, float fDeltaTime)
+void DeferredShadingMethod::RenderLighting_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject>* rederRequestObjects, float deltaTime)
 {
-	m_pRendingMethodImpl->RenderLighting();
+	_rendingMethodImpl->RenderLighting();
 }

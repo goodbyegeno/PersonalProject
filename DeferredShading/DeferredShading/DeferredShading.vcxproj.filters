@@ -46,6 +46,9 @@
     <Filter Include="1.System">
       <UniqueIdentifier>{2a743a37-74e5-420e-82c7-a70233ccf3f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RenderEngine\ShaderObjectManage">
+      <UniqueIdentifier>{e5b1cfe2-cab6-4764-8ed8-2b9865ac48ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -70,9 +73,6 @@
       <Filter>RenderEngine</Filter>
     </ClInclude>
     <ClInclude Include="ShaderManager.h">
-      <Filter>RenderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="IShaderObejct.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
     <ClInclude Include="RenderingManager.h">
@@ -150,6 +150,30 @@
     <ClInclude Include="TestCamera.h">
       <Filter>Camera\CameraMovement</Filter>
     </ClInclude>
+    <ClInclude Include="TempTimer.h">
+      <Filter>1.System</Filter>
+    </ClInclude>
+    <ClInclude Include="IShaderRenderTargetImpl.h">
+      <Filter>RenderEngine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderRenderTargetDX.h">
+      <Filter>RenderEngine\DXModule</Filter>
+    </ClInclude>
+    <ClInclude Include="IShaderObejct.h">
+      <Filter>RenderEngine\ShaderObjectManage</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderObjectDX.h">
+      <Filter>RenderEngine\ShaderObjectManage</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderObjIdxDfdGbufferCSDX.h">
+      <Filter>RenderEngine\ShaderObjectManage</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderObjIdxDfdGbufferPSDX.h">
+      <Filter>RenderEngine\ShaderObjectManage</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderObjIdxDfdGbufferVSDX.h">
+      <Filter>RenderEngine\ShaderObjectManage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -211,6 +235,24 @@
     </ClCompile>
     <ClCompile Include="TestCamera.cpp">
       <Filter>Camera\CameraMovement</Filter>
+    </ClCompile>
+    <ClCompile Include="TempTimer.cpp">
+      <Filter>1.System</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderRenderTargetDX.cpp">
+      <Filter>RenderEngine\DXModule</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderObjectDX.cpp">
+      <Filter>RenderEngine\ShaderObjectManage</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderObjIdxDfdGbufferCSDX.cpp">
+      <Filter>RenderEngine\ShaderObjectManage</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderObjIdxDfdGbufferPSDX.h.cpp">
+      <Filter>RenderEngine\ShaderObjectManage</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderObjIdxDfdGbufferVSDX.cpp">
+      <Filter>RenderEngine\ShaderObjectManage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

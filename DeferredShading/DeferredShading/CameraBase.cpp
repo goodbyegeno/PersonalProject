@@ -18,7 +18,16 @@ bool CameraBase::Reset()
 {
 
 }
+void CameraBase::PreUpdate(float deltaTime)
+{
+
+}
+
 void CameraBase::Update(float deltaTime)
+{
+
+}
+void CameraBase::PostUpdate(float deltaTime)
 {
 
 }

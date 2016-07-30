@@ -1,7 +1,7 @@
 #pragma once
 /*
 #include <directxmath.h>
-#include <d3d11.h>
+#include <d3d11_2.h>
 */
 #include "CoreEngineCommon.h"
 #include "ICameraMovement.h"
@@ -35,9 +35,10 @@ public:
 
 	bool Initialize();
 	bool Reset();
-
+	void PreUpdate(float deltaTime);
 	void Update(float deltaTime);
-	
+	void PostUpdate(float deltaTime);
+
 	const ORBITMATRIX4x4& GetViewMatrix()		{ return _viewMatrix; }
 	const ORBITMATRIX4x4& GetProjMatrix()		{ return _projectionMatrix; }
 	const ORBITFLOAT3& GetPosition()			{ return _position; }

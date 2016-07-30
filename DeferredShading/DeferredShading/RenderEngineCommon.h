@@ -2,7 +2,7 @@
 
 namespace RenderEngine
 {
-
+	/*
 	enum class RENDERTARGETTYPE
 	{
 		//deferred
@@ -12,7 +12,15 @@ namespace RenderEngine
 		POSITION,
 		MAX
 	};
-
+	*/
+	enum class INDEXEDDEFERREDSHADINGRT
+	{
+		ALBEDO,
+		NORMAL,
+		POSITION,
+		SPECULAR,
+		MAX
+	};
 	enum class RENDERINGMODE
 	{
 		DEFERRED_LIGHTING,
@@ -27,6 +35,17 @@ namespace RenderEngine
 	{
 		CHARACTER,
 		SKYBOX,
+		MAX
+	};
+
+	enum class SHADERTYPE
+	{
+		VERTEXSHADER,
+		PIXELSHADER,				//FRAGMENT SHADER
+		DOMAINSHADER,				//DXONLY
+		GEOMETRYSHADER,
+		HULLSHADER,					//DXONLY
+		COMPUTESHADER,
 		MAX
 	};
 };

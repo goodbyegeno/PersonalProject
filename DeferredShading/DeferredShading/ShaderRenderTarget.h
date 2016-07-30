@@ -1,9 +1,15 @@
 #pragma once
-#include <d3d11.h>
+
+class IShaderRenderTargetImpl;
 class ShaderRenderTarget
 {
 public:
 	ShaderRenderTarget();
 	virtual ~ShaderRenderTarget();
 
+	IShaderRenderTargetImpl*	GetData() { return _shaderRenderTargetImpl;  }
+
+private:
+
+	IShaderRenderTargetImpl*	_shaderRenderTargetImpl;
 };

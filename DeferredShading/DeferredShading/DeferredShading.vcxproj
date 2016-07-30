@@ -161,6 +161,7 @@
     <ClInclude Include="IRenderedObject.h" />
     <ClInclude Include="IRenderingMethod.h" />
     <ClInclude Include="IShaderObejct.h" />
+    <ClInclude Include="IShaderRenderTargetImpl.h" />
     <ClInclude Include="ModelData_Dynamic.h" />
     <ClInclude Include="ModelData_Static.h" />
     <ClInclude Include="RenderedObjectManager.h" />
@@ -168,9 +169,15 @@
     <ClInclude Include="RenderingManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="ShaderObjectDX.h" />
+    <ClInclude Include="ShaderObjIdxDfdGbufferCSDX.h" />
+    <ClInclude Include="ShaderObjIdxDfdGbufferPSDX.h" />
+    <ClInclude Include="ShaderObjIdxDfdGbufferVSDX.h" />
     <ClInclude Include="ShaderRenderTarget.h" />
+    <ClInclude Include="ShaderRenderTargetDX.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TempTimer.h" />
     <ClInclude Include="TestCamera.h" />
     <ClInclude Include="TestHeaderCommon.h" />
     <ClInclude Include="TestModelObject.h" />
@@ -192,13 +199,19 @@
     <ClCompile Include="RenderedObjectManager.cpp" />
     <ClCompile Include="RenderingManager.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
+    <ClCompile Include="ShaderObjectDX.cpp" />
+    <ClCompile Include="ShaderObjIdxDfdGbufferCSDX.cpp" />
+    <ClCompile Include="ShaderObjIdxDfdGbufferPSDX.h.cpp" />
+    <ClCompile Include="ShaderObjIdxDfdGbufferVSDX.cpp" />
     <ClCompile Include="ShaderRenderTarget.cpp" />
+    <ClCompile Include="ShaderRenderTargetDX.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TempTimer.cpp" />
     <ClCompile Include="TestCamera.cpp" />
     <ClCompile Include="TestModelObject.cpp" />
   </ItemGroup>

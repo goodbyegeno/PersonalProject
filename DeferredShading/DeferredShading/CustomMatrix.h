@@ -27,23 +27,6 @@ public:
 		float m[4][4];
 	};
 
-	inline XMFLOAT4X4& XMFLOAT4X4::operator=
-		(
-			const XMFLOAT4X4& Float4x4
-			)
-	{
-		XMVECTOR V1 = XMLoadFloat4((const XMFLOAT4*)&Float4x4._11);
-		XMVECTOR V2 = XMLoadFloat4((const XMFLOAT4*)&Float4x4._21);
-		XMVECTOR V3 = XMLoadFloat4((const XMFLOAT4*)&Float4x4._31);
-		XMVECTOR V4 = XMLoadFloat4((const XMFLOAT4*)&Float4x4._41);
-
-		XMStoreFloat4((XMFLOAT4*)&_11, V1);
-		XMStoreFloat4((XMFLOAT4*)&_21, V2);
-		XMStoreFloat4((XMFLOAT4*)&_31, V3);
-		XMStoreFloat4((XMFLOAT4*)&_41, V4);
-
-		return *this;
-	}
 
 	ORBITMATRIX4x4 operator=(const ORBITMATRIX4x4& rMatrix)
 	{

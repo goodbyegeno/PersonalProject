@@ -3,7 +3,7 @@ namespace CoreEngine
 {
 	enum class GRAPHICSAPITYPE
 	{
-		DIRECTX,
+		DIRECTX11_2,
 		OPENGL,
 		MAX
 	};
