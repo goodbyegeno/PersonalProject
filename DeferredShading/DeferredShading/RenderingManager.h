@@ -22,15 +22,15 @@ public:
 	void Update(float deltaTime);
 	void PostUpdate(float deltaTime);
 	bool RequestRender(IRenderedObject* target);
-	std::vector<IRenderedObject*>& GetRenderRequestObject(RenderEngine::RenderingMode renderMode);
+	std::vector<IRenderedObject*>& GetRenderRequestObject(RenderEngine::RENDERINGMODE renderMode);
 
 private:
-	IRenderMethod* CreateRenderingMethod(RenderEngine::RenderingMode renderMode);
+	IRenderMethod* CreateRenderingMethod(RenderEngine::RENDERINGMODE renderMode);
 
 private:
 
-	IRenderMethod*					_renderingMethod[static_cast<int>(RenderEngine::RenderingMode::MAX)];
-	std::vector<IRenderedObject*>	_requestRender	[static_cast<int>(RenderEngine::RenderingMode::MAX)];
+	IRenderMethod*					_renderingMethod[static_cast<int>(RenderEngine::RENDERINGMODE::MAX)];
+	std::vector<IRenderedObject*>	_requestRender	[static_cast<int>(RenderEngine::RENDERINGMODE::MAX)];
 
 	GraphicsSystem*					_graphicsSystem;
 	DeviceManager*					_deviceManager;

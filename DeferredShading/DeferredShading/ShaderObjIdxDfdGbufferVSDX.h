@@ -11,6 +11,6 @@ public:
 	virtual bool Initialize();
 	virtual bool Reset();
 private:
-	bool InitInputLayout_();
+	//bool InitInputLayout_();
 
 };

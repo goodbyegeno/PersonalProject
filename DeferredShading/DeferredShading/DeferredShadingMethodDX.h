@@ -9,6 +9,7 @@ class ShaderManager;
 class IRenderedObject;
 class ShaderRenderTargetDX;
 class ShaderRenderTarget;
+class IRenderedObject;
 
 struct ShaderConstVariables
 {
@@ -28,14 +29,15 @@ public:
 
 	bool InitRenderTargets(ShaderRenderTarget** renderTargets, int renderTargetNum);
 
-	virtual CoreEngine::GRAPHICSAPITYPE GetMiddleWareType() { return CoreEngine::GRAPHICSAPITYPE::DIRECTX;  }
+	virtual CoreEngine::GRAPHICSAPITYPE GetMiddleWareType() { return CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2;  }
 
 	virtual bool SetCameraMatrix();
 	virtual bool SettingShaderOptions();
 	virtual bool SetConstVariables();
 	virtual bool SetRenderTarget();
-	virtual bool RenderMesh();
-	virtual bool RenderLighting();
+	virtual bool ResetRenderTarget();
+	virtual bool RenderMesh(std::vector<IRenderedObject*>& renderRequestObjects);
+	virtual bool RenderLighting(std::vector<IRenderedObject*>& renderRequestObjects);
 
 private:
 	bool SetShader_(ShaderManager* shaderManager, ID3D11Device* deviceDX);
@@ -52,6 +54,8 @@ private:
 	ID3D11ShaderResourceView*		_shaderRenderView	[static_cast<int>(INDEXEDDEFERREDSHADINGRT::MAX)];
 	ID3D11RenderTargetView*			_renderingTargetView[static_cast<int>(INDEXEDDEFERREDSHADINGRT::MAX)];
 	ID3D11DepthStencilView*			_depthStencilView;
+	ID3D11DepthStencilState*		_depthStencilState;
+
 	int								_renderTargetCount;
 
 	ID3D11InputLayout*				_inputLayout;
@@ -63,8 +67,12 @@ private:
 	size_t							_pixelShaderHash;
 	size_t							_computeShaderHash;
 	
-	ShaderConstVariables			_shaderConstVariables;
-	ID3D11Buffer*					_shaderConstVariableBuffer;
+	ShaderConstVariables			_vsConstVariables;
+	ShaderConstVariables			_psConstVariables;
+	ID3D11Buffer*					_vsConstVariableBuffer;
+	ID3D11Buffer*					_psConstVariableBuffer;
 
+	D3D11_VIEWPORT*					_viewPort;
+	ID3D11BlendState1*				_blendState;
 	
 };

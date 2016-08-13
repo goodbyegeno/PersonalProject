@@ -18,16 +18,16 @@ public:
 	virtual bool	Initialize();
 	virtual bool	Reset();
 
-	virtual void	Render(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject>* rederRequestObject, float deltaTime);
+	virtual void	Render(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject*>& renderRequestObjects, float deltaTime);
 	RenderEngine::RENDERINGMODE GetRenderingMode() final { return RenderEngine::RENDERINGMODE::INDEXED_DEFERRED_SHADING; }
 
 private:
-	void	RenderGBuffer_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject>* rederRequestObject, float deltaTime);
-	void	RenderLighting_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject>* rederRequestObject, float deltaTime);
+	void	RenderGBuffer_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject*>& renderRequestObjects, float deltaTime);
+	void	RenderLighting_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject*>& renderRequestObjects, float deltaTime);
 
 private:
 
-	IDeferredShadingMethodImpl* _rendingMethodImpl;
+	IDeferredShadingMethodImpl* _renderingMethodImpl;
 	RenderingManager*			_renderingMananger;
 	bool						_VSync;
 	float						_mSecPerFrame;

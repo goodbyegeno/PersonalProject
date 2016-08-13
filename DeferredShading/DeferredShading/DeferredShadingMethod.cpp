@@ -5,7 +5,7 @@
 DeferredShadingMethod::DeferredShadingMethod(RenderingManager* pRenderingMnanger)
 {
 	_renderingMananger = pRenderingMnanger;
-	_rendingMethodImpl = nullptr;
+	_renderingMethodImpl = nullptr;
 	_VSync = false;
 	_mSecPerFrame = 0.0f;
 	_currentMSecPerFrame = 0.0f;
@@ -35,23 +35,27 @@ bool DeferredShadingMethod::Reset()
 	return true;
 }
 
-void DeferredShadingMethod::Render(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject>* rederRequestObjects, float deltaTime)
+void DeferredShadingMethod::Render(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject*>& renderRequestObjects, float deltaTime)
 {
-	_rendingMethodImpl->SetCameraMatrix();
+	_renderingMethodImpl->SetCameraMatrix();
 
-	RenderGBuffer_	(deviceManager, shaderManager, rederRequestObjects, deltaTime);
-	RenderLighting_	(deviceManager, shaderManager, rederRequestObjects, deltaTime);
+	RenderGBuffer_	(deviceManager, shaderManager, renderRequestObjects, deltaTime);
+	RenderLighting_	(deviceManager, shaderManager, renderRequestObjects, deltaTime);
+	
+	_renderingMethodImpl->ResetRenderTarget();
 
 }
 
-void DeferredShadingMethod::RenderGBuffer_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject>* rederRequestObjects, float deltaTime)
+void DeferredShadingMethod::RenderGBuffer_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject*>& renderRequestObjects, float deltaTime)
 {
-	_rendingMethodImpl->SettingShaderOptions();
-	_rendingMethodImpl->SetConstVariables();
-	_rendingMethodImpl->SetRenderTarget();
-	_rendingMethodImpl->RenderMesh();
+	_renderingMethodImpl->SetConstVariables();
+	_renderingMethodImpl->SettingShaderOptions();
+	_renderingMethodImpl->SetRenderTarget();
+	_renderingMethodImpl->RenderMesh(renderRequestObjects);
+
+
 }
-void DeferredShadingMethod::RenderLighting_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject>* rederRequestObjects, float deltaTime)
+void DeferredShadingMethod::RenderLighting_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject*>& renderRequestObjects, float deltaTime)
 {
-	_rendingMethodImpl->RenderLighting();
+	_renderingMethodImpl->RenderLighting(renderRequestObjects);
 }

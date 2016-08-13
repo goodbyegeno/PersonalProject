@@ -165,14 +165,14 @@
     <ClInclude Include="ShaderObjectDX.h">
       <Filter>RenderEngine\ShaderObjectManage</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderObjIdxDfdGbufferCSDX.h">
-      <Filter>RenderEngine\ShaderObjectManage</Filter>
+    <ClInclude Include="RenderHelperDX.h">
+      <Filter>RenderEngine\DXModule</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderObjIdxDfdGbufferPSDX.h">
-      <Filter>RenderEngine\ShaderObjectManage</Filter>
+    <ClInclude Include="IRenderHelper.h">
+      <Filter>RenderEngine</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderObjIdxDfdGbufferVSDX.h">
-      <Filter>RenderEngine\ShaderObjectManage</Filter>
+    <ClInclude Include="ORBITMesh.h">
+      <Filter>RenderEngine\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -243,15 +243,6 @@
       <Filter>RenderEngine\DXModule</Filter>
     </ClCompile>
     <ClCompile Include="ShaderObjectDX.cpp">
-      <Filter>RenderEngine\ShaderObjectManage</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderObjIdxDfdGbufferCSDX.cpp">
-      <Filter>RenderEngine\ShaderObjectManage</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderObjIdxDfdGbufferPSDX.h.cpp">
-      <Filter>RenderEngine\ShaderObjectManage</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderObjIdxDfdGbufferVSDX.cpp">
       <Filter>RenderEngine\ShaderObjectManage</Filter>
     </ClCompile>
   </ItemGroup>

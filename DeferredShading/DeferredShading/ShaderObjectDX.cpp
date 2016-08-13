@@ -1,11 +1,10 @@
 #include "ShaderObjectDX.h"
 
-ShaderObjectDX::ShaderObjectDX(std::string shaderName, ID3D11Device* deviceDX, ID3DBlob* shaderBuffer) :
+ShaderObjectDX::ShaderObjectDX(std::string shaderName, ID3D11Device* deviceDX, ID3DBlob* shaderBuffer, ID3D11DeviceChild* shaderData) :
 	_shaderName(shaderName),
-	_shaderData(nullptr),
+	_shaderData(shaderData),
 	_shaderBuffer(shaderBuffer),
-	_device(deviceDX),
-	_inputLayout(nullptr)
+	_device(deviceDX)
 {
 	std::hash<std::string> strHash;
 	_shaderNameHash = strHash(_shaderName);

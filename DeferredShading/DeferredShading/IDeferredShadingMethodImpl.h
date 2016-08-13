@@ -1,5 +1,7 @@
 #pragma once
 class IShaderRenderTargetImpl;
+class IRenderedObject;
+
 enum class INDEXEDDEFERREDSHADINGRT
 {
 	ALBEDO,
@@ -23,7 +25,8 @@ public:
 	virtual bool SettingShaderOptions() = 0;
 	virtual bool SetConstVariables() = 0;
 	virtual bool SetRenderTarget() = 0;
-	virtual bool RenderMesh() = 0;
-	virtual bool RenderLighting() = 0;
+	virtual bool RenderMesh(std::vector<IRenderedObject*>& renderRequestObjects) = 0;
+	virtual bool RenderLighting(std::vector<IRenderedObject*>& renderRequestObjects) = 0;
+	virtual bool ResetRenderTarget() = 0;
 
 };

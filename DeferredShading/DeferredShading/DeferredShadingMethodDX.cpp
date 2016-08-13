@@ -26,7 +26,8 @@ DeferredShadingMethodDX::DeferredShadingMethodDX()
 	_vertexShaderHash		= 0;
 	_pixelShaderHash		= 0;
 	_computeShaderHash		= 0;
-	_shaderConstVariableBuffer	= nullptr;
+	_psConstVariableBuffer = nullptr;
+	_vsConstVariableBuffer	= nullptr;
 	_depthStencilView		= nullptr;
 	_renderTargetCount		= 0;
 }
@@ -38,7 +39,7 @@ bool DeferredShadingMethodDX::Initialize(DeviceManager* deviceManager, ShaderMan
 {
 	_shaderManager = shaderManager;
 	IGraphcisDevice* graDevice = deviceManager->GetDevice();
-	if (graDevice == nullptr || graDevice->GetMiddlewareType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX)
+	if (graDevice == nullptr || graDevice->GetMiddlewareType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2)
 		return false;
 
 	_device = static_cast<ID3D11Device*>(graDevice->GetBuffer());
@@ -80,6 +81,7 @@ bool DeferredShadingMethodDX::Reset(DeviceManager* deviceManager, ShaderManager*
 }
 bool DeferredShadingMethodDX::SetShader_(ShaderManager* shaderManager, ID3D11Device* deviceDX)
 {
+
 	IShaderObject* tempShaderObject = nullptr;
 	tempShaderObject = shaderManager->GetShaderObject(_vertexShaderHash);
 	if (tempShaderObject == nullptr)
@@ -129,7 +131,7 @@ bool DeferredShadingMethodDX::SetShader_(ShaderManager* shaderManager, ID3D11Dev
 	tempShaderObject = shaderManager->GetShaderObject(_pixelShaderHash);
 	if (tempShaderObject == nullptr)
 		return false;
-	if (tempShaderObject->GetMiddlewareType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX)
+	if (tempShaderObject->GetMiddlewareType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2)
 		return false;
 
 	_pixelShader = static_cast<ID3D11PixelShader*>(tempShaderObject->GetShader());
@@ -138,7 +140,7 @@ bool DeferredShadingMethodDX::SetShader_(ShaderManager* shaderManager, ID3D11Dev
 	tempShaderObject = shaderManager->GetShaderObject(_computeShaderHash);
 	if (tempShaderObject == nullptr)
 		return false;
-	if (tempShaderObject->GetMiddlewareType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX)
+	if (tempShaderObject->GetMiddlewareType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2)
 		return false;
 
 	_computeShader = static_cast<ID3D11ComputeShader*>(tempShaderObject->GetShader());
@@ -152,7 +154,16 @@ bool DeferredShadingMethodDX::SetShader_(ShaderManager* shaderManager, ID3D11Dev
 	bufferDesc.StructureByteStride = 0;
 	bufferDesc.CPUAccessFlags = 0;
 
-	_device->CreateBuffer(&bufferDesc, 0, &_shaderConstVariableBuffer);
+	_device->CreateBuffer(&bufferDesc, 0, &_vsConstVariableBuffer);
+	
+	bufferDesc.ByteWidth = sizeof(ShaderConstVariables);
+	bufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	bufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	bufferDesc.MiscFlags = 0;
+	bufferDesc.StructureByteStride = 0;
+	bufferDesc.CPUAccessFlags = 0;
+
+	_device->CreateBuffer(&bufferDesc, 0, &_psConstVariableBuffer);
 }
 bool DeferredShadingMethodDX::InitRenderTargets(ShaderRenderTarget** renderTargets, int renderTargetNum)
 {
@@ -183,7 +194,8 @@ bool DeferredShadingMethodDX::SetCameraMatrix()
 			tempFloat4x4.m[width][height] = tempOrbitViewMatrix.m[width][height];
 		}
 	}
-	_shaderConstVariables._viewMatrix = DirectX::XMLoadFloat4x4(&tempFloat4x4);
+	_vsConstVariables._viewMatrix = DirectX::XMLoadFloat4x4(&tempFloat4x4);
+	_psConstVariables._viewMatrix = _vsConstVariables._viewMatrix;
 
 	//copy proj
 	for (int width = 0; width < 4; width++)
@@ -193,41 +205,89 @@ bool DeferredShadingMethodDX::SetCameraMatrix()
 			tempFloat4x4.m[width][height] = tempOrbitProjMatrix.m[width][height];
 		}
 	}
-	_shaderConstVariables._projMatrix = DirectX::XMLoadFloat4x4(&tempFloat4x4);
+	_vsConstVariables._projMatrix = DirectX::XMLoadFloat4x4(&tempFloat4x4);
+	_psConstVariables._projMatrix = _vsConstVariables._projMatrix;
 
-	_shaderConstVariables._viewProjMatrix = DirectX::XMMatrixMultiply(_shaderConstVariables._viewMatrix, _shaderConstVariables._projMatrix);
+	_vsConstVariables._viewProjMatrix = DirectX::XMMatrixMultiply(_vsConstVariables._viewMatrix, _vsConstVariables._projMatrix);
+	_psConstVariables._viewProjMatrix = _vsConstVariables._viewProjMatrix;
 	return true;
 }
 bool DeferredShadingMethodDX::SettingShaderOptions()
 {
-	_deviceContext->VSSetShader(_vertexShader, 0, 0);
+	_deviceContext->IASetInputLayout(_inputLayout);
+
+	_deviceContext->VSSetShader(_vertexShader, nullptr, 0);
+	_deviceContext->PSSetShader(_pixelShader, nullptr, 0);
+	_deviceContext->GSSetShader(nullptr, nullptr, 0);
+
+	_deviceContext->RSSetViewports(1, _viewPort);
+	_deviceContext->VSSetConstantBuffers(0, 1, &_vsConstVariableBuffer);
+	_deviceContext->PSSetConstantBuffers(0, 1, &_psConstVariableBuffer);
+	_deviceContext->OMSetDepthStencilState(_depthStencilState, 0);
+
+	//set shaderResources
+
+	//set samplers
 
 	return false;
 }
 bool DeferredShadingMethodDX::SetConstVariables()
 {
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
-	_deviceContext->Map(_shaderConstVariableBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	_deviceContext->Map(_vsConstVariableBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 
 	ShaderConstVariables* constants = static_cast<ShaderConstVariables*>(mappedResource.pData);
+	//set vs const variables 
 
-	*constants = _shaderConstVariables;
+	*constants = _vsConstVariables;
 
-	_deviceContext->Unmap(_shaderConstVariableBuffer, 0);
+	_deviceContext->Unmap(_vsConstVariableBuffer, 0);
 
-	return false;
+	_deviceContext->Map(_psConstVariableBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+
+	ShaderConstVariables* constants = static_cast<ShaderConstVariables*>(mappedResource.pData);
+	//set vs const variables 
+
+	*constants = _psConstVariables;
+
+	_deviceContext->Unmap(_psConstVariableBuffer, 0);
+
+	return true;
 }
 bool DeferredShadingMethodDX::SetRenderTarget()
 {
+	const float zeros[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+	for (int renderTargetIndex = 0; renderTargetIndex < static_cast<int>(INDEXEDDEFERREDSHADINGRT::MAX); renderTargetIndex++)
+	{
+		_deviceContext->ClearRenderTargetView(_renderingTargetView[renderTargetIndex], zeros);
+	}
+	_deviceContext->ClearDepthStencilView(_depthStencilView, D3D10_CLEAR_DEPTH, 0.0f, 0);
+
 	_deviceContext->OMSetRenderTargets(_renderTargetCount, _renderingTargetView, _depthStencilView);
+	_deviceContext->OMSetBlendState(_blendState, nullptr, 0xFFFFFFFF);
+
+	return true;
+}
+bool DeferredShadingMethodDX::RenderMesh(std::vector<IRenderedObject*>& renderRequestObjects)
+{
+	for (int objectsIndex = 0; objectsIndex < renderRequestObjects.size(); objectsIndex++)
+	{
+		renderRequestObjects[objectsIndex];
+	}
 
 	return false;
 }
-bool DeferredShadingMethodDX::RenderMesh()
+bool DeferredShadingMethodDX::RenderLighting(std::vector<IRenderedObject*>& renderRequestObjects)
 {
+	for (int objectsIndex = 0; objectsIndex < renderRequestObjects.size(); objectsIndex++)
+	{
+		renderRequestObjects[objectsIndex];
+
+
+	}
 	return false;
 }
-bool DeferredShadingMethodDX::RenderLighting()
+bool DeferredShadingMethodDX::ResetRenderTarget()
 {
-	return false;
+	_deviceContext->OMSetRenderTargets(0, nullptr, nullptr);
 }
