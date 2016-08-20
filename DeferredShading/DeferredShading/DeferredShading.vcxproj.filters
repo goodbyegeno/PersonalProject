@@ -99,12 +99,6 @@
     <ClInclude Include="IRenderedObject.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
-    <ClInclude Include="ModelData_Dynamic.h">
-      <Filter>RenderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelData_Static.h">
-      <Filter>RenderEngine</Filter>
-    </ClInclude>
     <ClInclude Include="CharacterRenderedObject.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
@@ -174,6 +168,18 @@
     <ClInclude Include="ORBITMesh.h">
       <Filter>RenderEngine\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="ORBITVertex.h">
+      <Filter>RenderEngine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="IORBITReadonlyMesh.h">
+      <Filter>RenderEngine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelDynamicData.h">
+      <Filter>RenderEngine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelStaticData.h">
+      <Filter>RenderEngine\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -193,12 +199,6 @@
     </ClCompile>
     <ClCompile Include="DXDevice.cpp">
       <Filter>RenderEngine\DXModule</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelData_Dynamic.cpp">
-      <Filter>RenderEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelData_Static.cpp">
-      <Filter>RenderEngine</Filter>
     </ClCompile>
     <ClCompile Include="CharacterRenderedObject.cpp">
       <Filter>RenderEngine</Filter>
@@ -244,6 +244,12 @@
     </ClCompile>
     <ClCompile Include="ShaderObjectDX.cpp">
       <Filter>RenderEngine\ShaderObjectManage</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelStaticData.cpp">
+      <Filter>RenderEngine\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelDynamicData.cpp">
+      <Filter>RenderEngine\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

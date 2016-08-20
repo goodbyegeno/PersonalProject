@@ -1,7 +1,7 @@
 #pragma once
 #include "RenderEngineCommon.h"
-#include "ModelData_Dynamic.h"
-#include "ModelData_Static.h"
+#include "ModelDynamicData.h"
+#include "ModelStaticData.h"
 #include "IRenderedObject.h"
 
 class CharacterRenderedObject : public IRenderedObject
@@ -13,10 +13,12 @@ public:
 
 
 	virtual bool IsGotAlphaBlend()							{ return false; }
-	RenderEngine::RenderedType GetRenderedType() final		{ return RenderEngine::RenderedType::Character; }
+	RenderEngine::RenderedType	GetRenderedType() final		{ return RenderEngine::RenderedType::Character; }
 	RenderEngine::RenderingMode GetRenderedMode() final;
 
+	const ModelStaticData*	GetMeshStaticData()			{ return &_ModelStaticData; }
+	const ModelDynamicData* GetMeshDynamicData()		{ return &_ModelDynamicData; }
 private:
-	ModelData_Static	m_ModelData_Static;
-	ModelData_Dynamic	m_ModelData_Dynamic;
+	ModelDynamicData	_ModelDynamicData;
+	ModelStaticData		_ModelStaticData;
 };

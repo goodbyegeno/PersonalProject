@@ -1,23 +1,25 @@
 #include "DXDevice.h"
 #include "CameraBase.h"
+#include "ORBITMesh.h"
 
 DXDevice::DXDevice()
 {
-	m_pDevice				= nullptr;
-	m_pDeviceContext		= nullptr;
-	m_pSwapChain			= nullptr;
-	m_pRenderTargetView		= nullptr;
-	m_pDepthStencilBuffer	= nullptr;
-	m_pDepthStencilState	= nullptr;
-	m_pDepthStencilView		= nullptr;
-	m_pRasterState			= nullptr;
-
+	_device				= nullptr;
+	_deviceContext		= nullptr;
+	_swapChain			= nullptr;
+	//_renderTargetView	= nullptr;
+	_depthStencilBuffer	= nullptr;
+	_depthStencilState	= nullptr;
+	_depthStencilView	= nullptr;
+	_rasterState		= nullptr;
+	
 	for( int iRT = 0; iRT < static_cast<UINT>(CoreEngine::GRAPHICSAPITYPE::MAX); iRT++)
 	{ 
 		_renderTargetTex[iRT] = nullptr;
-		_shaderRenderView[iRT] = nullptr;
-		_renderingTargetView[iRT] = nullptr;
+		_shaderResourceView[iRT] = nullptr;
+		_renderTargetView[iRT] = nullptr;
 	}
+	
 }
 DXDevice::~DXDevice()
 {
@@ -85,7 +87,7 @@ bool DXDevice::LoadDevice_(int screenWidth, int screenHeight)
 	if (FAILED(result))
 		return false;
 
-	m_nVCMemory = static_cast<ULONG>(adapterDesc.DedicatedVideoMemory);
+	_videoCardMem = static_cast<ULONG>(adapterDesc.DedicatedVideoMemory);
 
 	delete[] displayModeList;
 	displayModeList = nullptr;
@@ -99,136 +101,132 @@ bool DXDevice::LoadDevice_(int screenWidth, int screenHeight)
 	factory->Release();
 	factory = nullptr;
 
-	memset(&SwapChainDesc, 0, sizeof(SwapChainDesc));
+	memset(&swapChainDesc, 0, sizeof(swapChainDesc));
 
-	SwapChainDesc.BufferCount = 2;
-	SwapChainDesc.BufferDesc.Width = screenWidth;
-	SwapChainDesc.BufferDesc.Height = screenHeight;
+	swapChainDesc.BufferCount = 2;
+	swapChainDesc.BufferDesc.Width = screenWidth;
+	swapChainDesc.BufferDesc.Height = screenHeight;
 
-	SwapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 
-	SwapChainDesc.BufferDesc.RefreshRate.Numerator = 0;
-	SwapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
+	swapChainDesc.BufferDesc.RefreshRate.Numerator = 0;
+	swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
 
-	SwapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+	swapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	//SwapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_PROGRESSIVE;
-	SwapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+	swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 
-	SwapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
-	SwapChainDesc.Flags = 0;
-	FeatureLevel = D3D_FEATURE_LEVEL::D3D_FEATURE_LEVEL_11_1;
+	swapChainDesc.Flags = 0;
+	featureLevel = D3D_FEATURE_LEVEL::D3D_FEATURE_LEVEL_11_1;
 
-	result = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, &FeatureLevel, 1, D3D11_SDK_VERSION, &SwapChainDesc, &m_pSwapChain, &m_pDevice, NULL, &m_pDeviceContext);
+	result = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, &featureLevel, 1, D3D11_SDK_VERSION, &swapChainDesc, &_swapChain, &_device, NULL, &_deviceContext);
 	if (FAILED(result))
 		return false;
 	
-	result = m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<LPVOID*>(&backBufferPtr));
+	result = _swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<LPVOID*>(&backBufferPtr));
 	if (FAILED(result))
 		return false;
 
-	result = m_pDevice->CreateRenderTargetView(backBufferPtr, NULL, &_renderTargetView);
+	result = _device->CreateRenderTargetView(backBufferPtr, NULL, &_renderTargetView);
 	if (FAILED(result))
 		return false;
 
 	backBufferPtr = nullptr;
 	backBufferPtr->Release();
 	
-	memset(&DepthBufferDesc, 0, sizeof(DepthBufferDesc));
+	memset(&depthBufferDesc, 0, sizeof(depthBufferDesc));
 
-	DepthBufferDesc.Width = screenWidth;
-	DepthBufferDesc.Height = screenHeight;
-	DepthBufferDesc.MipLevels = 1;
-	DepthBufferDesc.ArraySize = 1;
-	DepthBufferDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	DepthBufferDesc.SampleDesc.Count = 1;
-	DepthBufferDesc.SampleDesc.Quality = 0;
-	DepthBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	DepthBufferDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-	DepthBufferDesc.CPUAccessFlags = 0;
-	DepthBufferDesc.MiscFlags = 0;
+	depthBufferDesc.Width = screenWidth;
+	depthBufferDesc.Height = screenHeight;
+	depthBufferDesc.MipLevels = 1;
+	depthBufferDesc.ArraySize = 1;
+	depthBufferDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depthBufferDesc.SampleDesc.Count = 1;
+	depthBufferDesc.SampleDesc.Quality = 0;
+	depthBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	depthBufferDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	depthBufferDesc.CPUAccessFlags = 0;
+	depthBufferDesc.MiscFlags = 0;
 
-	result = m_pDevice->CreateTexture2D(&DepthBufferDesc, NULL, &m_pDepthStencilBuffer);
+	result = _device->CreateTexture2D(&depthBufferDesc, NULL, &_depthStencilBuffer);
 	if (FAILED(result))
 		return false;
 
 	memset(&depthStencilDesc, 0, sizeof(depthStencilDesc));
 
-	DepthStencilDesc.DepthEnable = true;
-	DepthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-	DepthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS;
+	depthStencilDesc.DepthEnable = true;
+	depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS;
+	depthStencilDesc.StencilEnable = true;
+	depthStencilDesc.StencilReadMask = 0xFF;
+	depthStencilDesc.StencilWriteMask = 0xFF;
+	depthStencilDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	depthStencilDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
+	depthStencilDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	depthStencilDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+	depthStencilDesc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	depthStencilDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
+	depthStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	depthStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
 
-	DepthStencilDesc.StencilEnable = true;
-	DepthStencilDesc.StencilReadMask = 0xFF;
-	DepthStencilDesc.StencilWriteMask = 0xFF;
-
-	DepthStencilDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
-	DepthStencilDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
-	DepthStencilDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
-	DepthStencilDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
-
-	DepthStencilDesc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
-	DepthStencilDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
-	DepthStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
-	DepthStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
-
-	Result = m_pDevice->CreateDepthStencilState(&DepthStencilDesc, &m_pDepthStencilState);
-	if (FAILED(Result))
+	result = _device->CreateDepthStencilState(&depthStencilDesc, &_depthStencilState);
+	if (FAILED(result))
 		return false;
-	m_pDeviceContext->OMSetDepthStencilState(m_pDepthStencilState, 1);
+	_deviceContext->OMSetDepthStencilState(_depthStencilState, 1);
 
-	memset(&DepthStencilViewDesc, 0, sizeof(DepthStencilViewDesc));
-	DepthStencilViewDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	DepthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-	DepthStencilViewDesc.Texture2D.MipSlice = 0;
+	memset(&depthStencilViewDesc, 0, sizeof(depthStencilViewDesc));
+	depthStencilViewDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	depthStencilViewDesc.Texture2D.MipSlice = 0;
 
-	Result = m_pDevice->CreateDepthStencilView(m_pDepthStencilBuffer, &DepthStencilViewDesc, &m_pDepthStencilView);
-	if (FAILED(Result))
+	result = _device->CreateDepthStencilView(_depthStencilBuffer, &depthStencilViewDesc, &_depthStencilView);
+	if (FAILED(result))
 		return false;
 
-	RasterDesc.AntialiasedLineEnable = false;
-	RasterDesc.CullMode = D3D11_CULL_BACK;
-	RasterDesc.DepthBias = 0;
-	RasterDesc.DepthBiasClamp = 0.0f;
-	RasterDesc.DepthClipEnable = true;
-	RasterDesc.FillMode = D3D11_FILL_SOLID;
-	RasterDesc.FrontCounterClockwise = false;
-	RasterDesc.MultisampleEnable = false;
-	RasterDesc.ScissorEnable = false;
-	RasterDesc.SlopeScaledDepthBias = 0.0f;
+	rasterDesc.AntialiasedLineEnable = false;
+	rasterDesc.CullMode = D3D11_CULL_BACK;
+	rasterDesc.DepthBias = 0;
+	rasterDesc.DepthBiasClamp = 0.0f;
+	rasterDesc.DepthClipEnable = true;
+	rasterDesc.FillMode = D3D11_FILL_SOLID;
+	rasterDesc.FrontCounterClockwise = false;
+	rasterDesc.MultisampleEnable = false;
+	rasterDesc.ScissorEnable = false;
+	rasterDesc.SlopeScaledDepthBias = 0.0f;
 
-	Result = m_pDevice->CreateRasterizerState(&RasterDesc, &m_pRasterState);
-	if (FAILED(Result))
+	result = _device->CreateRasterizerState(&rasterDesc, &_rasterState);
+	if (FAILED(result))
 		return false;
 
-	m_pDeviceContext->RSSetState(m_pRasterState);
+	_deviceContext->RSSetState(_rasterState);
 
-	Viewport.Width = (float)nScreenWidth;
-	Viewport.Height = (float)nScreenHeight;
-	Viewport.MinDepth = 0.0f;
-	Viewport.MaxDepth = 1.0f;
-	Viewport.TopLeftX = 0.0f;
-	Viewport.TopLeftY = 0.0f;
+	viewport.Width = (float)screenWidth;
+	viewport.Height = (float)screenHeight;
+	viewport.MinDepth = 0.0f;
+	viewport.MaxDepth = 1.0f;
+	viewport.TopLeftX = 0.0f;
+	viewport.TopLeftY = 0.0f;
 
-	m_pDeviceContext->RSSetViewports(1, &Viewport);
+	_deviceContext->RSSetViewports(1, &viewport);
 
 	fieldOfView = 3.141592654f / 4.0f;
-	screenAspect = (float)nScreenWidth / (float)nScreenHeight;
+	screenAspect = (float)screenWidth / (float)screenHeight;
 
-	m_matProjectionMatrix = XMMatrixPerspectiveFovLH(fieldOfView, screenAspect, screenNear, screenDepth);
-
-	D3D11_TEXTURE2D_DESC NormalRTTexDesc;
-	NormalRTTexDesc.Width = nScreenWidth;
-	NormalRTTexDesc.Height = nScreenHeight;
-	NormalRTTexDesc.MipLevels = 1;
-	NormalRTTexDesc.ArraySize = 1;
-	NormalRTTexDesc.Format = DXGI_FORMAT_R16G16B16A16_FLOAT;
-	NormalRTTexDesc.SampleDesc.Count = 1;
-	NormalRTTexDesc.SampleDesc.Quality = 0;
-	NormalRTTexDesc.Usage = D3D11_USAGE_DEFAULT;
-	NormalRTTexDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-	NormalRTTexDesc.CPUAccessFlags = 0;
-	NormalRTTexDesc.MiscFlags = 0;
+	_projectionMatrix = XMMatrixPerspectiveFovLH(fieldOfView, screenAspect, screenNear, screenDepth);
+	D3D11_TEXTURE2D_DESC normalRTTexDesc;
+	normalRTTexDesc.Width = screenWidth;
+	normalRTTexDesc.Height = screenHeight;
+	normalRTTexDesc.MipLevels = 1;
+	normalRTTexDesc.ArraySize = 1;
+	normalRTTexDesc.Format = DXGI_FORMAT_R16G16B16A16_FLOAT;
+	normalRTTexDesc.SampleDesc.Count = 1;
+	normalRTTexDesc.SampleDesc.Quality = 0;
+	normalRTTexDesc.Usage = D3D11_USAGE_DEFAULT;
+	normalRTTexDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+	normalRTTexDesc.CPUAccessFlags = 0;
+	normalRTTexDesc.MiscFlags = 0;
 
 	Result = m_pDevice->CreateTexture2D(&NormalRTTexDesc, NULL, &m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::RenderTargetIndex::NORMAL)]);
 	if (FAILED(Result))
@@ -335,3 +333,4 @@ bool DXDevice::LoadDevice_(int screenWidth, int screenHeight)
 	
 	return true;
 }
+

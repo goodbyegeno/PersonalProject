@@ -6,8 +6,9 @@
 #include <d3d11_2.h>
 #include <directxmath.h>
 #include <unordered_map>
-
-class DXDevice
+#include "IGraphicsDevice.h"
+class ORBITMesh;
+class DXDevice : IGraphcisDevice
 {
 public:
 	DXDevice();
@@ -16,26 +17,26 @@ public:
 	bool Initilize();
 	bool Reset();
 
-	bool Render();
-	bool RenderGBuffer();
-private:
-
-	bool LoadDevice_();
+	void RenderMesh(const ORBITMesh* meshData) const;
 
 private:
-	ID3D11Device*				m_pDevice;
-	ID3D11DeviceContext*		m_pDeviceContext;
-	IDXGISwapChain*				m_pSwapChain;
-	ID3D11RenderTargetView*		m_pRenderTargetView;
-	ID3D11Texture2D*			m_pDepthStencilBuffer;
-	ID3D11DepthStencilState*	m_pDepthStencilState;
-	ID3D11DepthStencilView*		m_pDepthStencilView;
-	ID3D11RasterizerState*		m_pRasterState;
-	ULONG						m_nVCMemory;
 
-	std::unordered_map<UINT, ID3D11Texture2D*>			m_mapRenderTargetTex;
-	std::unordered_map<UINT, ID3D11ShaderResourceView*>	m_mapShaderResourceView;
-	std::unordered_map<UINT, ID3D11RenderTargetView*>	m_mapRenderTargetView;
+	bool LoadDevice_(int screenWidth, int screenHeight);
+
+private:
+	ID3D11Device*				_device;
+	ID3D11DeviceContext*		_deviceContext;
+	IDXGISwapChain*				_swapChain;
+	ID3D11RenderTargetView*		_renderTargetView;
+	ID3D11Texture2D*			_depthStencilBuffer;
+	ID3D11DepthStencilState*	_depthStencilState;
+	ID3D11DepthStencilView*		_depthStencilView;
+	ID3D11RasterizerState*		_rasterState;
+	ULONG						_videoCardMem;
+
+	std::unordered_map<UINT, ID3D11Texture2D*>			_renderTargetTex;
+	std::unordered_map<UINT, ID3D11ShaderResourceView*>	_shaderResourceView;
+	std::unordered_map<UINT, ID3D11RenderTargetView*>	_renderTargetView;
 	/*
 	ID3D11Texture2D*				m_lstRenderTargetTex[static_cast<UINT>(RenderEngine::RenderTargetIndex::MAX)];
 	ID3D11ShaderResourceView*		m_lstSRV			[static_cast<UINT>(RenderEngine::RenderTargetIndex::MAX)];

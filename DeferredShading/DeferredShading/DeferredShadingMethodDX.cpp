@@ -10,7 +10,11 @@
 #include "ShaderRenderTarget.h"
 #include "ShaderRenderTargetDX.h"
 #include "IShaderRenderTargetImpl.h"
-
+#include "IRenderedObject.h"
+#include "ModelDynamicData.h"
+#include "ModelStaticData.h"
+#include "ORBITMesh.h"
+#include "DXDevice.h"
 #include <d3d11_2.h>
 #include <DirectXMath.h>
 #include <Psapi.h>
@@ -41,6 +45,8 @@ bool DeferredShadingMethodDX::Initialize(DeviceManager* deviceManager, ShaderMan
 	IGraphcisDevice* graDevice = deviceManager->GetDevice();
 	if (graDevice == nullptr || graDevice->GetMiddlewareType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2)
 		return false;
+
+	_deviceWrapper = (DXDevice*)graDevice;
 
 	_device = static_cast<ID3D11Device*>(graDevice->GetBuffer());
 	if (_device == nullptr)
@@ -199,7 +205,7 @@ bool DeferredShadingMethodDX::SetCameraMatrix()
 
 	//copy proj
 	for (int width = 0; width < 4; width++)
-	{
+	{								
 		for (int height = 0; height < 4; height++)
 		{
 			tempFloat4x4.m[width][height] = tempOrbitProjMatrix.m[width][height];
@@ -272,11 +278,41 @@ bool DeferredShadingMethodDX::RenderMesh(std::vector<IRenderedObject*>& renderRe
 {
 	for (int objectsIndex = 0; objectsIndex < renderRequestObjects.size(); objectsIndex++)
 	{
-		renderRequestObjects[objectsIndex];
+		const ModelDynamicData* modelDaynamicData = renderRequestObjects[objectsIndex]->GetModelDynamicData();
+		const ModelStaticData* modelStaticData	= renderRequestObjects[objectsIndex]->GetModelStaticData(); 
+
+		const ORBITMesh* const* meshData = modelStaticData->GetMeshDatas();
+
+		DirectX::XMMATRIX worldMatrix = ;
+
+		_vsConstVariables._worldMatrix = worldMatrix;
+		_psConstVariables._worldMatrix = worldMatrix;
+
+		SetConstVariables();
+
+		for (int meshIndex = 0; meshIndex < modelStaticData->GetMeshCount(); meshIndex++)
+		{
+
+			ID3D11Buffer*  vertexBuffer = static_cast<ID3D11Buffer*>(meshData[meshIndex]->GetVertexBuffer());
+			ID3D11Buffer* const* ppVertexBuffer = &vertexBuffer;
+
+			_deviceContext->IASetVertexBuffers(0, , ppVertexBuffer, , );
+			_deviceContext->IASetIndexBuffer(meshData[meshIndex]->GetIndexBuffer(), _dxHelper->GetIndexBufferFormat(meshData[meshIndex]->GetIndexBufferFormat()), 0);
+			//_deviceWrapper->RenderMesh(meshData[meshIndex]));
+		}
+
 	}
 
 	return false;
 }
+
+void DXDevice::RenderMesh(const ORBITMesh* meshData) const
+{
+
+	
+
+}
+
 bool DeferredShadingMethodDX::RenderLighting(std::vector<IRenderedObject*>& renderRequestObjects)
 {
 	for (int objectsIndex = 0; objectsIndex < renderRequestObjects.size(); objectsIndex++)

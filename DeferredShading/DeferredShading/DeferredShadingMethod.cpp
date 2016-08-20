@@ -1,7 +1,9 @@
 #include "DeferredShadingMethod.h"
 #include "RenderingManager.h"
 #include "IDeferredShadingMethodImpl.h"
-
+#include "ModelDynamicData.h"
+#include "ModelStaticData.h"
+#include "IRenderedObject.h"
 DeferredShadingMethod::DeferredShadingMethod(RenderingManager* pRenderingMnanger)
 {
 	_renderingMananger = pRenderingMnanger;
@@ -48,10 +50,44 @@ void DeferredShadingMethod::Render(DeviceManager* deviceManager, ShaderManager* 
 
 void DeferredShadingMethod::RenderGBuffer_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject*>& renderRequestObjects, float deltaTime)
 {
-	_renderingMethodImpl->SetConstVariables();
+	//_renderingMethodImpl->SetConstVariables();
 	_renderingMethodImpl->SettingShaderOptions();
 	_renderingMethodImpl->SetRenderTarget();
-	_renderingMethodImpl->RenderMesh(renderRequestObjects);
+
+	for (int objectsIndex = 0; objectsIndex < renderRequestObjects.size(); objectsIndex++)
+	{
+		const ModelDynamicData* modelDaynamicData = renderRequestObjects[objectsIndex]->GetModelDynamicData();
+		const ModelStaticData* modelStaticData = renderRequestObjects[objectsIndex]->GetModelStaticData();
+
+		const ORBITMesh* const* meshData = modelStaticData->GetMeshDatas();
+
+		_renderingMethodImpl->SetWorldMatrix(matrix);
+		_renderingMethodImpl->SetConstVariables();
+		
+		for (int meshIndex = 0; meshIndex < modelStaticData->GetMeshCount(); meshIndex++)
+		{
+			//subset
+			_renderingMethodImpl->SetVertexBuffer()
+			for ()
+			{
+				_renderingMethodImpl->SetMaterial();
+				_renderingMethodImpl->RenderMesh();
+			}
+			
+			/*
+			ID3D11Buffer*  vertexBuffer = static_cast<ID3D11Buffer*>(meshData[meshIndex]->GetVertexBuffer());
+			ID3D11Buffer* const* ppVertexBuffer = &vertexBuffer;
+
+			_deviceContext->IASetVertexBuffers(0, , ppVertexBuffer, , );
+			_deviceContext->IASetIndexBuffer(meshData[meshIndex]->GetIndexBuffer(), _dxHelper->GetIndexBufferFormat(meshData[meshIndex]->GetIndexBufferFormat()), 0);
+			//_deviceWrapper->RenderMesh(meshData[meshIndex]));
+			*/
+			_renderingMethodImpl->RenderMesh();
+		}
+
+	}
+
+	//_renderingMethodImpl->RenderMesh(renderRequestObjects);
 
 
 }

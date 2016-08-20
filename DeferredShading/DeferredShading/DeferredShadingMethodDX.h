@@ -10,9 +10,11 @@ class IRenderedObject;
 class ShaderRenderTargetDX;
 class ShaderRenderTarget;
 class IRenderedObject;
+class DXDevice;
 
 struct ShaderConstVariables
 {
+	DirectX::XMMATRIX				_worldMatrix;
 	DirectX::XMMATRIX				_viewMatrix;
 	DirectX::XMMATRIX				_projMatrix;
 	DirectX::XMMATRIX				_viewProjMatrix;
@@ -44,7 +46,8 @@ private:
 private:
 
 	ShaderManager*					_shaderManager;
-									
+	
+	DXDevice*						_deviceWrapper;
 	ID3D11Device*					_device;
 	ID3D11DeviceContext*			_deviceContext;
 	
