@@ -1,12 +1,12 @@
 #pragma once
 #include <string>
-#include <d3d11_2.h>
+#include <d3d11_4.h>
 #include "IShaderObejct.h"
 class ShaderObjectDX : public IShaderObject
 {
 public:
 
-	ShaderObjectDX(std::string shaderName, ID3D11Device* deviceDX, ID3DBlob* shaderBuffer, ID3D11DeviceChild* shaderData);
+	ShaderObjectDX(std::string shaderName, ID3D11Device3* deviceDX, ID3DBlob* shaderBuffer, ID3D11Device3Child* shaderData);
 	ShaderObjectDX() = delete;
 	virtual ~ShaderObjectDX();
 	
@@ -22,9 +22,9 @@ protected:
 
 	std::string					_shaderName;
 	size_t						_shaderNameHash;
-	ID3D11DeviceChild*			_shaderData;
+	ID3D11Device3Child*			_shaderData;
 	ID3DBlob*					_shaderBuffer;
-	ID3D11Device*				_device;
+	ID3D11Device3*				_device;
 	//ID3D11InputLayout*			_inputLayout;
 
 };

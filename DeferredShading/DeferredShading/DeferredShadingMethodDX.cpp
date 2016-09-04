@@ -14,26 +14,36 @@
 #include "ModelDynamicData.h"
 #include "ModelStaticData.h"
 #include "ORBITMesh.h"
+#include "ORBITMeshSubset.h"
+#include "ORBITMaterial.h"
 #include "DXDevice.h"
-#include <d3d11_2.h>
+#include <d3d11_4.h>
 #include <DirectXMath.h>
 #include <Psapi.h>
 
-DeferredShadingMethodDX::DeferredShadingMethodDX()
+DeferredShadingMethodDX::DeferredShadingMethodDX() :
+	_device(nullptr),
+	_deviceContext(nullptr),
+	_inputLayout(nullptr),
+	_vertexShader(nullptr),
+	_pixelShader(nullptr),
+	_computeShader(nullptr),
+	_vertexShaderHash(0),
+	_pixelShaderHash(0),
+	_computeShaderHash(0),
+	_psConstVariableBuffer(nullptr),
+	_vsConstVariableBuffer(nullptr),
+	_depthStencilView(nullptr),
+	_renderTargetCount(0),
+	_viewPort(nullptr),
+	_blendState(nullptr),
+	_srDiffuseSlot(0),
+	_srSpecularSlot(0),
+	_srNormalSlot(0)
 {
-	_device					= nullptr;
-	_deviceContext			= nullptr;
-
-	_vertexShader			= nullptr;
-	_pixelShader			= nullptr;
-	_computeShader			= nullptr;
-	_vertexShaderHash		= 0;
-	_pixelShaderHash		= 0;
-	_computeShaderHash		= 0;
-	_psConstVariableBuffer = nullptr;
-	_vsConstVariableBuffer	= nullptr;
-	_depthStencilView		= nullptr;
-	_renderTargetCount		= 0;
+	_srDiffuseSlot = ;
+	_srSpecularSlot = ;
+	_srNormalSlot = ;
 }
 DeferredShadingMethodDX::~DeferredShadingMethodDX()
 {
@@ -43,12 +53,12 @@ bool DeferredShadingMethodDX::Initialize(DeviceManager* deviceManager, ShaderMan
 {
 	_shaderManager = shaderManager;
 	IGraphcisDevice* graDevice = deviceManager->GetDevice();
-	if (graDevice == nullptr || graDevice->GetMiddlewareType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2)
+	if (graDevice == nullptr || graDevice->GetGraphicsAPIType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2)
 		return false;
 
-	_deviceWrapper = (DXDevice*)graDevice;
+	_deviceWrapper = static_cast<DXDevice*>(graDevice);
 
-	_device = static_cast<ID3D11Device*>(graDevice->GetBuffer());
+	_device = static_cast<ID3D11Device3*>(graDevice->GetBuffer());
 	if (_device == nullptr)
 	{
 		return false;
@@ -70,10 +80,10 @@ bool DeferredShadingMethodDX::Reset(DeviceManager* deviceManager, ShaderManager*
 {
 	_shaderManager = shaderManager;
 	IGraphcisDevice* graDevice = deviceManager->GetDevice();
-	if (graDevice == nullptr || graDevice->GetMiddlewareType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2)
+	if (graDevice == nullptr || graDevice->GetGraphicsAPIType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2)
 		return false;
 
-	_device = static_cast<ID3D11Device*>(graDevice->GetBuffer());
+	_device = static_cast<ID3D11Device3*>(graDevice->GetBuffer());
 	
 	_vertexShader			= nullptr;
 	_pixelShader			= nullptr;
@@ -85,7 +95,7 @@ bool DeferredShadingMethodDX::Reset(DeviceManager* deviceManager, ShaderManager*
 
 	SetShader_(shaderManager, _device);
 }
-bool DeferredShadingMethodDX::SetShader_(ShaderManager* shaderManager, ID3D11Device* deviceDX)
+bool DeferredShadingMethodDX::SetShader_(ShaderManager* shaderManager, ID3D11Device3* deviceDX)
 {
 
 	IShaderObject* tempShaderObject = nullptr;
@@ -244,7 +254,7 @@ bool DeferredShadingMethodDX::SetConstVariables()
 
 	ShaderConstVariables* constants = static_cast<ShaderConstVariables*>(mappedResource.pData);
 	//set vs const variables 
-
+	_vsConstVariables = ;
 	*constants = _vsConstVariables;
 
 	_deviceContext->Unmap(_vsConstVariableBuffer, 0);
@@ -253,7 +263,7 @@ bool DeferredShadingMethodDX::SetConstVariables()
 
 	ShaderConstVariables* constants = static_cast<ShaderConstVariables*>(mappedResource.pData);
 	//set vs const variables 
-
+	_psConstVariables = ;
 	*constants = _psConstVariables;
 
 	_deviceContext->Unmap(_psConstVariableBuffer, 0);
@@ -274,44 +284,64 @@ bool DeferredShadingMethodDX::SetRenderTarget()
 
 	return true;
 }
-bool DeferredShadingMethodDX::RenderMesh(std::vector<IRenderedObject*>& renderRequestObjects)
+bool DeferredShadingMethodDX::SetVertexBuffer(ORBITMesh* mesh)
 {
-	for (int objectsIndex = 0; objectsIndex < renderRequestObjects.size(); objectsIndex++)
-	{
-		const ModelDynamicData* modelDaynamicData = renderRequestObjects[objectsIndex]->GetModelDynamicData();
-		const ModelStaticData* modelStaticData	= renderRequestObjects[objectsIndex]->GetModelStaticData(); 
+	ID3D11Buffer* const* vertexBuffers = mesh->GetVertexBuffersDX11();
 
-		const ORBITMesh* const* meshData = modelStaticData->GetMeshDatas();
+	_deviceContext->IASetVertexBuffers(0, mesh->GetVertexBufferCount(), vertexBuffers, mesh->GetStrides(), mesh->GetOffsets());
+	_deviceContext->IASetIndexBuffer(mesh->GetIndexBufferDX11(), _dxHelper->GetIndexBufferFormat(mesh->GetIndexBufferFormat()), 0);
+	//_deviceWrapper->RenderMesh(meshData[meshIndex]));
+}
+bool DeferredShadingMethodDX::SetSubsetVBIndicesInfo(const ORBITMeshSubset* subsetData)
+{
+	_drawVariables.SetIndexData(subsetData->GetIndexCount(), subsetData->GetIndexStart(), subsetData->GetVertexStart());
+}
+bool DeferredShadingMethodDX::SetMaterial(const ORBITMaterial* material)
+{
+	ID3D11ShaderResourceView * const diffuseRVDX11		= material->GetDiffuseRVDX11();
+	ID3D11ShaderResourceView * const specularRVDX11		= material->GetSpecularRVDX11();
+	ID3D11ShaderResourceView * const normalRVDX11		= material->GetNormalRVDX11();
 
-		DirectX::XMMATRIX worldMatrix = ;
+	_deviceContext->PSSetShaderResources(_srDiffuseSlot,	1,	&diffuseRVDX11);
+	_deviceContext->PSSetShaderResources(_srSpecularSlot,	1,	&specularRVDX11);
+	_deviceContext->PSSetShaderResources(_srNormalSlot,		1,	&normalRVDX11);
+}
+bool DeferredShadingMethodDX::RenderMesh()
+{
+	
+	//for (int objectsIndex = 0; objectsIndex < renderRequestObjects.size(); objectsIndex++)
+	//{
+	//	const ModelDynamicData* modelDaynamicData = renderRequestObjects[objectsIndex]->GetModelDynamicData();
+	//	const ModelStaticData* modelStaticData	= renderRequestObjects[objectsIndex]->GetModelStaticData(); 
 
-		_vsConstVariables._worldMatrix = worldMatrix;
-		_psConstVariables._worldMatrix = worldMatrix;
+	//	const ORBITMesh* const* meshData = modelStaticData->GetMeshDatas();
 
-		SetConstVariables();
+	//	DirectX::XMMATRIX worldMatrix = ;
 
-		for (int meshIndex = 0; meshIndex < modelStaticData->GetMeshCount(); meshIndex++)
-		{
+	//	_vsConstVariables._worldMatrix = worldMatrix;
+	//	_psConstVariables._worldMatrix = worldMatrix;
 
-			ID3D11Buffer*  vertexBuffer = static_cast<ID3D11Buffer*>(meshData[meshIndex]->GetVertexBuffer());
-			ID3D11Buffer* const* ppVertexBuffer = &vertexBuffer;
+	//	SetConstVariables();
 
-			_deviceContext->IASetVertexBuffers(0, , ppVertexBuffer, , );
-			_deviceContext->IASetIndexBuffer(meshData[meshIndex]->GetIndexBuffer(), _dxHelper->GetIndexBufferFormat(meshData[meshIndex]->GetIndexBufferFormat()), 0);
-			//_deviceWrapper->RenderMesh(meshData[meshIndex]));
-		}
+	//	for (int meshIndex = 0; meshIndex < modelStaticData->GetMeshCount(); meshIndex++)
+	//	{
 
-	}
+	//		ID3D11Buffer*  vertexBuffer = static_cast<ID3D11Buffer*>(meshData[meshIndex]->GetVertexBuffer());
+	//		ID3D11Buffer* const* ppVertexBuffer = &vertexBuffer;
+
+	//		_deviceContext->IASetVertexBuffers(0, , ppVertexBuffer, , );
+	//		_deviceContext->IASetIndexBuffer(meshData[meshIndex]->GetIndexBuffer(), _dxHelper->GetIndexBufferFormat(meshData[meshIndex]->GetIndexBufferFormat()), 0);
+	//		//_deviceWrapper->RenderMesh(meshData[meshIndex]));
+	//	}
+
+	//}
+
+	_deviceContext->DrawIndexed(_drawVariables.GetIndexCount(), _drawVariables.GetIndexStart(), _drawVariables.GetVertexStart());
 
 	return false;
 }
 
-void DXDevice::RenderMesh(const ORBITMesh* meshData) const
-{
 
-	
-
-}
 
 bool DeferredShadingMethodDX::RenderLighting(std::vector<IRenderedObject*>& renderRequestObjects)
 {
@@ -326,4 +356,25 @@ bool DeferredShadingMethodDX::RenderLighting(std::vector<IRenderedObject*>& rend
 bool DeferredShadingMethodDX::ResetRenderTarget()
 {
 	_deviceContext->OMSetRenderTargets(0, nullptr, nullptr);
+}
+
+
+DeferredShadingMethodDX::DrawVariables::DrawVariables() :
+	_indexCount(0),
+	_indexStart(0),
+	_vertexStart(0)
+{
+
+}
+DeferredShadingMethodDX::DrawVariables::~DrawVariables()
+{
+
+}
+
+int DeferredShadingMethodDX::DrawVariables::SetIndexData(int indexCount, int indexStart, int vertexStart)
+{
+	_indexCount = indexCount;
+	_indexStart = indexStart;
+	_vertexStart = vertexStart;
+
 }

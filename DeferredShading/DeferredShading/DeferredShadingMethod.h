@@ -1,5 +1,5 @@
 #pragma once
-#include <d3d11_2.h>
+#include <d3d11_4.h>
 #include "RenderEngineCommon.h"
 #include "IRenderingMethod.h"
 
@@ -7,6 +7,7 @@ class ShaderManager;
 class DeviceManager;
 class RenderingManager;
 class IDeferredShadingMethodImpl;
+class IGraphicsDevice;
 
 class DeferredShadingMethod : public IRenderMethod
 {
@@ -23,6 +24,7 @@ public:
 
 private:
 	void	RenderGBuffer_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject*>& renderRequestObjects, float deltaTime);
+
 	void	RenderLighting_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject*>& renderRequestObjects, float deltaTime);
 
 private:
@@ -33,6 +35,7 @@ private:
 	float						_mSecPerFrame;
 	float						_currentMSecPerFrame;
 	int							_FPS;
+	IGraphicsDevice *			_graphicsDevice;
 
 	
 

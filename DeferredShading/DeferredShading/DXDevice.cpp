@@ -334,3 +334,10 @@ bool DXDevice::LoadDevice_(int screenWidth, int screenHeight)
 	return true;
 }
 
+
+void DXDevice::RenderMesh(const ORBITMesh* meshData) const
+{
+
+
+
+}

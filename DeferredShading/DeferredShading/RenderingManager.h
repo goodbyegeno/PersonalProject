@@ -23,7 +23,7 @@ public:
 	void PostUpdate(float deltaTime);
 	bool RequestRender(IRenderedObject* target);
 	std::vector<IRenderedObject*>& GetRenderRequestObject(RenderEngine::RENDERINGMODE renderMode);
-
+	DeviceManager* GetDeviceManager() { return _deviceManager; }
 private:
 	IRenderMethod* CreateRenderingMethod(RenderEngine::RENDERINGMODE renderMode);
 

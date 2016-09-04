@@ -49,6 +49,9 @@
     <Filter Include="RenderEngine\ShaderObjectManage">
       <UniqueIdentifier>{e5b1cfe2-cab6-4764-8ed8-2b9865ac48ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RenderEngine\Device">
+      <UniqueIdentifier>{0336d012-8357-4a77-abff-4e74b6c61c77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -82,9 +85,6 @@
       <Filter>RenderEngine</Filter>
     </ClInclude>
     <ClInclude Include="RenderEngineCommon.h">
-      <Filter>RenderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="IGraphicsDevice.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
     <ClInclude Include="TestHeaderCommon.h">
@@ -180,6 +180,15 @@
     <ClInclude Include="ModelStaticData.h">
       <Filter>RenderEngine\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="ORBITMeshSubset.h">
+      <Filter>RenderEngine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="IGraphicsDevice.h">
+      <Filter>RenderEngine\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="ORBITMaterial.h">
+      <Filter>RenderEngine\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -249,6 +258,12 @@
       <Filter>RenderEngine\Resources</Filter>
     </ClCompile>
     <ClCompile Include="ModelDynamicData.cpp">
+      <Filter>RenderEngine\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ORBITMeshSubset.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ORBITMaterial.cpp">
       <Filter>RenderEngine\Resources</Filter>
     </ClCompile>
   </ItemGroup>

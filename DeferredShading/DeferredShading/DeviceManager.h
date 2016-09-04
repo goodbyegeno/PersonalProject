@@ -19,6 +19,6 @@ public:
 	IGraphcisDevice* GetDevice() { return m_Device; }
 private:
 
-	IGraphcisDevice* m_Device;
-	GraphicsSystem* m_pGraphicSystem;
+	IGraphcisDevice* _device;
+	GraphicsSystem* _graphicSystem;
 };

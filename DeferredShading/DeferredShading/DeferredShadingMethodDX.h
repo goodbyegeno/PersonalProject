@@ -2,7 +2,7 @@
 
 #include "RenderEngineCommon.h"
 #include "IDeferredShadingMethodImpl.h"
-#include <d3d11_2.h>
+#include <d3d11_4.h>
 #include <vector>
 class DeviceManager;
 class ShaderManager;
@@ -22,6 +22,26 @@ struct ShaderConstVariables
 
 class DeferredShadingMethodDX : public IDeferredShadingMethodImpl
 {
+private:
+	class DrawVariables
+	{
+	public:
+		DrawVariables();
+		~DrawVariables();
+
+		void SetIndexData(int indexCount, int indexStart, int vertexStart);
+		int GetIndexCount() const { return _indexCount; }
+		int GetIndexStart() const { return _indexStart; }
+		int GetVertexStart() const { return _vertexStart; }
+
+	private:
+		int _indexCount;
+		int _indexStart;
+		int _vertexStart;
+
+		
+	};
+
 public:
 	DeferredShadingMethodDX();
 	virtual ~DeferredShadingMethodDX();
@@ -38,18 +58,21 @@ public:
 	virtual bool SetConstVariables();
 	virtual bool SetRenderTarget();
 	virtual bool ResetRenderTarget();
-	virtual bool RenderMesh(std::vector<IRenderedObject*>& renderRequestObjects);
+	virtual bool SetVertexBuffer(ORBITMesh* mesh);
+	virtual bool SetSubsetVBIndicesInfo(const ORBITMeshSubset* subsetData);
+	virtual bool SetMaterial(const ORBITMaterial* material);
+	virtual bool RenderMesh();
 	virtual bool RenderLighting(std::vector<IRenderedObject*>& renderRequestObjects);
 
 private:
-	bool SetShader_(ShaderManager* shaderManager, ID3D11Device* deviceDX);
+	bool SetShader_(ShaderManager* shaderManager, ID3D11Device3* deviceDX);
 private:
 
 	ShaderManager*					_shaderManager;
 	
 	DXDevice*						_deviceWrapper;
-	ID3D11Device*					_device;
-	ID3D11DeviceContext*			_deviceContext;
+	ID3D11Device3*					_device;
+	ID3D11DeviceContext3*			_deviceContext;
 	
 	ShaderRenderTargetDX*			_renderTargets		[static_cast<int>(INDEXEDDEFERREDSHADINGRT::MAX)];
 	
@@ -77,5 +100,11 @@ private:
 
 	D3D11_VIEWPORT*					_viewPort;
 	ID3D11BlendState1*				_blendState;
+	DrawVariables					_drawVariables;
+
+	int								_srDiffuseSlot;
+	int								_srSpecularSlot;
+	int								_srNormalSlot;
 	
 };
+

@@ -15,6 +15,7 @@ public:
 private:
 	ORBITMesh**	_meshData;
 	int			_meshCount;
+
 	//bone Data;
 
 };

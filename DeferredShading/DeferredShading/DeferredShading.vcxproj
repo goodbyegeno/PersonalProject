@@ -167,6 +167,8 @@
     <ClInclude Include="ModelDynamicData.h" />
     <ClInclude Include="ModelStaticData.h" />
     <ClInclude Include="ORBITMesh.h" />
+    <ClInclude Include="ORBITMeshSubset.h" />
+    <ClInclude Include="ORBITMaterial.h" />
     <ClInclude Include="ORBITVertex.h" />
     <ClInclude Include="RenderedObjectManager.h" />
     <ClInclude Include="RenderEngineCommon.h" />
@@ -198,6 +200,8 @@
     <ClCompile Include="GraphicsSystem.cpp" />
     <ClCompile Include="ModelDynamicData.cpp" />
     <ClCompile Include="ModelStaticData.cpp" />
+    <ClCompile Include="ORBITMeshSubset.cpp" />
+    <ClCompile Include="ORBITMaterial.cpp" />
     <ClCompile Include="RenderedObjectManager.cpp" />
     <ClCompile Include="RenderingManager.cpp" />
     <ClCompile Include="ShaderManager.cpp" />

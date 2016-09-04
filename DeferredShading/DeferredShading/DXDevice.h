@@ -3,12 +3,12 @@
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 #include "RenderEngineCommon.h"
-#include <d3d11_2.h>
+#include <d3d11_4.h>
 #include <directxmath.h>
 #include <unordered_map>
 #include "IGraphicsDevice.h"
 class ORBITMesh;
-class DXDevice : IGraphcisDevice
+class DXDevice : public IGraphcisDevice
 {
 public:
 	DXDevice();
@@ -17,15 +17,14 @@ public:
 	bool Initilize();
 	bool Reset();
 
-	void RenderMesh(const ORBITMesh* meshData) const;
-
+	void DrawPrimitive();
 private:
 
 	bool LoadDevice_(int screenWidth, int screenHeight);
 
 private:
-	ID3D11Device*				_device;
-	ID3D11DeviceContext*		_deviceContext;
+	ID3D11Device3*				_device;
+	ID3D11DeviceContext3*		_deviceContext;
 	IDXGISwapChain*				_swapChain;
 	ID3D11RenderTargetView*		_renderTargetView;
 	ID3D11Texture2D*			_depthStencilBuffer;

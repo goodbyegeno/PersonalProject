@@ -1,9 +1,14 @@
 #include "DeferredShadingMethod.h"
 #include "RenderingManager.h"
+#include "GraphicsSystem.h"
 #include "IDeferredShadingMethodImpl.h"
 #include "ModelDynamicData.h"
 #include "ModelStaticData.h"
 #include "IRenderedObject.h"
+#include "CustomMatrix.h"
+#include "ORBITMesh.h"
+#include "ORBITMeshSubset.h"
+
 DeferredShadingMethod::DeferredShadingMethod(RenderingManager* pRenderingMnanger)
 {
 	_renderingMananger = pRenderingMnanger;
@@ -24,6 +29,7 @@ bool DeferredShadingMethod::Initialize()
 	_FPS = _renderingMananger->GetFPS();
 	_mSecPerFrame = 1000 / _FPS; 
 	_currentMSecPerFrame = 0.0f;
+	_graphicsDevice = _renderingMananger->GetDeviceManager()->GetDeviceManager()->GetDevice();
 
 	return true;
 }
@@ -58,21 +64,40 @@ void DeferredShadingMethod::RenderGBuffer_(DeviceManager* deviceManager, ShaderM
 	{
 		const ModelDynamicData* modelDaynamicData = renderRequestObjects[objectsIndex]->GetModelDynamicData();
 		const ModelStaticData* modelStaticData = renderRequestObjects[objectsIndex]->GetModelStaticData();
-
+		const ORBITMATRIX4x4 worldMatrix = ;
 		const ORBITMesh* const* meshData = modelStaticData->GetMeshDatas();
 
-		_renderingMethodImpl->SetWorldMatrix(matrix);
+		_renderingMethodImpl->SetWorldMatrix(&worldMatrix);
 		_renderingMethodImpl->SetConstVariables();
 		
 		for (int meshIndex = 0; meshIndex < modelStaticData->GetMeshCount(); meshIndex++)
 		{
 			//subset
-			_renderingMethodImpl->SetVertexBuffer()
-			for ()
+			const ORBITMeshSubset* meshSubsets = meshData[meshIndex]->GetSubset();
+			int subsetCount = meshData[meshIndex]->GetSubsetCount();
+			_renderingMethodImpl->SetVertexBuffer(meshData[meshIndex]);
+			_renderingMethodImpl->SetIndexBuffer(meshData[meshIndex]);
+			if (ORBITMesh::SUBSETINDEXMAPPINGTYPE::STORED == meshData[meshIndex]->GetSubsetIndexMappingType())
 			{
-				_renderingMethodImpl->SetMaterial();
-				_renderingMethodImpl->RenderMesh();
+				for (int subsetIndex = 0; subsetIndex < subsetCount; subsetIndex++)
+				{
+					_renderingMethodImpl->SetMaterial();
+					_renderingMethodImpl->SetSubsetVBIndicesInfo();
+					_renderingMethodImpl->RenderMesh();
+
+
+					//_renderingMethodImpl->RenderMesh();
+				}
 			}
+			else if (ORBITMesh::SUBSETINDEXMAPPINGTYPE::LINEAR == meshData[meshIndex]->GetSubsetIndexMappingType())
+			{
+				for (int subsetIndex = 0; subsetIndex < subsetCount; subsetIndex++)
+				{
+					_renderingMethodImpl->SetMaterial();
+					_renderingMethodImpl->RenderMesh();
+				}
+			}
+			
 			
 			/*
 			ID3D11Buffer*  vertexBuffer = static_cast<ID3D11Buffer*>(meshData[meshIndex]->GetVertexBuffer());
@@ -82,7 +107,7 @@ void DeferredShadingMethod::RenderGBuffer_(DeviceManager* deviceManager, ShaderM
 			_deviceContext->IASetIndexBuffer(meshData[meshIndex]->GetIndexBuffer(), _dxHelper->GetIndexBufferFormat(meshData[meshIndex]->GetIndexBufferFormat()), 0);
 			//_deviceWrapper->RenderMesh(meshData[meshIndex]));
 			*/
-			_renderingMethodImpl->RenderMesh();
+			//_renderingMethodImpl->RenderMesh();
 		}
 
 	}
