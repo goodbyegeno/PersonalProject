@@ -5,18 +5,18 @@ class IShaderObject;
 class ShaderManager
 {
 public :
-	ShaderManager(GraphicsSystem* pGraphicSystem);
+	ShaderManager(GraphicsSystem* graphicSystem);
 	virtual ~ShaderManager();
 
 	bool Initialize();
 	bool PostInitialize();
 	bool Reset();
 	bool PostReset();
-	void PreUpdate(float fDeltaTime);
-	void PostUpdate(float fDeltaTime);
+	void PreUpdate(float deltaTime);
+	void PostUpdate(float deltaTime);
 
-	void Update(float fDeltaTime);
-	IShaderObject* GetShaderObject(size_t nShaderHash);
+	void Update(float deltaTime);
+	IShaderObject* GetShaderObject(size_t shaderHash);
 private:
-	GraphicsSystem* m_pGraphicSystem;
+	GraphicsSystem* _graphicSystem;
 };

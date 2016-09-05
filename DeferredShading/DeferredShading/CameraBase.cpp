@@ -13,11 +13,11 @@ CameraBase::~CameraBase()
 
 bool CameraBase::Initialize()
 {
-
+	return true;
 }
 bool CameraBase::Reset()
 {
-
+	return true;
 }
 void CameraBase::PreUpdate(float deltaTime)
 {

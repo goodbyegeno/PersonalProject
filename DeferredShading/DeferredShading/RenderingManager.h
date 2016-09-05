@@ -17,7 +17,7 @@ public:
 	bool Reset();
 
 	void Render(DeviceManager* deviceManager, ShaderManager* shaderManager, float deltaTime);
-	bool IsVsyncOn() { return _Vsync; }
+	bool IsVsyncOn() { return _vSync; }
 	int	 GetFPS() { return _FPS; }
 	void PreUpdate(float deltaTime);
 	void Update(float deltaTime);
@@ -38,7 +38,7 @@ private:
 
 	//settings
 	int								_FPS;
-	bool							_Vsync;
+	bool							_vSync;
 
 
 };

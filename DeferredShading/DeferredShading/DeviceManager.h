@@ -1,10 +1,10 @@
 #pragma once
-class IGraphcisDevice;
+class IGraphicsDevice;
 class GraphicsSystem;
 class DeviceManager
 {
 public:
-	DeviceManager(GraphicsSystem* pGraphicSystem);
+	DeviceManager(GraphicsSystem* graphicSystem);
 	virtual ~DeviceManager();
 
 	bool Initialize();
@@ -12,13 +12,13 @@ public:
 
 	bool Reset();
 	bool PostReset();
-	void PreUpdate(float fDeltaTime);
-	void PostUpdate(float fDeltaTime);
-	void Update(float fDeltaTime);
+	void PreUpdate(float deltaTime);
+	void PostUpdate(float deltaTime);
+	void Update(float deltaTime);
 
-	IGraphcisDevice* GetDevice() { return m_Device; }
+	IGraphicsDevice* GetDevice() { return _device; }
 private:
 
-	IGraphcisDevice* _device;
+	IGraphicsDevice* _device;
 	GraphicsSystem* _graphicSystem;
 };

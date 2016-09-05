@@ -12,7 +12,7 @@ public:
 	virtual ~CharacterRenderedObject();
 
 
-	virtual bool IsGotAlphaBlend()							{ return false; }
+	virtual bool IsGotAlphaBlend();
 	RenderEngine::RENDERTYPE	GetRenderedType() final		{ return RenderEngine::RENDERTYPE::CHARACTER; }
 	RenderEngine::RENDERINGMODE GetRenderedMode() final;
 

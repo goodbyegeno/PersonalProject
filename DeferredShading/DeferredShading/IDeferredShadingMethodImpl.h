@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 class DeviceManager;
 class IShaderRenderTargetImpl;
 class IRenderedObject;
@@ -7,6 +8,8 @@ class ModelStaticData;
 class ORBITMesh;
 class ORBITMeshSubset;
 class ORBITMaterial;
+class ShaderManager;
+
 enum class INDEXEDDEFERREDSHADINGRT
 {
 	ALBEDO,

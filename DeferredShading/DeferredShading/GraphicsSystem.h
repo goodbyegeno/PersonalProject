@@ -12,18 +12,18 @@ public:
 
 	bool Inititalize();
 	bool Reset();
-	void PreUpdate	(float fDeltaTime);
-	void Update		(float fDeltaTime);
-	void PostUpdate	(float fDeltaTime);
-	void Render(float fDeltaTime);
+	void PreUpdate	(float deltaTime);
+	void Update		(float deltaTime);
+	void PostUpdate	(float deltaTime);
+	void Render(float deltaTime);
 
-	RenderingManager*		GetRenderingManager()				{ return m_pRenderingMananger; }
-	DeviceManager*			GetDeviceManager()					{ return m_pDeviceManager; }
-	RenderedObjectManager*	GetRenderedObjectManager()			{ return m_pRenderedObjectManager; }
-	ShaderManager*			GetShaderManager()					{ return m_pShaderManager; }
+	RenderingManager*		GetRenderingManager()				{ return _renderingMananger; }
+	DeviceManager*			GetDeviceManager()					{ return _deviceManager; }
+	RenderedObjectManager*	GetRenderedObjectManager()			{ return _renderedObjectManager; }
+	ShaderManager*			GetShaderManager()					{ return _shaderManager; }
 private:
-	RenderingManager*		m_pRenderingMananger;
-	DeviceManager*			m_pDeviceManager;
-	RenderedObjectManager*	m_pRenderedObjectManager;
-	ShaderManager*			m_pShaderManager;
+	RenderingManager*		_renderingMananger;
+	DeviceManager*			_deviceManager;
+	RenderedObjectManager*	_renderedObjectManager;
+	ShaderManager*			_shaderManager;
 };

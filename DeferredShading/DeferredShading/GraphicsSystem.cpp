@@ -6,10 +6,10 @@
 #include "ShaderManager.h"
 GraphicsSystem::GraphicsSystem()
 {
-	m_pRenderingMananger		= nullptr;
-	m_pDeviceManager			= nullptr;
-	m_pRenderedObjectManager	= nullptr;
-	m_pShaderManager			= nullptr;
+	_renderingMananger		= nullptr;
+	_deviceManager			= nullptr;
+	_renderedObjectManager	= nullptr;
+	_shaderManager			= nullptr;
 }
 GraphicsSystem::~GraphicsSystem()
 {
@@ -18,47 +18,52 @@ GraphicsSystem::~GraphicsSystem()
 
 bool GraphicsSystem::Inititalize()
 {
-	m_pRenderingMananger		= new RenderingManager(this);
-	m_pDeviceManager			= new DeviceManager(this);
-	m_pRenderedObjectManager	= new RenderedObjectManager(this);
-	m_pShaderManager			= new ShaderManager(this);
+	_renderingMananger		= new RenderingManager(this);
+	_deviceManager			= new DeviceManager(this);
+	_renderedObjectManager	= new RenderedObjectManager(this);
+	_shaderManager			= new ShaderManager(this);
 
-	m_pDeviceManager		->Initialize();
-	m_pRenderingMananger	->Initialize();
-	m_pRenderedObjectManager->Initialize();
-	m_pShaderManager		->Initialize();
+	_deviceManager		->Initialize();
+	_renderingMananger	->Initialize();
+	_renderedObjectManager->Initialize();
+	_shaderManager		->Initialize();
+	return true;
+
 }
 bool GraphicsSystem::Reset()
 {
-	m_pDeviceManager			->Reset();
-	m_pRenderingMananger		->Reset();
-	m_pRenderedObjectManager	->Reset();
-	m_pShaderManager			->Reset();
+	_deviceManager			->Reset();
+	_renderingMananger		->Reset();
+	_renderedObjectManager	->Reset();
+	_shaderManager			->Reset();
+
+	return true;
 }
-void GraphicsSystem::PreUpdate(float fDeltaTime)
+void GraphicsSystem::PreUpdate(float deltaTime)
 {
-	m_pDeviceManager		->PreUpdate(fDeltaTime);
-	m_pRenderingMananger	->PreUpdate(fDeltaTime);
-	m_pRenderedObjectManager->PreUpdate(fDeltaTime);
-	m_pShaderManager		->PreUpdate(fDeltaTime);
+	_deviceManager		->PreUpdate(deltaTime);
+	_renderingMananger	->PreUpdate(deltaTime);
+	_renderedObjectManager->PreUpdate(deltaTime);
+	_shaderManager		->PreUpdate(deltaTime);
+
 }
 
-void GraphicsSystem::PostUpdate(float fDeltaTime)
+void GraphicsSystem::PostUpdate(float deltaTime)
 {
-	m_pDeviceManager		->PostUpdate(fDeltaTime);
-	m_pRenderingMananger	->PostUpdate(fDeltaTime);
-	m_pRenderedObjectManager->PostUpdate(fDeltaTime);
-	m_pShaderManager		->PostUpdate(fDeltaTime);
+	_deviceManager		->PostUpdate(deltaTime);
+	_renderingMananger	->PostUpdate(deltaTime);
+	_renderedObjectManager->PostUpdate(deltaTime);
+	_shaderManager		->PostUpdate(deltaTime);
 }
-void GraphicsSystem::Update(float fDeltaTime)
+void GraphicsSystem::Update(float deltaTime)
 {
-	m_pDeviceManager		->Update(fDeltaTime);
-	m_pRenderingMananger	->Update(fDeltaTime);
-	m_pRenderedObjectManager->Update(fDeltaTime);
-	m_pShaderManager		->Update(fDeltaTime);
+	_deviceManager		->Update(deltaTime);
+	_renderingMananger	->Update(deltaTime);
+	_renderedObjectManager->Update(deltaTime);
+	_shaderManager		->Update(deltaTime);
 }
-void GraphicsSystem::Render(float fDeltaTime)
+void GraphicsSystem::Render(float deltaTime)
 {
-	m_pRenderingMananger->Render(m_pDeviceManager, m_pShaderManager, fDeltaTime);
+	_renderingMananger->Render(_deviceManager, _shaderManager, deltaTime);
 
 }

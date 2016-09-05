@@ -11,22 +11,22 @@ public:
 	TestModelObject();
 	virtual ~TestModelObject();
 
-	bool Initialize(DeviceManager* pDeviceManager);
+	bool Initialize(DeviceManager* deviceManager);
 	bool Reset();
 
 	virtual void FlushRender();
-	RenderEngineTest::MeshVertex_Test* GetMesh()	{ return m_lstVertex; }
-	int* GetVerticesIndex()							{ return m_lstVerticesIndex; }
-	int	 GetVerticesCount()							{ return m_nNumVertices;  }
+	RenderEngineTest::MeshVertex_Test* GetMesh()	{ return _vertices; }
+	int* GetVerticesIndex()							{ return _vertexIndices; }
+	int	 GetVerticesCount()							{ return _vertexCount;  }
 
 private:
 
-	RenderEngineTest::MeshVertex_Test*	m_lstVertex;
-	void*								m_pVertexBuffer;
-	void*								m_pIndexBuffer;
-	int*								m_lstVerticesIndex;
-	int									m_nNumVertices;
+	RenderEngineTest::MeshVertex_Test*	_vertices;
+	void*								_vertexBuffer;
+	void*								_indexBuffer;
+	int*								_vertexIndices;
+	int									_vertexCount;
 
-	bool								m_bIsUsePool;
+	bool								_isUsePool;
 
 };

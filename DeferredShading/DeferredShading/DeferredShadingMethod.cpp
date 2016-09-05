@@ -9,10 +9,10 @@
 #include "CustomMatrix.h"
 #include "ORBITMesh.h"
 #include "ORBITMeshSubset.h"
-
-DeferredShadingMethod::DeferredShadingMethod(RenderingManager* pRenderingMnanger)
+#include "DeviceManager.h"
+DeferredShadingMethod::DeferredShadingMethod(RenderingManager* renderingMnanger)
 {
-	_renderingMananger = pRenderingMnanger;
+	_renderingMananger = renderingMnanger;
 	_renderingMethodImpl = nullptr;
 	_VSync = false;
 	_mSecPerFrame = 0.0f;
@@ -28,9 +28,9 @@ bool DeferredShadingMethod::Initialize()
 {
 	_VSync = _renderingMananger->IsVsyncOn();
 	_FPS = _renderingMananger->GetFPS();
-	_mSecPerFrame = 1000 / _FPS; 
+	_mSecPerFrame = static_cast<float>(1000) / static_cast<float>(_FPS);
 	_currentMSecPerFrame = 0.0f;
-	_graphicsDevice = _renderingMananger->GetDeviceManager()->GetDeviceManager()->GetDevice();
+	_graphicsDevice = _renderingMananger->GetDeviceManager()->GetDevice();
 
 	return true;
 }
@@ -38,7 +38,7 @@ bool DeferredShadingMethod::Reset()
 {
 	_VSync = _renderingMananger->IsVsyncOn();
 	_FPS = _renderingMananger->GetFPS();
-	_mSecPerFrame = 1000 / _FPS;
+	_mSecPerFrame = static_cast<float>(1000) / static_cast<float>(_FPS);
 	_currentMSecPerFrame = 0.0f;
 
 	return true;
@@ -77,13 +77,13 @@ void DeferredShadingMethod::RenderGBuffer_(DeviceManager* deviceManager, ShaderM
 			const ORBITMeshSubset* meshSubsets = meshData[meshIndex]->GetSubset();
 			int subsetCount = meshData[meshIndex]->GetSubsetCount();
 			_renderingMethodImpl->SetVertexBuffer(meshData[meshIndex]);
-			_renderingMethodImpl->SetIndexBuffer(meshData[meshIndex]);
+			_renderingMethodImpl->SetSubsetVBIndicesInfo(meshData[meshIndex]->GetSubset());
 			if (ORBITMesh::SUBSETINDEXMAPPINGTYPE::STORED == meshData[meshIndex]->GetSubsetIndexMappingType())
 			{
 				for (int subsetIndex = 0; subsetIndex < subsetCount; subsetIndex++)
 				{
 					_renderingMethodImpl->SetMaterial();
-					_renderingMethodImpl->SetSubsetVBIndicesInfo();
+					//_renderingMethodImpl->SetSubsetVBIndicesInfo();
 					_renderingMethodImpl->RenderMesh();
 
 

@@ -2,11 +2,11 @@
 #include "CoreEngineCommon.h"
 class ORBITMesh;
 
-class IGraphcisDevice
+class IGraphicsDevice
 {
 public:
-	IGraphcisDevice() {}
-	virtual ~IGraphcisDevice() = 0;
+	IGraphicsDevice() {}
+	virtual ~IGraphicsDevice() = 0;
 
 	virtual void* GetShader() = 0;
 	virtual void* GetBuffer() = 0;

@@ -51,7 +51,7 @@ DeferredShadingMethodDX::~DeferredShadingMethodDX()
 bool DeferredShadingMethodDX::Initialize(DeviceManager* deviceManager, ShaderManager* shaderManager)
 {
 	_shaderManager = shaderManager;
-	IGraphcisDevice* graDevice = deviceManager->GetDevice();
+	IGraphicsDevice* graDevice = deviceManager->GetDevice();
 	if (graDevice == nullptr || graDevice->GetGraphicsAPIType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2)
 		return false;
 
@@ -78,7 +78,7 @@ bool DeferredShadingMethodDX::Initialize(DeviceManager* deviceManager, ShaderMan
 bool DeferredShadingMethodDX::Reset(DeviceManager* deviceManager, ShaderManager* shaderManager)
 {
 	_shaderManager = shaderManager;
-	IGraphcisDevice* graDevice = deviceManager->GetDevice();
+	IGraphicsDevice* graDevice = deviceManager->GetDevice();
 	if (graDevice == nullptr || graDevice->GetGraphicsAPIType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2)
 		return false;
 
@@ -251,19 +251,19 @@ bool DeferredShadingMethodDX::SetConstVariables()
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	_deviceContext->Map(_vsConstVariableBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 
-	ShaderConstVariables* constants = static_cast<ShaderConstVariables*>(mappedResource.pData);
+	ShaderConstVariables* constantsVS = static_cast<ShaderConstVariables*>(mappedResource.pData);
 	//set vs const variables 
 	_vsConstVariables = ;
-	*constants = _vsConstVariables;
+	*constantsVS = _vsConstVariables;
 
 	_deviceContext->Unmap(_vsConstVariableBuffer, 0);
 
 	_deviceContext->Map(_psConstVariableBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 
-	ShaderConstVariables* constants = static_cast<ShaderConstVariables*>(mappedResource.pData);
+	ShaderConstVariables* constantsPS = static_cast<ShaderConstVariables*>(mappedResource.pData);
 	//set vs const variables 
 	_psConstVariables = ;
-	*constants = _psConstVariables;
+	*constantsPS = _psConstVariables;
 
 	_deviceContext->Unmap(_psConstVariableBuffer, 0);
 

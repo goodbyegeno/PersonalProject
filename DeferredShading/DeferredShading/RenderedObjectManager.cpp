@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "RenderedObjectManager.h"
-RenderedObjectManager::RenderedObjectManager(GraphicsSystem* pGraphicSystem)
+RenderedObjectManager::RenderedObjectManager(GraphicsSystem* graphicSystem)
 {
-	m_pGraphicSystem = pGraphicSystem;
+	_graphicSystem = graphicSystem;
 
 }
 RenderedObjectManager::~RenderedObjectManager()
@@ -18,7 +18,7 @@ bool RenderedObjectManager::Reset()
 {
 	return true;
 }
-void RenderedObjectManager::Update(float fDeltaTime)
+void RenderedObjectManager::Update(float deltaTime)
 {
 
 }

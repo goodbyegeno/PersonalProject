@@ -1,109 +1,114 @@
 #include "stdafx.h"
+#include "IRenderedObject.h"
 #include "RenderingManager.h"
 #include "DeferredShadingMethod.h"
 #include "DeviceManager.h"
 #include "GraphicsSystem.h"
 
-RenderingManager::RenderingManager(GraphicsSystem* pGraphicSystem)
+RenderingManager::RenderingManager(GraphicsSystem* graphicSystem)
 {
-	m_pGraphicsSystem = pGraphicSystem;
-	m_pDeviceManager = nullptr;
-	m_nFPS = 60;
-	m_bVsync = false;
-	for (int iRenderMethod = 0; iRenderMethod < static_cast<int>(RenderEngine::RenderingMode::MAX); iRenderMethod++)
+	_graphicsSystem = graphicSystem;
+	_deviceManager = nullptr;
+	_FPS = 60;
+	_vSync = false;
+	for (int iRenderMethod = 0; iRenderMethod < static_cast<int>(RenderEngine::RENDERINGMODE::MAX); iRenderMethod++)
 	{
-		m_lstRenderingMethod[iRenderMethod] = nullptr;
-		m_lstRequestRender[iRenderMethod].clear();
-		m_lstRequestRender[iRenderMethod].resize(100);
+		_renderingMethod[iRenderMethod] = nullptr;
+		_requestRender[iRenderMethod].clear();
+		_requestRender[iRenderMethod].resize(100);
 	}
 	
 }
 RenderingManager::~RenderingManager()
 {
-	m_pGraphicsSystem = nullptr;
+	_graphicsSystem = nullptr;
 
-	for (int iRenderMethod = 0; iRenderMethod < static_cast<int>(RenderEngine::RenderingMode::MAX); iRenderMethod++)
+	for (int iRenderMethod = 0; iRenderMethod < static_cast<int>(RenderEngine::RENDERINGMODE::MAX); iRenderMethod++)
 	{
-		if (m_lstRenderingMethod[iRenderMethod])
+		if (_renderingMethod[iRenderMethod])
 		{
-			delete m_lstRenderingMethod[iRenderMethod];
+			delete _renderingMethod[iRenderMethod];
 		}
 	}
 }
 
 bool RenderingManager::Initialize()
 {
-	m_nFPS = 60;
-	m_bVsync = false;
-	m_pDeviceManager = nullptr;
+	_FPS = 60;
+	_vSync = false;
+	_deviceManager = nullptr;
 
-	if (m_pGraphicsSystem)
+	if (_graphicsSystem)
 	{
-		m_pDeviceManager = m_pGraphicsSystem->GetDeviceManager();
+		_deviceManager = _graphicsSystem->GetDeviceManager();
 	}
 	//test code
-	m_lstRenderingMethod[static_cast<int>(RenderEngine::RenderingMode::Indexed_Deferred)] = CreateRenderingMethod(RenderEngine::RenderingMode::Indexed_Deferred);
+	_renderingMethod[static_cast<int>(RenderEngine::RENDERINGMODE::INDEXED_DEFERRED_SHADING)] = CreateRenderingMethod(RenderEngine::RENDERINGMODE::INDEXED_DEFERRED_SHADING);
+
+	return true;
 }
 bool RenderingManager::Reset()
 {
-	m_nFPS = 60;
-	m_bVsync = false;
+	_FPS = 60;
+	_vSync = false;
+	return true;
 }
-bool RenderingManager::RequestRender(IRenderedObject* pTarget)
+bool RenderingManager::RequestRender(IRenderedObject* target)
 {
-	int nRenderMethod = static_cast<int>(pTarget->GetRenderedMode());
-	m_lstRequestRender[nRenderMethod].push_back(pTarget);
+	int renderMethodIndex = static_cast<int>(target->GetRenderedMode());
+	_requestRender[renderMethodIndex].push_back(target);
+	return true;
 }
 
-void RenderingManager::Render(DeviceManager* pDeviceManager, ShaderManager* pShaderManager, float fDeltaTime)
+void RenderingManager::Render(DeviceManager* deviceManager, ShaderManager* shaderManager, float deltaTime)
 {
-	for (int iRenderMethod = 0; iRenderMethod < static_cast<int>(RenderEngine::RenderingMode::MAX); iRenderMethod++)
+	for (int iRenderMethod = 0; iRenderMethod < static_cast<int>(RenderEngine::RENDERINGMODE::MAX); iRenderMethod++)
 	{
-		if (m_lstRenderingMethod[iRenderMethod])
+		if (_renderingMethod[iRenderMethod])
 		{
-			m_lstRenderingMethod[iRenderMethod]->Render(pDeviceManager, pShaderManager, &(m_lstRequestRender[iRenderMethod]), fDeltaTime);
+			_renderingMethod[iRenderMethod]->Render(deviceManager, shaderManager, _requestRender[iRenderMethod], deltaTime);
 		}
 	}
 }
-void RenderingManager::PreUpdate(float fDeltaTime)
+void RenderingManager::PreUpdate(float deltaTime)
 {
-	for (int iRenderMethod = 0; iRenderMethod < static_cast<int>(RenderEngine::RenderingMode::MAX); iRenderMethod++)
+	for (int iRenderMethod = 0; iRenderMethod < static_cast<int>(RenderEngine::RENDERINGMODE::MAX); iRenderMethod++)
 	{
-		m_lstRequestRender[iRenderMethod].clear();
+		_requestRender[iRenderMethod].clear();
 	}
 }
 
-void RenderingManager::Update(float fDeltaTime)
+void RenderingManager::Update(float deltaTime)
 {
 	
 }
-void RenderingManager::PostUpdate(float fDeltaTime)
+void RenderingManager::PostUpdate(float deltaTime)
 {
 	//sorting
 }
-IRenderMethod* RenderingManager::CreateRenderingMethod(RenderEngine::RenderingMode eRenderMode)
+IRenderMethod* RenderingManager::CreateRenderingMethod(RenderEngine::RENDERINGMODE renderMode)
 {
-	IRenderMethod* pRenderingMethod = nullptr;
+	IRenderMethod* renderingMethod = nullptr;
 
-	switch (eRenderMode)
+	switch (renderMode)
 	{
-	case RenderEngine::RenderingMode::Deferred_Shading:
+	case RenderEngine::RENDERINGMODE::DEFERRED_SHADING:
 		break;
 
-	case RenderEngine::RenderingMode::Indexed_Deferred:
-		pRenderingMethod = new DeferredShadingMethod(this);
-		pRenderingMethod->Initialize();
+	case RenderEngine::RENDERINGMODE::INDEXED_DEFERRED_SHADING:
+		renderingMethod = new DeferredShadingMethod(this);
+		renderingMethod->Initialize();
 
 		break;
-	case RenderEngine::RenderingMode::Forward:
+	case RenderEngine::RENDERINGMODE::FORWARD:
 		break;
 	};
 
-	return pRenderingMethod;
+	return renderingMethod;
 
 }
 
-std::vector<IRenderedObject*>& RenderingManager::GetRenderRequestObject(RenderEngine::RenderingMode eRenderMode)
+std::vector<IRenderedObject*>& RenderingManager::GetRenderRequestObject(RenderEngine::RENDERINGMODE renderMode)
 {
-	return m_lstRequestRender[static_cast<int>(eRenderMode)];
+	return _requestRender[static_cast<int>(renderMode)];
 }

@@ -3,17 +3,17 @@ class GraphicsSystem;
 class RenderedObjectManager
 {
 public:
-	RenderedObjectManager(GraphicsSystem* pGraphicSystem);
+	RenderedObjectManager(GraphicsSystem* graphicSystem);
 	virtual ~RenderedObjectManager();
 
 	bool Initialize();
 	bool Reset();
 
 	void Render();
-	void PreUpdate(float fDeltaTime);
-	void PostUpdate(float fDeltaTime);
+	void PreUpdate(float deltaTime);
+	void PostUpdate(float deltaTime);
 
-	void Update(float fDeltaTime);
+	void Update(float deltaTime);
 private:
-	GraphicsSystem* m_pGraphicSystem;
+	GraphicsSystem* _graphicSystem;
 };

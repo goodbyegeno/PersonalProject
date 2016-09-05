@@ -26,6 +26,7 @@ bool CoreSystem::Initialzie()
 bool CoreSystem::Reset()
 {
 	_timeObject.Reset();
+	return true;
 }
 
 void CoreSystem::PreUpdate()

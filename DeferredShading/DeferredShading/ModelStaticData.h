@@ -7,7 +7,7 @@ public:
 	ModelStaticData();
 	virtual ~ModelStaticData();
 
-	const ORBITMesh* const* GetMeshDatas() const	{ return _meshData; }
+	const ORBITMesh* const* GetMeshDatas() const				{ return _meshData; }
 	int			GetMeshCount() const				{ return _meshCount; }
 
 	void		SetMeshDatas(ORBITMesh** meshDatas) { _meshData = meshDatas; }
