@@ -19,8 +19,8 @@ public:
 
 	CoreEngine::GRAPHICSAPITYPE GetCurrentGraphicsAPIType() { return _currentGraphicsAPIType; }
 
-	const ORBITMATRIX4x4& GetViewMatrix() { return _cameraObject->GetViewMatrix(); }
-	const ORBITMATRIX4x4& GetProjMatrix() { return _cameraObject->GetProjMatrix(); }
+	const ORBITMATRIX4x4& GetViewMatrix();// { return _cameraObject->GetViewMatrix(); }
+	const ORBITMATRIX4x4& GetProjMatrix();// { return _cameraObject->GetProjMatrix(); }
 
 	
 private:

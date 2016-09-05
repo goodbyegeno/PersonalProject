@@ -16,10 +16,10 @@ struct PSINPUTTYPE
 };
 struct PSOUTPUTTYPE
 {
-	float4	albedo			: SV_TARGET0
-	float4	normal			: SV_TARGET1
-	float4	specular		: SV_TARGET2
-	float4	position		: SV_TARGET3
+	float4	albedo			: SV_TARGET0;
+	float4	normal			: SV_TARGET1;
+	float4	specular		: SV_TARGET2;
+	float4	position		: SV_TARGET3;
 };
 Texture2D shaderTextures[3];	//0 color 1 normal 2 spec
 SamplerState SampleType;

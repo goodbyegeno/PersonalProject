@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "GraphicsSystem.h"
 #include "RenderingManager.h"
 #include "DeviceManager.h"

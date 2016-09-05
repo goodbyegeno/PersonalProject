@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "CharacterRenderedObject.h"
 
 CharacterRenderedObject::CharacterRenderedObject()
@@ -12,8 +13,9 @@ bool CharacterRenderedObject::IsGotAlphaBlend()
 { 
 	return false; 
 }
-
+/*
 void CharacterRenderedObject::FlushRender()
 {
 
 }
+*/

@@ -1,10 +1,10 @@
+#include "stdafx.h"
 #include "ORBITMeshSubset.h"
 
-
-ORBITMeshSubset::ORBITMeshSubset( int vertexCount, int vertexStart, int* vertexIndices) :
-	_vertexCount(vertexCount),
+ORBITMeshSubset::ORBITMeshSubset(int indexCount, int indexStart, int vertexStart) :
+	_indexCount(indexCount),
+	_indexStart(indexStart),
 	_vertexStart(vertexStart),
-	_vertexIndices(vertexIndices),
 	_subsetMaterial(nullptr)
 {
 
@@ -12,9 +12,7 @@ ORBITMeshSubset::ORBITMeshSubset( int vertexCount, int vertexStart, int* vertexI
 
 ORBITMeshSubset::~ORBITMeshSubset()
 {
-	if (_vertexIndices)
-		delete _vertexIndices;
 
-	_vertexIndices = nullptr;
+	_subsetMaterial = nullptr;
 }
 

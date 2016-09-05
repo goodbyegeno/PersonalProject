@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DXDevice.h"
 #include "CameraBase.h"
 #include "ORBITMesh.h"

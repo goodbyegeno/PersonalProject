@@ -1,5 +1,6 @@
+#include "stdafx.h"
+#include <Windows.h>
 #include "TempTimer.h"
-#include <Windows.h>>
 
 TimerObject::TimerObject()
 {

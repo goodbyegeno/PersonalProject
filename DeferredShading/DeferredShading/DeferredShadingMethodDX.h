@@ -1,8 +1,9 @@
 #pragma once
-
+#include "CoreEngineCommon.h"
 #include "RenderEngineCommon.h"
 #include "IDeferredShadingMethodImpl.h"
 #include <d3d11_4.h>
+#include <DirectXMath.h>
 #include <vector>
 class DeviceManager;
 class ShaderManager;
@@ -51,7 +52,7 @@ public:
 
 	bool InitRenderTargets(ShaderRenderTarget** renderTargets, int renderTargetNum);
 
-	virtual CoreEngine::GRAPHICSAPITYPE GetMiddleWareType() { return CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2;  }
+	virtual CoreEngine::GRAPHICSAPITYPE GetMiddleWareType() { return CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2; }
 
 	virtual bool SetCameraMatrix();
 	virtual bool SettingShaderOptions();

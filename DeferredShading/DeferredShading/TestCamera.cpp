@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "TestCamera.h"
 #include "CameraBase.h"
 #include "CoreEngineCommon.h"

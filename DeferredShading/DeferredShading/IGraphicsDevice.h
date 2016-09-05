@@ -1,4 +1,7 @@
 #pragma once
+#include "CoreEngineCommon.h"
+class ORBITMesh;
+
 class IGraphcisDevice
 {
 public:

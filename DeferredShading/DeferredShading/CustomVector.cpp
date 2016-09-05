@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "CustomVector.h"
 ORBITFLOAT2::ORBITFLOAT2()
 {

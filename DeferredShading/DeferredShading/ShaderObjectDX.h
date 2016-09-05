@@ -6,7 +6,7 @@ class ShaderObjectDX : public IShaderObject
 {
 public:
 
-	ShaderObjectDX(std::string shaderName, ID3D11Device3* deviceDX, ID3DBlob* shaderBuffer, ID3D11Device3Child* shaderData);
+	ShaderObjectDX(std::string shaderName, ID3D11Device3* deviceDX, ID3DBlob* shaderBuffer, ID3D11DeviceChild* shaderData);
 	ShaderObjectDX() = delete;
 	virtual ~ShaderObjectDX();
 	
@@ -22,7 +22,7 @@ protected:
 
 	std::string					_shaderName;
 	size_t						_shaderNameHash;
-	ID3D11Device3Child*			_shaderData;
+	ID3D11DeviceChild*			_shaderData;
 	ID3DBlob*					_shaderBuffer;
 	ID3D11Device3*				_device;
 	//ID3D11InputLayout*			_inputLayout;

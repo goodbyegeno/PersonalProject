@@ -1,4 +1,5 @@
 #pragma once
+class DeviceManager;
 class IShaderRenderTargetImpl;
 class IRenderedObject;
 class ORBITMATRIX4x4;

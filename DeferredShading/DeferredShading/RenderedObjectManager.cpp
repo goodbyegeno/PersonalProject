@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "RenderedObjectManager.h"
 RenderedObjectManager::RenderedObjectManager(GraphicsSystem* pGraphicSystem)
 {
@@ -9,13 +10,13 @@ RenderedObjectManager::~RenderedObjectManager()
 
 }
 
-void RenderedObjectManager::Initialize()
+bool RenderedObjectManager::Initialize()
 {
-
+	return true;
 }
-void RenderedObjectManager::Reset()
+bool RenderedObjectManager::Reset()
 {
-
+	return true;
 }
 void RenderedObjectManager::Update(float fDeltaTime)
 {

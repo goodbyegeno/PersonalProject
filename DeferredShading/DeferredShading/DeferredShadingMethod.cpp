@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DeferredShadingMethod.h"
 #include "RenderingManager.h"
 #include "GraphicsSystem.h"

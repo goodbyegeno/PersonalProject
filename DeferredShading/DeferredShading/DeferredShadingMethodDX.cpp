@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DeferredShadingMethodDX.h"
 #include "CoreEngineCommon.h"
 #include "ShaderManager.h"
@@ -41,9 +42,7 @@ DeferredShadingMethodDX::DeferredShadingMethodDX() :
 	_srSpecularSlot(0),
 	_srNormalSlot(0)
 {
-	_srDiffuseSlot = ;
-	_srSpecularSlot = ;
-	_srNormalSlot = ;
+
 }
 DeferredShadingMethodDX::~DeferredShadingMethodDX()
 {
@@ -371,7 +370,7 @@ DeferredShadingMethodDX::DrawVariables::~DrawVariables()
 
 }
 
-int DeferredShadingMethodDX::DrawVariables::SetIndexData(int indexCount, int indexStart, int vertexStart)
+void DeferredShadingMethodDX::DrawVariables::SetIndexData(int indexCount, int indexStart, int vertexStart)
 {
 	_indexCount = indexCount;
 	_indexStart = indexStart;

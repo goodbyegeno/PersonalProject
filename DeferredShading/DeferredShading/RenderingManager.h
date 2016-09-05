@@ -5,6 +5,7 @@ class GraphicsSystem;
 class DeviceManager;
 class IRenderedObject;
 class IRenderMethod;
+class ShaderManager;
 
 class RenderingManager
 {

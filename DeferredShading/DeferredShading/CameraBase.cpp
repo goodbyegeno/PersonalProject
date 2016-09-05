@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "CameraBase.h" 
 #include "CoreSystem.h"
 CameraBase::CameraBase(CoreSystem* coreSystem) :

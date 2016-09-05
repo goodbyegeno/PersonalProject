@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "RenderingManager.h"
 #include "DeferredShadingMethod.h"
 #include "DeviceManager.h"

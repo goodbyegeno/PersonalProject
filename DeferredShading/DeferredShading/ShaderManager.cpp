@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "ShaderManager.h"
 
 ShaderManager::ShaderManager(GraphicsSystem* pGraphicSystem)
@@ -9,13 +10,14 @@ ShaderManager::~ShaderManager()
 
 }
 
-void ShaderManager::Initialize()
+bool ShaderManager::Initialize()
 {
 
+	return true;
 }
-void ShaderManager::Reset()
+bool ShaderManager::Reset()
 {
-
+	return true;
 }
 void ShaderManager::PreUpdate(float fDeltaTime)
 {
