@@ -1,5 +1,7 @@
 #pragma once
 #include "IORBITReadonlyMesh.h"
+#include "RenderEngineCommon.h"
+#include <d3d11_4.h>
 class ORBITVertex;
 class ORBITMeshSubset;
 
@@ -15,6 +17,8 @@ public:
 		int		vertexCount;
 		int*	indices;
 		int		indexCount;
+		RenderEngine::ORBIT_FORMAT indexBufferFormat;
+
 	};
 	enum class SUBSETINDEXMAPPINGTYPE
 	{
@@ -42,6 +46,7 @@ public:
 	
 	SUBSETINDEXMAPPINGTYPE	GetSubsetIndexMappingType() const	{ return _subsetIndexMappingType; }
 	const ORBITMeshSubset*	GetSubset()	const				{ return _meshSubset; }
+	RenderEngine::ORBIT_FORMAT	GetIndexBufferFormat()			{ return _indexBufferFormat; }
 private:
 
 	SUBSETINDEXMAPPINGTYPE	_subsetIndexMappingType;
@@ -64,6 +69,8 @@ private:
 
 	int				_subsetCount;
 	ORBITMeshSubset* _meshSubset;
+	RenderEngine::ORBIT_FORMAT _indexBufferFormat;
+
 
 	//int*			_subsetIndex;
 };

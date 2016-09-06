@@ -8,13 +8,25 @@ TestCamera::TestCamera(CameraBase* cameraBase)
 	_cameraBase = cameraBase;
 	_cameraBase->SetProjectionMode(CoreEngine::PROJECTIONMODE::PERSPECTIVE);
 
-	_cameraBase->SetViewMatrix();
-	_cameraBase->SetProjMatrix();
-	_cameraBase->SetPosition();
-	_cameraBase->SetDirection();
-	_cameraBase->SetUpVector();
-	_cameraBase->SetRightVector();
-	_cameraBase->SetProjectionMode();
+	ORBITFLOAT3 vectorTemp(0.0f, 0.0f, 0.0f);
+	ORBITMATRIX4x4 matrixTemp;
+
+	_cameraBase->SetViewMatrix(matrixTemp);
+	_cameraBase->SetProjMatrix(matrixTemp);
+	
+	vectorTemp._x = 0.0f; 	vectorTemp._y = 0.0f;	vectorTemp._z = 0.0f;
+	_cameraBase->SetPosition(vectorTemp);
+	
+	vectorTemp._x = -1.0f; 	vectorTemp._y = -1.0f;	vectorTemp._z = -1.0f;
+	_cameraBase->SetDirection(vectorTemp);
+	
+	vectorTemp._x = 0.0f; 	vectorTemp._y = 1.0f;	vectorTemp._z = 0.0f;
+	_cameraBase->SetUpVector(vectorTemp);
+	
+	vectorTemp._x = 0.0f; 	vectorTemp._y = 0.0f;	vectorTemp._z = 1.0f;
+	_cameraBase->SetRightVector(vectorTemp);
+
+	_cameraBase->SetProjectionMode(CoreEngine::PROJECTIONMODE::PERSPECTIVE);
 }
 TestCamera::~TestCamera()
 {

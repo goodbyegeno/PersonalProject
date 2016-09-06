@@ -156,6 +156,7 @@
     <ClInclude Include="DeferredShadingMethodDX.h" />
     <ClInclude Include="DeviceManager.h" />
     <ClInclude Include="DXDevice.h" />
+    <ClInclude Include="DXHelper11.h" />
     <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="ICameraMovement.h" />
     <ClInclude Include="IDeferredShadingMethodImpl.h" />
@@ -199,9 +200,11 @@
     <ClCompile Include="DeferredShadingMethod.cpp" />
     <ClCompile Include="DeferredShadingMethodDX.cpp" />
     <ClCompile Include="DXDevice.cpp" />
+    <ClCompile Include="DXHelper11.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
     <ClCompile Include="ModelDynamicData.cpp" />
     <ClCompile Include="ModelStaticData.cpp" />
+    <ClCompile Include="ORBITMesh.cpp" />
     <ClCompile Include="ORBITMeshSubset.cpp" />
     <ClCompile Include="ORBITMaterial.cpp" />
     <ClCompile Include="RenderedObjectManager.cpp" />

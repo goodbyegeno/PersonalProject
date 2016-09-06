@@ -189,6 +189,9 @@
     <ClInclude Include="ORBITMaterial.h">
       <Filter>RenderEngine\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="DXHelper11.h">
+      <Filter>RenderEngine\DXModule</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -265,6 +268,12 @@
     </ClCompile>
     <ClCompile Include="ORBITMaterial.cpp">
       <Filter>RenderEngine\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="DXHelper11.cpp">
+      <Filter>RenderEngine\DXModule</Filter>
+    </ClCompile>
+    <ClCompile Include="ORBITMesh.cpp">
+      <Filter>RenderEngine\Device</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

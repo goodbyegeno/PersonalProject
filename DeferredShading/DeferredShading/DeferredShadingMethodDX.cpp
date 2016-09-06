@@ -18,9 +18,9 @@
 #include "ORBITMeshSubset.h"
 #include "ORBITMaterial.h"
 #include "DXDevice.h"
+#include "DXHelper11.h"
 #include <d3d11_4.h>
 #include <DirectXMath.h>
-#include <Psapi.h>
 
 DeferredShadingMethodDX::DeferredShadingMethodDX() :
 	_device(nullptr),
@@ -42,7 +42,6 @@ DeferredShadingMethodDX::DeferredShadingMethodDX() :
 	_srSpecularSlot(0),
 	_srNormalSlot(0)
 {
-
 }
 DeferredShadingMethodDX::~DeferredShadingMethodDX()
 {
@@ -226,6 +225,7 @@ bool DeferredShadingMethodDX::SetCameraMatrix()
 	_vsConstVariables._viewProjMatrix = DirectX::XMMatrixMultiply(_vsConstVariables._viewMatrix, _vsConstVariables._projMatrix);
 	_psConstVariables._viewProjMatrix = _vsConstVariables._viewProjMatrix;
 	return true;
+
 }
 bool DeferredShadingMethodDX::SettingShaderOptions()
 {
@@ -288,7 +288,7 @@ bool DeferredShadingMethodDX::SetVertexBuffer(ORBITMesh* mesh)
 	ID3D11Buffer* const* vertexBuffers = mesh->GetVertexBuffersDX11();
 
 	_deviceContext->IASetVertexBuffers(0, mesh->GetVertexBufferCount(), vertexBuffers, mesh->GetStrides(), mesh->GetOffsets());
-	_deviceContext->IASetIndexBuffer(mesh->GetIndexBufferDX11(), _dxHelper->GetIndexBufferFormat(mesh->GetIndexBufferFormat()), 0);
+	_deviceContext->IASetIndexBuffer(mesh->GetIndexBufferDX11(), g_DXHelper11->GetIndexBufferFormat(mesh->GetIndexBufferFormat()), 0);
 	//_deviceWrapper->RenderMesh(meshData[meshIndex]));
 }
 bool DeferredShadingMethodDX::SetSubsetVBIndicesInfo(const ORBITMeshSubset* subsetData)

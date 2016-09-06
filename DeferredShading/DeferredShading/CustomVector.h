@@ -31,7 +31,7 @@ public:
 	{
 		return ORBITFLOAT2(_x - rParam._x, _y - rParam._y);
 	}
-private:
+public:
 	float _x;
 	float _y;
 
@@ -58,7 +58,7 @@ public:
 	{
 		return ORBITFLOAT3(_x - rParam._x, _y - rParam._y, _z - rParam._z);
 	}
-private:
+public:
 	float _x;
 	float _y;
 	float _z;
@@ -86,7 +86,7 @@ public:
 	{
 		return ORBITFLOAT4(_x - rParam._x, _y - rParam._y, _z - rParam._z, _w - rParam._w);
 	}
-private:
+public:
 	float _x;
 	float _y;
 	float _z;
