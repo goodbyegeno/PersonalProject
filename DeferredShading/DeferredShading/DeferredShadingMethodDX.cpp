@@ -4,8 +4,9 @@
 #include "ShaderManager.h"
 #include "IShaderObejct.h"
 #include "DeviceManager.h"
-#include "IGraphicsDevice.h"
+#include "GraphicsDevice.h"
 #include "CoreSystem.h"
+#include "CameraBase.h"
 #include "CustomMatrix.h"
 #include "CustomVector.h"
 #include "ShaderRenderTarget.h"
@@ -17,8 +18,9 @@
 #include "ORBITMesh.h"
 #include "ORBITMeshSubset.h"
 #include "ORBITMaterial.h"
-#include "DXDevice.h"
+#include "DXDevice11_4.h"
 #include "DXHelper11.h"
+#include "RenderingSingletonManager.h"
 #include <d3d11_4.h>
 #include <DirectXMath.h>
 
@@ -50,17 +52,16 @@ DeferredShadingMethodDX::~DeferredShadingMethodDX()
 bool DeferredShadingMethodDX::Initialize(DeviceManager* deviceManager, ShaderManager* shaderManager)
 {
 	_shaderManager = shaderManager;
-	IGraphicsDevice* graDevice = deviceManager->GetDevice();
-	if (graDevice == nullptr || graDevice->GetGraphicsAPIType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2)
+	GraphicsDevice* graDevice = deviceManager->GetDevice();
+	if (graDevice == nullptr || graDevice->GetGraphicsAPIType() != RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4)
 		return false;
 
-	_deviceWrapper = static_cast<DXDevice*>(graDevice);
+	_deviceWrapper = static_cast<DXDevice11_4*>(graDevice);
 
 	_device = static_cast<ID3D11Device3*>(graDevice->GetBuffer());
 	if (_device == nullptr)
-	{
 		return false;
-	}
+
 	_deviceContext			= nullptr;
 	
 	_vertexShader			= nullptr;
@@ -73,12 +74,14 @@ bool DeferredShadingMethodDX::Initialize(DeviceManager* deviceManager, ShaderMan
 
 	if (SetShader_(shaderManager, _device) == false)
 		return false;
+
+	return true;
 }
 bool DeferredShadingMethodDX::Reset(DeviceManager* deviceManager, ShaderManager* shaderManager)
 {
 	_shaderManager = shaderManager;
-	IGraphicsDevice* graDevice = deviceManager->GetDevice();
-	if (graDevice == nullptr || graDevice->GetGraphicsAPIType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2)
+	GraphicsDevice* graDevice = deviceManager->GetDevice();
+	if (graDevice == nullptr || graDevice->GetGraphicsAPIType() != RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4)
 		return false;
 
 	_device = static_cast<ID3D11Device3*>(graDevice->GetBuffer());
@@ -92,6 +95,8 @@ bool DeferredShadingMethodDX::Reset(DeviceManager* deviceManager, ShaderManager*
 	_computeShaderHash		= 0;
 
 	SetShader_(shaderManager, _device);
+
+	return true;
 }
 bool DeferredShadingMethodDX::SetShader_(ShaderManager* shaderManager, ID3D11Device3* deviceDX)
 {
@@ -100,7 +105,7 @@ bool DeferredShadingMethodDX::SetShader_(ShaderManager* shaderManager, ID3D11Dev
 	tempShaderObject = shaderManager->GetShaderObject(_vertexShaderHash);
 	if (tempShaderObject == nullptr)
 		return false;
-	if (tempShaderObject->GetMiddlewareType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2)
+	if (tempShaderObject->GetMiddlewareType() != RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4)
 		return false;
 
 	_vertexShader = static_cast<ID3D11VertexShader*>(tempShaderObject->GetShader());
@@ -145,7 +150,7 @@ bool DeferredShadingMethodDX::SetShader_(ShaderManager* shaderManager, ID3D11Dev
 	tempShaderObject = shaderManager->GetShaderObject(_pixelShaderHash);
 	if (tempShaderObject == nullptr)
 		return false;
-	if (tempShaderObject->GetMiddlewareType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2)
+	if (tempShaderObject->GetMiddlewareType() != RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4)
 		return false;
 
 	_pixelShader = static_cast<ID3D11PixelShader*>(tempShaderObject->GetShader());
@@ -154,7 +159,7 @@ bool DeferredShadingMethodDX::SetShader_(ShaderManager* shaderManager, ID3D11Dev
 	tempShaderObject = shaderManager->GetShaderObject(_computeShaderHash);
 	if (tempShaderObject == nullptr)
 		return false;
-	if (tempShaderObject->GetMiddlewareType() != CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2)
+	if (tempShaderObject->GetMiddlewareType() != RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4)
 		return false;
 
 	_computeShader = static_cast<ID3D11ComputeShader*>(tempShaderObject->GetShader());
@@ -178,6 +183,8 @@ bool DeferredShadingMethodDX::SetShader_(ShaderManager* shaderManager, ID3D11Dev
 	bufferDesc.CPUAccessFlags = 0;
 
 	_device->CreateBuffer(&bufferDesc, 0, &_psConstVariableBuffer);
+
+	return true;
 }
 bool DeferredShadingMethodDX::InitRenderTargets(ShaderRenderTarget** renderTargets, int renderTargetNum)
 {
@@ -192,6 +199,8 @@ bool DeferredShadingMethodDX::InitRenderTargets(ShaderRenderTarget** renderTarge
 		}
 		_renderTargetCount = renderTargetNum;
 	}
+
+	return true;
 }
 
 bool DeferredShadingMethodDX::SetCameraMatrix()
@@ -252,8 +261,7 @@ bool DeferredShadingMethodDX::SetConstVariables()
 	_deviceContext->Map(_vsConstVariableBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 
 	ShaderConstVariables* constantsVS = static_cast<ShaderConstVariables*>(mappedResource.pData);
-	//set vs const variables 
-	_vsConstVariables = ;
+	//set vs const variables
 	*constantsVS = _vsConstVariables;
 
 	_deviceContext->Unmap(_vsConstVariableBuffer, 0);
@@ -262,7 +270,6 @@ bool DeferredShadingMethodDX::SetConstVariables()
 
 	ShaderConstVariables* constantsPS = static_cast<ShaderConstVariables*>(mappedResource.pData);
 	//set vs const variables 
-	_psConstVariables = ;
 	*constantsPS = _psConstVariables;
 
 	_deviceContext->Unmap(_psConstVariableBuffer, 0);
@@ -288,12 +295,16 @@ bool DeferredShadingMethodDX::SetVertexBuffer(ORBITMesh* mesh)
 	ID3D11Buffer* const* vertexBuffers = mesh->GetVertexBuffersDX11();
 
 	_deviceContext->IASetVertexBuffers(0, mesh->GetVertexBufferCount(), vertexBuffers, mesh->GetStrides(), mesh->GetOffsets());
-	_deviceContext->IASetIndexBuffer(mesh->GetIndexBufferDX11(), g_DXHelper11->GetIndexBufferFormat(mesh->GetIndexBufferFormat()), 0);
+	_deviceContext->IASetIndexBuffer(mesh->GetIndexBufferDX11(), RenderingSingletonManager::GetInstance()->GetDXHelper11()->GetIndexBufferFormat(mesh->GetIndexBufferFormat()), 0);
 	//_deviceWrapper->RenderMesh(meshData[meshIndex]));
+
+	return true;
 }
 bool DeferredShadingMethodDX::SetSubsetVBIndicesInfo(const ORBITMeshSubset* subsetData)
 {
 	_drawVariables.SetIndexData(subsetData->GetIndexCount(), subsetData->GetIndexStart(), subsetData->GetVertexStart());
+	return true;
+
 }
 bool DeferredShadingMethodDX::SetMaterial(const ORBITMaterial* material)
 {
@@ -304,6 +315,8 @@ bool DeferredShadingMethodDX::SetMaterial(const ORBITMaterial* material)
 	_deviceContext->PSSetShaderResources(_srDiffuseSlot,	1,	&diffuseRVDX11);
 	_deviceContext->PSSetShaderResources(_srSpecularSlot,	1,	&specularRVDX11);
 	_deviceContext->PSSetShaderResources(_srNormalSlot,		1,	&normalRVDX11);
+
+	return true;
 }
 bool DeferredShadingMethodDX::RenderMesh()
 {
@@ -337,7 +350,7 @@ bool DeferredShadingMethodDX::RenderMesh()
 
 	_deviceContext->DrawIndexed(_drawVariables.GetIndexCount(), _drawVariables.GetIndexStart(), _drawVariables.GetVertexStart());
 
-	return false;
+	return true;
 }
 
 
@@ -350,11 +363,12 @@ bool DeferredShadingMethodDX::RenderLighting(std::vector<IRenderedObject*>& rend
 
 
 	}
-	return false;
+	return true;
 }
 bool DeferredShadingMethodDX::ResetRenderTarget()
 {
 	_deviceContext->OMSetRenderTargets(0, nullptr, nullptr);
+	return true;
 }
 
 

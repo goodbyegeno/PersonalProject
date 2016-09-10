@@ -1,7 +1,12 @@
 #pragma once
-
 namespace RenderEngine
 {
+	enum class GRAPHICSAPITYPE
+	{
+		DIRECTX11_4,
+		OPENGL,
+		MAX
+	};
 	/*
 	enum class RENDERTARGETTYPE
 	{
@@ -51,7 +56,7 @@ namespace RenderEngine
 
 
 	//From DXGI_FORMAT. just rename for opengl compatible
-	enum class ORBIT_FORMAT
+	enum class ORBIT_FORMAT : unsigned int
 	{
 		ORBIT_FORMAT_UNKNOWN = 0,
 		ORBIT_FORMAT_R32G32B32A32_TYPELESS = 1,

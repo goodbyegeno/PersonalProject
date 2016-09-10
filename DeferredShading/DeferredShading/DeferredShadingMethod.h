@@ -1,15 +1,15 @@
 #pragma once
 #include <d3d11_4.h>
 #include "RenderEngineCommon.h"
-#include "IRenderingMethod.h"
+#include "RenderingMethod.h"
 
 class ShaderManager;
 class DeviceManager;
 class RenderingManager;
 class IDeferredShadingMethodImpl;
-class IGraphicsDevice;
+class GraphicsDevice;
 
-class DeferredShadingMethod : public IRenderMethod
+class DeferredShadingMethod : public RenderMethod
 {
 
 public:
@@ -20,7 +20,7 @@ public:
 	virtual bool	Reset();
 
 	virtual void	Render(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject*>& renderRequestObjects, float deltaTime);
-	RenderEngine::RENDERINGMODE GetRenderingMode() final { return RenderEngine::RENDERINGMODE::INDEXED_DEFERRED_SHADING; }
+	virtual RenderEngine::RENDERINGMODE GetRenderingMode() final { return RenderEngine::RENDERINGMODE::INDEXED_DEFERRED_SHADING; }
 
 private:
 	void	RenderGBuffer_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject*>& renderRequestObjects, float deltaTime);
@@ -35,7 +35,7 @@ private:
 	float						_mSecPerFrame;
 	float						_currentMSecPerFrame;
 	int							_FPS;
-	IGraphicsDevice *			_graphicsDevice;
+	GraphicsDevice *			_graphicsDevice;
 
 	
 

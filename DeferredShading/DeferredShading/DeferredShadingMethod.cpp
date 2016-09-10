@@ -65,41 +65,32 @@ void DeferredShadingMethod::RenderGBuffer_(DeviceManager* deviceManager, ShaderM
 	{
 		const ModelDynamicData* modelDaynamicData = renderRequestObjects[objectsIndex]->GetModelDynamicData();
 		const ModelStaticData* modelStaticData = renderRequestObjects[objectsIndex]->GetModelStaticData();
-		const ORBITMATRIX4x4 worldMatrix = ;
+		const ORBITMATRIX4x4* worldMatrix = renderRequestObjects[objectsIndex]->GetWorldMatrix();
 		const ORBITMesh* const* meshData = modelStaticData->GetMeshDatas();
 
-		_renderingMethodImpl->SetWorldMatrix(&worldMatrix);
+		_renderingMethodImpl->SetWorldMatrix(worldMatrix);
 		_renderingMethodImpl->SetConstVariables();
 		
 		for (int meshIndex = 0; meshIndex < modelStaticData->GetMeshCount(); meshIndex++)
 		{
 			//subset
-			const ORBITMeshSubset* meshSubsets = meshData[meshIndex]->GetSubset();
+			ORBITMeshSubset** meshSubsets = meshData[meshIndex]->GetSubset();
 			int subsetCount = meshData[meshIndex]->GetSubsetCount();
 			_renderingMethodImpl->SetVertexBuffer(meshData[meshIndex]);
-			_renderingMethodImpl->SetSubsetVBIndicesInfo(meshData[meshIndex]->GetSubset());
-			if (ORBITMesh::SUBSETINDEXMAPPINGTYPE::STORED == meshData[meshIndex]->GetSubsetIndexMappingType())
+			for (int subsetIndex = 0; subsetIndex < subsetCount; subsetIndex++)
 			{
-				for (int subsetIndex = 0; subsetIndex < subsetCount; subsetIndex++)
+				_renderingMethodImpl->SetSubsetVBIndicesInfo(meshSubsets[subsetIndex]);
+				if (ORBITMesh::SUBSETINDEXMAPPINGTYPE::STORED == meshData[meshIndex]->GetSubsetIndexMappingType())
 				{
-					_renderingMethodImpl->SetMaterial();
-					//_renderingMethodImpl->SetSubsetVBIndicesInfo();
+					_renderingMethodImpl->SetMaterial(meshSubsets[subsetIndex]->GetMaterial());
 					_renderingMethodImpl->RenderMesh();
-
-
-					//_renderingMethodImpl->RenderMesh();
 				}
-			}
-			else if (ORBITMesh::SUBSETINDEXMAPPINGTYPE::LINEAR == meshData[meshIndex]->GetSubsetIndexMappingType())
-			{
-				for (int subsetIndex = 0; subsetIndex < subsetCount; subsetIndex++)
+				else if (ORBITMesh::SUBSETINDEXMAPPINGTYPE::LINEAR == meshData[meshIndex]->GetSubsetIndexMappingType())
 				{
-					_renderingMethodImpl->SetMaterial();
+					_renderingMethodImpl->SetMaterial(meshSubsets[subsetIndex]->GetMaterial());
 					_renderingMethodImpl->RenderMesh();
 				}
 			}
-			
-			
 			/*
 			ID3D11Buffer*  vertexBuffer = static_cast<ID3D11Buffer*>(meshData[meshIndex]->GetVertexBuffer());
 			ID3D11Buffer* const* ppVertexBuffer = &vertexBuffer;

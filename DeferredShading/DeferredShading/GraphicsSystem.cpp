@@ -1,9 +1,11 @@
 #include "stdafx.h"
+#include "RenderEngineCommon.h"
 #include "GraphicsSystem.h"
 #include "RenderingManager.h"
 #include "DeviceManager.h"
 #include "RenderedObjectManager.h"
 #include "ShaderManager.h"
+#include "RenderingSingletonManager.h"
 GraphicsSystem::GraphicsSystem()
 {
 	_renderingMananger		= nullptr;
@@ -13,7 +15,6 @@ GraphicsSystem::GraphicsSystem()
 }
 GraphicsSystem::~GraphicsSystem()
 {
-
 }
 
 bool GraphicsSystem::Inititalize()
@@ -39,6 +40,14 @@ bool GraphicsSystem::Reset()
 
 	return true;
 }
+bool GraphicsSystem::InitializeSingleton_()
+{
+	RenderingSingletonManager::GetInstance();
+
+	return true;
+
+}
+
 void GraphicsSystem::PreUpdate(float deltaTime)
 {
 	_deviceManager		->PreUpdate(deltaTime);

@@ -11,7 +11,7 @@ class IRenderedObject;
 class ShaderRenderTargetDX;
 class ShaderRenderTarget;
 class IRenderedObject;
-class DXDevice;
+class DXDevice11_4;
 
 struct ShaderConstVariables
 {
@@ -52,7 +52,7 @@ public:
 
 	bool InitRenderTargets(ShaderRenderTarget** renderTargets, int renderTargetNum);
 
-	virtual CoreEngine::GRAPHICSAPITYPE GetMiddleWareType() { return CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2; }
+	virtual RenderEngine::GRAPHICSAPITYPE GetMiddleWareType() { return RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4; }
 
 	virtual bool SetCameraMatrix();
 	virtual bool SettingShaderOptions();
@@ -71,7 +71,7 @@ private:
 
 	ShaderManager*					_shaderManager;
 	
-	DXDevice*						_deviceWrapper;
+	DXDevice11_4*						_deviceWrapper;
 	ID3D11Device3*					_device;
 	ID3D11DeviceContext3*			_deviceContext;
 	

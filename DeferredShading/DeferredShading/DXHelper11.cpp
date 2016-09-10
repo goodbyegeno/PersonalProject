@@ -2,15 +2,13 @@
 #include "DXHelper11.h"
 DXHelper11::DXHelper11()
 {
-	if (nullptr == g_DXHelper11)
-		g_DXHelper11 = this;
 }
 
 DXHelper11::~DXHelper11()
 {
 }
 
-DXGI_FORMAT DXHelper11::GetIndexBufferFormat(RenderEngine::ORBIT_FORMAT indexFormat)
+DXGI_FORMAT DXHelper11::GetIndexBufferFormat(RenderEngine::ORBIT_FORMAT indexFormat) const
 {
 	switch (indexFormat)
 	{

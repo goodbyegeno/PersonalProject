@@ -13,12 +13,14 @@ public:
 
 
 	virtual bool IsGotAlphaBlend();
-	RenderEngine::RENDERTYPE	GetRenderedType() final		{ return RenderEngine::RENDERTYPE::CHARACTER; }
-	RenderEngine::RENDERINGMODE GetRenderedMode() final;
+	RenderEngine::RENDERTYPE	GetRenderedType() final	{ return RenderEngine::RENDERTYPE::CHARACTER; }
+	RenderEngine::RENDERINGMODE GetRenderedMode() final { return _renderedMode; }
 
 	const ModelStaticData*	GetMeshStaticData()			{ return &_ModelStaticData; }
 	const ModelDynamicData* GetMeshDynamicData()		{ return &_ModelDynamicData; }
 private:
 	ModelDynamicData	_ModelDynamicData;
 	ModelStaticData		_ModelStaticData;
+	RenderEngine::RENDERINGMODE _renderedMode;
+
 };

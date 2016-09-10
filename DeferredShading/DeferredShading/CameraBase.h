@@ -15,12 +15,12 @@ public:
 	ICameraBase() {}
 	virtual ~ICameraBase() {}
 
-	virtual const ORBITMATRIX4x4& GetViewMatrix() = 0;
-	virtual const ORBITMATRIX4x4& GetProjMatrix() = 0;
-	virtual const ORBITFLOAT3& GetPosition() = 0;
-	virtual const ORBITFLOAT3& GetDirection() = 0;
-	virtual const ORBITFLOAT3& GetUpVector() = 0;
-	virtual const ORBITFLOAT3& GetRightVector() = 0;
+	virtual const ORBITMATRIX4x4& GetViewMatrix() const = 0;
+	virtual const ORBITMATRIX4x4& GetProjMatrix() const = 0;
+	virtual const ORBITFLOAT3& GetPosition() const = 0;
+	virtual const ORBITFLOAT3& GetDirection() const = 0;
+	virtual const ORBITFLOAT3& GetUpVector() const = 0;
+	virtual const ORBITFLOAT3& GetRightVector() const = 0;
 	virtual CoreEngine::PROJECTIONMODE GetProjectionMode() = 0;
 
 };
@@ -39,13 +39,13 @@ public:
 	void Update(float deltaTime);
 	void PostUpdate(float deltaTime);
 
-	const ORBITMATRIX4x4& GetViewMatrix()		{ return _viewMatrix; }
-	const ORBITMATRIX4x4& GetProjMatrix()		{ return _projectionMatrix; }
-	const ORBITFLOAT3& GetPosition()			{ return _position; }
-	const ORBITFLOAT3& GetDirection()			{ return _direction; }
-	const ORBITFLOAT3& GetUpVector()			{ return _upVector; }
-	const ORBITFLOAT3& GetRightVector()			{ return _rightVector; }
-	CoreEngine::PROJECTIONMODE GetProjectionMode() { return _projectionMode; }
+	virtual const ORBITMATRIX4x4& GetViewMatrix() const		{ return _viewMatrix; }
+	virtual const ORBITMATRIX4x4& GetProjMatrix() const		{ return _projectionMatrix; }
+	virtual const ORBITFLOAT3& GetPosition() const			{ return _position; }
+	virtual const ORBITFLOAT3& GetDirection() const			{ return _direction; }
+	virtual const ORBITFLOAT3& GetUpVector() const			{ return _upVector; }
+	virtual const ORBITFLOAT3& GetRightVector() const		{ return _rightVector; }
+	virtual CoreEngine::PROJECTIONMODE GetProjectionMode()	{ return _projectionMode; }
 
 	void SetViewMatrix(ORBITMATRIX4x4& viewMatrix)			{ _viewMatrix = viewMatrix; }
 	void SetProjMatrix(ORBITMATRIX4x4& projectionMatrix)	{ _projectionMatrix = projectionMatrix; }

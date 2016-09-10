@@ -2,9 +2,9 @@
 #include "CoreSystem.h"
 #include "CameraBase.h"
 //for test now. TEST CODE
+CoreSystem* coreSystem;
 
 CoreSystem::CoreSystem() :
-	_currentGraphicsAPIType(CoreEngine::GRAPHICSAPITYPE::DIRECTX11_2),
 	_cameraObject(nullptr)
 {
 	coreSystem = this;
@@ -42,5 +42,6 @@ void CoreSystem::PostUpdate()
 {
 
 }
-inline const ORBITMATRIX4x4& CoreSystem::GetViewMatrix() { return _cameraObject->GetViewMatrix(); }
-inline const ORBITMATRIX4x4& CoreSystem::GetProjMatrix() { return _cameraObject->GetProjMatrix(); }
+
+const ORBITMATRIX4x4& CoreSystem::GetViewMatrix() const { return _cameraObject->GetViewMatrix(); }
+const ORBITMATRIX4x4& CoreSystem::GetProjMatrix() const { return _cameraObject->GetProjMatrix(); }

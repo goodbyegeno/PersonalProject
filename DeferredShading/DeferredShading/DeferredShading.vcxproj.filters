@@ -34,23 +34,29 @@
     <Filter Include="RenderEngine\Resources">
       <UniqueIdentifier>{194d639e-000a-4203-9c23-3e76798ae50b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Camera">
-      <UniqueIdentifier>{29970b2f-af28-407d-a3b4-ef048e4f9420}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Camera\CameraMovement">
-      <UniqueIdentifier>{584595ef-ab23-4b9f-b83f-2f92075d747e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="CustomMath">
       <UniqueIdentifier>{5fb65fa6-82fb-4846-8e46-b770814d392c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="1.System">
-      <UniqueIdentifier>{2a743a37-74e5-420e-82c7-a70233ccf3f7}</UniqueIdentifier>
     </Filter>
     <Filter Include="RenderEngine\ShaderObjectManage">
       <UniqueIdentifier>{e5b1cfe2-cab6-4764-8ed8-2b9865ac48ff}</UniqueIdentifier>
     </Filter>
     <Filter Include="RenderEngine\Device">
       <UniqueIdentifier>{0336d012-8357-4a77-abff-4e74b6c61c77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CoreEngine">
+      <UniqueIdentifier>{cd427370-186c-4264-8ed1-d76030fca456}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CoreEngine\Source Files">
+      <UniqueIdentifier>{6bd9e017-64c3-41db-b2a7-a04e01b5af85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CoreEngine\Source Files\Camera">
+      <UniqueIdentifier>{cfc39f94-dc2b-40e5-9d34-e826ff7f67a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CoreEngine\Source Files\Camera\CameraMovement">
+      <UniqueIdentifier>{be299954-3fbf-49d3-bf95-916dbf2e1d40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CoreEngine\Header Files">
+      <UniqueIdentifier>{cfdb8e64-bf04-4f50-83e9-3b0db39b42bf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -81,9 +87,6 @@
     <ClInclude Include="RenderingManager.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
-    <ClInclude Include="IRenderingMethod.h">
-      <Filter>RenderEngine</Filter>
-    </ClInclude>
     <ClInclude Include="RenderEngineCommon.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
@@ -92,9 +95,6 @@
     </ClInclude>
     <ClInclude Include="TestModelObject.h">
       <Filter>RenderEngine\TestCode</Filter>
-    </ClInclude>
-    <ClInclude Include="DXDevice.h">
-      <Filter>RenderEngine\DXModule</Filter>
     </ClInclude>
     <ClInclude Include="IRenderedObject.h">
       <Filter>RenderEngine</Filter>
@@ -120,12 +120,6 @@
     <ClInclude Include="DeferredShadingMethodDX.h">
       <Filter>RenderEngine\DXModule</Filter>
     </ClInclude>
-    <ClInclude Include="CameraBase.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="ICameraMovement.h">
-      <Filter>Camera\CameraMovement</Filter>
-    </ClInclude>
     <ClInclude Include="CustomVector.h">
       <Filter>CustomMath</Filter>
     </ClInclude>
@@ -134,18 +128,6 @@
     </ClInclude>
     <ClInclude Include="CustomQuarternion.h">
       <Filter>CustomMath</Filter>
-    </ClInclude>
-    <ClInclude Include="CoreSystem.h">
-      <Filter>1.System</Filter>
-    </ClInclude>
-    <ClInclude Include="CoreEngineCommon.h">
-      <Filter>1.System</Filter>
-    </ClInclude>
-    <ClInclude Include="TestCamera.h">
-      <Filter>Camera\CameraMovement</Filter>
-    </ClInclude>
-    <ClInclude Include="TempTimer.h">
-      <Filter>1.System</Filter>
     </ClInclude>
     <ClInclude Include="IShaderRenderTargetImpl.h">
       <Filter>RenderEngine\Resources</Filter>
@@ -183,14 +165,44 @@
     <ClInclude Include="ORBITMeshSubset.h">
       <Filter>RenderEngine\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="IGraphicsDevice.h">
-      <Filter>RenderEngine\Device</Filter>
-    </ClInclude>
     <ClInclude Include="ORBITMaterial.h">
       <Filter>RenderEngine\Resources</Filter>
     </ClInclude>
     <ClInclude Include="DXHelper11.h">
       <Filter>RenderEngine\DXModule</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingSingletonManager.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraBase.h">
+      <Filter>CoreEngine\Source Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="ICameraMovement.h">
+      <Filter>CoreEngine\Source Files\Camera\CameraMovement</Filter>
+    </ClInclude>
+    <ClInclude Include="TestCamera.h">
+      <Filter>CoreEngine\Source Files\Camera\CameraMovement</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreEngineCommon.h">
+      <Filter>CoreEngine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreSystem.h">
+      <Filter>CoreEngine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TempTimer.h">
+      <Filter>CoreEngine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CoreSystem\targetver.h">
+      <Filter>CoreEngine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsDevice.h">
+      <Filter>RenderEngine\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="DXDevice11_4.h">
+      <Filter>RenderEngine\DXModule</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingMethod.h">
+      <Filter>RenderEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -208,9 +220,6 @@
     </ClCompile>
     <ClCompile Include="TestModelObject.cpp">
       <Filter>RenderEngine\TestCode</Filter>
-    </ClCompile>
-    <ClCompile Include="DXDevice.cpp">
-      <Filter>RenderEngine\DXModule</Filter>
     </ClCompile>
     <ClCompile Include="CharacterRenderedObject.cpp">
       <Filter>RenderEngine</Filter>
@@ -230,9 +239,6 @@
     <ClCompile Include="DeferredShadingMethodDX.cpp">
       <Filter>RenderEngine\DXModule</Filter>
     </ClCompile>
-    <ClCompile Include="CameraBase.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
     <ClCompile Include="CustomVector.cpp">
       <Filter>CustomMath</Filter>
     </ClCompile>
@@ -241,15 +247,6 @@
     </ClCompile>
     <ClCompile Include="CustomQuarternion.cpp">
       <Filter>CustomMath</Filter>
-    </ClCompile>
-    <ClCompile Include="CoreSystem.cpp">
-      <Filter>1.System</Filter>
-    </ClCompile>
-    <ClCompile Include="TestCamera.cpp">
-      <Filter>Camera\CameraMovement</Filter>
-    </ClCompile>
-    <ClCompile Include="TempTimer.cpp">
-      <Filter>1.System</Filter>
     </ClCompile>
     <ClCompile Include="ShaderRenderTargetDX.cpp">
       <Filter>RenderEngine\DXModule</Filter>
@@ -274,6 +271,27 @@
     </ClCompile>
     <ClCompile Include="ORBITMesh.cpp">
       <Filter>RenderEngine\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingSingletonManager.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreSystem.cpp">
+      <Filter>CoreEngine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TempTimer.cpp">
+      <Filter>CoreEngine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraBase.cpp">
+      <Filter>CoreEngine\Source Files\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="TestCamera.cpp">
+      <Filter>CoreEngine\Source Files\Camera\CameraMovement</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DXDevice11_4.cpp">
+      <Filter>RenderEngine\DXModule</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

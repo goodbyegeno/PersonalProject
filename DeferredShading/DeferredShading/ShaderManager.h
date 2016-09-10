@@ -1,4 +1,5 @@
 #pragma once
+#include <unordered_map>
 class GraphicsSystem;
 class IShaderObject;
 
@@ -19,4 +20,6 @@ public :
 	IShaderObject* GetShaderObject(size_t shaderHash);
 private:
 	GraphicsSystem* _graphicSystem;
+	std::unordered_map <size_t, IShaderObject*> _shaderObjectMap;
+
 };

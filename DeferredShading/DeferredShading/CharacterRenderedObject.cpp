@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "CharacterRenderedObject.h"
 
-CharacterRenderedObject::CharacterRenderedObject()
+CharacterRenderedObject::CharacterRenderedObject() :
+	_renderedMode( RenderEngine::RENDERINGMODE::FORWARD)
 {
 
 }

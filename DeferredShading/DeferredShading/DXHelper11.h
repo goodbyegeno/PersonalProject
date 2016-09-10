@@ -8,10 +8,9 @@ public:
 	DXHelper11();
 	virtual ~DXHelper11();
 
-	DXGI_FORMAT GetIndexBufferFormat(RenderEngine::ORBIT_FORMAT indexFormat);
+	DXGI_FORMAT GetIndexBufferFormat(RenderEngine::ORBIT_FORMAT indexFormat) const;
 
 private:
 	//no varialbes. only method
 };
 
-DXHelper11* g_DXHelper11 = nullptr;

@@ -4,7 +4,7 @@
 class GraphicsSystem;
 class DeviceManager;
 class IRenderedObject;
-class IRenderMethod;
+class RenderMethod;
 class ShaderManager;
 
 class RenderingManager
@@ -26,11 +26,11 @@ public:
 	std::vector<IRenderedObject*>& GetRenderRequestObject(RenderEngine::RENDERINGMODE renderMode);
 	DeviceManager* GetDeviceManager() { return _deviceManager; }
 private:
-	IRenderMethod* CreateRenderingMethod(RenderEngine::RENDERINGMODE renderMode);
+	RenderMethod* CreateRenderingMethod(RenderEngine::RENDERINGMODE renderMode);
 
 private:
 
-	IRenderMethod*					_renderingMethod[static_cast<int>(RenderEngine::RENDERINGMODE::MAX)];
+	RenderMethod*					_renderingMethod[static_cast<int>(RenderEngine::RENDERINGMODE::MAX)];
 	std::vector<IRenderedObject*>	_requestRender	[static_cast<int>(RenderEngine::RENDERINGMODE::MAX)];
 
 	GraphicsSystem*					_graphicsSystem;

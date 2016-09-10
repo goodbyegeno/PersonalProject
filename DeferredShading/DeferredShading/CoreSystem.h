@@ -17,19 +17,14 @@ public:
 	void Update();
 	void PostUpdate();
 
-	CoreEngine::GRAPHICSAPITYPE GetCurrentGraphicsAPIType() { return _currentGraphicsAPIType; }
+	const ORBITMATRIX4x4& GetViewMatrix() const;// { return _cameraObject->GetViewMatrix(); }
+	const ORBITMATRIX4x4& GetProjMatrix() const;// { return _cameraObject->GetProjMatrix(); }
 
-	const ORBITMATRIX4x4& GetViewMatrix();// { return _cameraObject->GetViewMatrix(); }
-	const ORBITMATRIX4x4& GetProjMatrix();// { return _cameraObject->GetProjMatrix(); }
-
-	
 private:
-
-	CoreEngine::GRAPHICSAPITYPE SetCurrentGraphicsAPIType_(CoreEngine::GRAPHICSAPITYPE graphicsAPIType) { _currentGraphicsAPIType = graphicsAPIType; }
-	CoreEngine::GRAPHICSAPITYPE _currentGraphicsAPIType;
 
 	ICameraBase*	_cameraObject;
 	TimerObject		_timeObject;
+
 };
 
-CoreSystem* coreSystem;
+extern CoreSystem* coreSystem;

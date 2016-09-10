@@ -45,7 +45,7 @@ public:
 	int GetSubsetCount() const								{ return _subsetCount; }
 	
 	SUBSETINDEXMAPPINGTYPE	GetSubsetIndexMappingType() const	{ return _subsetIndexMappingType; }
-	const ORBITMeshSubset*	GetSubset()	const				{ return _meshSubset; }
+	ORBITMeshSubset**	GetSubset()	const					{ return _meshSubset; }
 	RenderEngine::ORBIT_FORMAT	GetIndexBufferFormat()			{ return _indexBufferFormat; }
 private:
 
@@ -68,7 +68,7 @@ private:
 	UINT*			_offsets;
 
 	int				_subsetCount;
-	ORBITMeshSubset* _meshSubset;
+	ORBITMeshSubset** _meshSubset;
 	RenderEngine::ORBIT_FORMAT _indexBufferFormat;
 
 

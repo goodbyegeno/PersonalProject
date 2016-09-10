@@ -22,7 +22,13 @@ void RenderedObjectManager::Update(float deltaTime)
 {
 
 }
+void RenderedObjectManager::PreUpdate(float deltaTime)
+{
 
+}void RenderedObjectManager::PostUpdate(float deltaTime)
+{
+
+}
 void RenderedObjectManager::Render()
 {
 

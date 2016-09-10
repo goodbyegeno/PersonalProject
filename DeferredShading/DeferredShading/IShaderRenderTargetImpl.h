@@ -2,6 +2,6 @@
 class IShaderRenderTargetImpl
 {
 public:
-	IShaderRenderTargetImpl();
-	virtual ~IShaderRenderTargetImpl();
+	IShaderRenderTargetImpl() {}
+	virtual ~IShaderRenderTargetImpl() {}
 };

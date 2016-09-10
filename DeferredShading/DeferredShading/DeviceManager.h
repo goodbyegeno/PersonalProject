@@ -1,5 +1,5 @@
 #pragma once
-class IGraphicsDevice;
+class GraphicsDevice;
 class GraphicsSystem;
 class DeviceManager
 {
@@ -16,9 +16,9 @@ public:
 	void PostUpdate(float deltaTime);
 	void Update(float deltaTime);
 
-	IGraphicsDevice* GetDevice() { return _device; }
+	GraphicsDevice* GetDevice() { return _device; }
 private:
 
-	IGraphicsDevice* _device;
+	GraphicsDevice* _device;
 	GraphicsSystem* _graphicSystem;
 };

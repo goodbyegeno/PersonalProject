@@ -1,11 +1,11 @@
 #pragma once
 #include "IRenderHelper.h"
-class IGraphicsDevice;
+class GraphicsDevice;
 
 class RenderHelperDX : public IRenderHelper
 {
 public:
-	RenderHelperDX(IGraphicsDevice* graphicDevice);
+	RenderHelperDX(GraphicsDevice* graphicDevice);
 	RenderHelperDX() = delete;
 	virtual ~RenderHelperDX();
 

@@ -143,6 +143,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\CoreSystem\targetver.h" />
     <ClInclude Include="CameraBase.h" />
     <ClInclude Include="CharacterRenderedObject.h" />
     <ClInclude Include="CoreEngineCommon.h" />
@@ -155,16 +156,16 @@
     <ClInclude Include="DeferredShadingMethod.h" />
     <ClInclude Include="DeferredShadingMethodDX.h" />
     <ClInclude Include="DeviceManager.h" />
-    <ClInclude Include="DXDevice.h" />
+    <ClInclude Include="DXDevice11_4.h" />
     <ClInclude Include="DXHelper11.h" />
     <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="ICameraMovement.h" />
     <ClInclude Include="IDeferredShadingMethodImpl.h" />
-    <ClInclude Include="IGraphicsDevice.h" />
+    <ClInclude Include="GraphicsDevice.h" />
     <ClInclude Include="IORBITReadonlyMesh.h" />
     <ClInclude Include="IRenderedObject.h" />
     <ClInclude Include="IRenderHelper.h" />
-    <ClInclude Include="IRenderingMethod.h" />
+    <ClInclude Include="RenderingMethod.h" />
     <ClInclude Include="IShaderObejct.h" />
     <ClInclude Include="IShaderRenderTargetImpl.h" />
     <ClInclude Include="ModelDynamicData.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="RenderEngineCommon.h" />
     <ClInclude Include="RenderHelperDX.h" />
     <ClInclude Include="RenderingManager.h" />
+    <ClInclude Include="RenderingSingletonManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="ShaderObjectDX.h" />
@@ -199,7 +201,8 @@
     <ClCompile Include="DeferredShading.cpp" />
     <ClCompile Include="DeferredShadingMethod.cpp" />
     <ClCompile Include="DeferredShadingMethodDX.cpp" />
-    <ClCompile Include="DXDevice.cpp" />
+    <ClCompile Include="DeviceManager.cpp" />
+    <ClCompile Include="DXDevice11_4.cpp" />
     <ClCompile Include="DXHelper11.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
     <ClCompile Include="ModelDynamicData.cpp" />
@@ -209,6 +212,7 @@
     <ClCompile Include="ORBITMaterial.cpp" />
     <ClCompile Include="RenderedObjectManager.cpp" />
     <ClCompile Include="RenderingManager.cpp" />
+    <ClCompile Include="RenderingSingletonManager.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="ShaderObjectDX.cpp" />
     <ClCompile Include="ShaderRenderTarget.cpp" />

@@ -11,11 +11,11 @@ RenderingManager::RenderingManager(GraphicsSystem* graphicSystem)
 	_deviceManager = nullptr;
 	_FPS = 60;
 	_vSync = false;
-	for (int iRenderMethod = 0; iRenderMethod < static_cast<int>(RenderEngine::RENDERINGMODE::MAX); iRenderMethod++)
+	for (int RenderMethod = 0; RenderMethod < static_cast<int>(RenderEngine::RENDERINGMODE::MAX); RenderMethod++)
 	{
-		_renderingMethod[iRenderMethod] = nullptr;
-		_requestRender[iRenderMethod].clear();
-		_requestRender[iRenderMethod].resize(100);
+		_renderingMethod[RenderMethod] = nullptr;
+		_requestRender[RenderMethod].clear();
+		_requestRender[RenderMethod].resize(100);
 	}
 	
 }
@@ -23,11 +23,11 @@ RenderingManager::~RenderingManager()
 {
 	_graphicsSystem = nullptr;
 
-	for (int iRenderMethod = 0; iRenderMethod < static_cast<int>(RenderEngine::RENDERINGMODE::MAX); iRenderMethod++)
+	for (int RenderMethod = 0; RenderMethod < static_cast<int>(RenderEngine::RENDERINGMODE::MAX); RenderMethod++)
 	{
-		if (_renderingMethod[iRenderMethod])
+		if (_renderingMethod[RenderMethod])
 		{
-			delete _renderingMethod[iRenderMethod];
+			delete _renderingMethod[RenderMethod];
 		}
 	}
 }
@@ -62,19 +62,19 @@ bool RenderingManager::RequestRender(IRenderedObject* target)
 
 void RenderingManager::Render(DeviceManager* deviceManager, ShaderManager* shaderManager, float deltaTime)
 {
-	for (int iRenderMethod = 0; iRenderMethod < static_cast<int>(RenderEngine::RENDERINGMODE::MAX); iRenderMethod++)
+	for (int RenderMethod = 0; RenderMethod < static_cast<int>(RenderEngine::RENDERINGMODE::MAX); RenderMethod++)
 	{
-		if (_renderingMethod[iRenderMethod])
+		if (_renderingMethod[RenderMethod])
 		{
-			_renderingMethod[iRenderMethod]->Render(deviceManager, shaderManager, _requestRender[iRenderMethod], deltaTime);
+			_renderingMethod[RenderMethod]->Render(deviceManager, shaderManager, _requestRender[RenderMethod], deltaTime);
 		}
 	}
 }
 void RenderingManager::PreUpdate(float deltaTime)
 {
-	for (int iRenderMethod = 0; iRenderMethod < static_cast<int>(RenderEngine::RENDERINGMODE::MAX); iRenderMethod++)
+	for (int RenderMethod = 0; RenderMethod < static_cast<int>(RenderEngine::RENDERINGMODE::MAX); RenderMethod++)
 	{
-		_requestRender[iRenderMethod].clear();
+		_requestRender[RenderMethod].clear();
 	}
 }
 
@@ -86,9 +86,9 @@ void RenderingManager::PostUpdate(float deltaTime)
 {
 	//sorting
 }
-IRenderMethod* RenderingManager::CreateRenderingMethod(RenderEngine::RENDERINGMODE renderMode)
+RenderMethod* RenderingManager::CreateRenderingMethod(RenderEngine::RENDERINGMODE renderMode)
 {
-	IRenderMethod* renderingMethod = nullptr;
+	RenderMethod* renderingMethod = nullptr;
 
 	switch (renderMode)
 	{
