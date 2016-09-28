@@ -12,7 +12,7 @@
 #include "ShaderRenderTarget.h"
 #include "ShaderRenderTargetDX.h"
 #include "IShaderRenderTargetImpl.h"
-#include "IRenderedObject.h"
+#include "IRenderableObject.h"
 #include "ModelDynamicData.h"
 #include "ModelStaticData.h"
 #include "ORBITMesh.h"
@@ -22,7 +22,9 @@
 #include "DXHelper11.h"
 #include "RenderingSingletonManager.h"
 #include <d3d11_4.h>
+#include <d3dcompiler.h>
 #include <DirectXMath.h>
+#include <cstring>
 
 DeferredShadingMethodDX::DeferredShadingMethodDX() :
 	_device(nullptr),
@@ -72,7 +74,7 @@ bool DeferredShadingMethodDX::Initialize(DeviceManager* deviceManager, ShaderMan
 	_pixelShaderHash		= 0;
 	_computeShaderHash		= 0;
 
-	if (SetShader_(shaderManager, _device) == false)
+	if (LoadShader_() == false)
 		return false;
 
 	return true;
@@ -84,6 +86,7 @@ bool DeferredShadingMethodDX::Reset(DeviceManager* deviceManager, ShaderManager*
 	if (graDevice == nullptr || graDevice->GetGraphicsAPIType() != RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4)
 		return false;
 
+	/*
 	_device = static_cast<ID3D11Device3*>(graDevice->GetBuffer());
 	
 	_vertexShader			= nullptr;
@@ -95,25 +98,21 @@ bool DeferredShadingMethodDX::Reset(DeviceManager* deviceManager, ShaderManager*
 	_computeShaderHash		= 0;
 
 	SetShader_(shaderManager, _device);
-
+	*/
 	return true;
 }
-bool DeferredShadingMethodDX::SetShader_(ShaderManager* shaderManager, ID3D11Device3* deviceDX)
+bool DeferredShadingMethodDX::SetShader_(ID3D11Device3* deviceDX, ID3DBlob* psShaderBuffer, ID3DBlob* vsShaderBuffer, ID3DBlob* csShaderBuffer)
 {
-
-	IShaderObject* tempShaderObject = nullptr;
-	tempShaderObject = shaderManager->GetShaderObject(_vertexShaderHash);
-	if (tempShaderObject == nullptr)
-		return false;
-	if (tempShaderObject->GetMiddlewareType() != RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4)
-		return false;
-
-	_vertexShader = static_cast<ID3D11VertexShader*>(tempShaderObject->GetShader());
-	ID3DBlob* vertexShaderBuffer = static_cast<ID3DBlob*>(tempShaderObject->GetBuffer());
+	ID3DBlob* vertexShaderBuffer = vsShaderBuffer;
 	HRESULT resultValue;
+	
+	resultValue = deviceDX->CreateVertexShader(vsShaderBuffer->GetBufferPointer(), vsShaderBuffer->GetBufferSize(), NULL, &_vertexShader);
+	if (FAILED(resultValue))
+		return false;
+	
 	D3D11_INPUT_ELEMENT_DESC polygonLayout[3];
 	UINT numElements = sizeof(polygonLayout) / sizeof(polygonLayout[0]);
-	
+
 	polygonLayout[0].SemanticName = "position";
 	polygonLayout[0].SemanticIndex = 0;
 	polygonLayout[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
@@ -140,30 +139,16 @@ bool DeferredShadingMethodDX::SetShader_(ShaderManager* shaderManager, ID3D11Dev
 
 	resultValue = deviceDX->CreateInputLayout(polygonLayout, numElements, vertexShaderBuffer->GetBufferPointer(),
 		vertexShaderBuffer->GetBufferSize(), &_inputLayout);
-
 	if (FAILED(resultValue))
-	{
-		return false;
-	}
-	tempShaderObject = nullptr;
-
-	tempShaderObject = shaderManager->GetShaderObject(_pixelShaderHash);
-	if (tempShaderObject == nullptr)
-		return false;
-	if (tempShaderObject->GetMiddlewareType() != RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4)
 		return false;
 
-	_pixelShader = static_cast<ID3D11PixelShader*>(tempShaderObject->GetShader());
-	tempShaderObject = nullptr;
-
-	tempShaderObject = shaderManager->GetShaderObject(_computeShaderHash);
-	if (tempShaderObject == nullptr)
-		return false;
-	if (tempShaderObject->GetMiddlewareType() != RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4)
+	resultValue = deviceDX->CreatePixelShader(psShaderBuffer->GetBufferPointer(), psShaderBuffer->GetBufferSize(), NULL, &_pixelShader);
+	if (FAILED(resultValue))
 		return false;
 
-	_computeShader = static_cast<ID3D11ComputeShader*>(tempShaderObject->GetShader());
-	tempShaderObject = nullptr;
+	resultValue = deviceDX->CreateComputeShader(csShaderBuffer->GetBufferPointer(), csShaderBuffer->GetBufferSize(), NULL, &_computeShader);
+	if (FAILED(resultValue))
+		return false;
 
 	CD3D11_BUFFER_DESC bufferDesc;
 	bufferDesc.ByteWidth = sizeof(ShaderConstVariables);
@@ -234,8 +219,8 @@ bool DeferredShadingMethodDX::SetCameraMatrix()
 	_vsConstVariables._viewProjMatrix = DirectX::XMMatrixMultiply(_vsConstVariables._viewMatrix, _vsConstVariables._projMatrix);
 	_psConstVariables._viewProjMatrix = _vsConstVariables._viewProjMatrix;
 	return true;
-
 }
+
 bool DeferredShadingMethodDX::SettingShaderOptions()
 {
 	_deviceContext->IASetInputLayout(_inputLayout);
@@ -290,7 +275,7 @@ bool DeferredShadingMethodDX::SetRenderTarget()
 
 	return true;
 }
-bool DeferredShadingMethodDX::SetVertexBuffer(ORBITMesh* mesh)
+bool DeferredShadingMethodDX::SetVertexBuffer(const ORBITMesh* mesh) const
 {
 	ID3D11Buffer* const* vertexBuffers = mesh->GetVertexBuffersDX11();
 
@@ -355,7 +340,7 @@ bool DeferredShadingMethodDX::RenderMesh()
 
 
 
-bool DeferredShadingMethodDX::RenderLighting(std::vector<IRenderedObject*>& renderRequestObjects)
+bool DeferredShadingMethodDX::RenderLighting(std::vector<IRenderableObject*>& renderRequestObjects)
 {
 	for (int objectsIndex = 0; objectsIndex < renderRequestObjects.size(); objectsIndex++)
 	{
@@ -379,6 +364,24 @@ DeferredShadingMethodDX::DrawVariables::DrawVariables() :
 {
 
 }
+
+bool DeferredShadingMethodDX::SetWorldMatrix(const ORBITMATRIX4x4* worldMatrix)
+{
+	DirectX::XMFLOAT4X4 tempFloat4x4;
+
+	//copy view
+	for (int width = 0; width < 4; width++)
+	{
+		for (int height = 0; height < 4; height++)
+		{
+			tempFloat4x4.m[width][height] = worldMatrix->m[width][height];
+		}
+	}
+	_vsConstVariables._worldMatrix = DirectX::XMLoadFloat4x4(&tempFloat4x4);
+	_psConstVariables._worldMatrix = _vsConstVariables._viewMatrix;
+
+	return true;
+}
 DeferredShadingMethodDX::DrawVariables::~DrawVariables()
 {
 
@@ -391,3 +394,56 @@ void DeferredShadingMethodDX::DrawVariables::SetIndexData(int indexCount, int in
 	_vertexStart = vertexStart;
 
 }
+
+
+bool DeferredShadingMethodDX::LoadShader_()
+{
+	//UNDONE: LOAD SHADER FROM OBJECT FILE(binary), NOT hlsl Code
+	HRESULT result;
+	ID3DBlob* errorMessage;
+	ID3DBlob* tempPSShaderBuffer;
+	ID3DBlob* tempVSShaderBuffer;
+	ID3DBlob* tempCSShaderBuffer;
+
+	//Load PS
+	_pixelShaderHash = std::hash<std::wstring>{}(L"Render_PS.hlsl");
+	result = D3DCompileFromFile(L"Render_PS.hlsl", NULL, NULL, "main", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0,
+		&tempPSShaderBuffer, &errorMessage);
+
+	if (FAILED(result))
+		return false;
+
+
+	//Load VS
+	_vertexShaderHash = std::hash<std::wstring>{}(L"Render_VS.hlsl");
+	result = D3DCompileFromFile(L"Render_VS.hlsl", NULL, NULL, "main", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0,
+		&tempVSShaderBuffer, &errorMessage);
+	if (FAILED(result))
+		return false;
+
+
+
+	//Load CS
+	_computeShaderHash = std::hash<std::wstring>{}(L"ComputeShader_Composite.hlsl");
+	result = D3DCompileFromFile(L"ComputeShader_Composite", NULL, NULL, "main", "cs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0,
+		&tempCSShaderBuffer, &errorMessage);
+	
+	if (FAILED(result))
+		return false;
+
+	SetShader_(_device, tempPSShaderBuffer, tempVSShaderBuffer, tempCSShaderBuffer);
+
+	tempPSShaderBuffer->Release();
+	tempPSShaderBuffer = nullptr;
+
+	tempVSShaderBuffer->Release();
+	tempVSShaderBuffer = nullptr;
+
+	tempCSShaderBuffer->Release();
+	tempCSShaderBuffer = nullptr;
+
+
+	return true;
+}
+
+

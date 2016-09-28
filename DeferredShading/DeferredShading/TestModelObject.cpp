@@ -4,13 +4,13 @@
 TestModelObject::TestModelObject():
 	_isUsePool(false),
 	_vertices(nullptr),
-	_vertexIndices(nullptr)
+	_vertexIndices(nullptr),
+	ModelStaticData(0, nullptr, 0, RenderEngine::RENDERINGMODE::DEFERRED_SHADING, RenderEngine::RENDERTYPE::CHARACTER)
 {
 	
 }
 TestModelObject::~TestModelObject()
 {
-
 	if (_isUsePool)
 	{
 		if (nullptr == _vertices)
@@ -22,8 +22,6 @@ TestModelObject::~TestModelObject()
 
 bool TestModelObject::Initialize(DeviceManager* deviceManager)
 {
-
-
 	_vertices = new RenderEngineTest::MeshVertex_Test[3];
 	_vertexIndices = new int[3];
 	_vertexCount = 3;

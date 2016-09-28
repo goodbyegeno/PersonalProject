@@ -1,11 +1,11 @@
 #pragma once
 #include "TestHeaderCommon.h"
 #include "RenderEngineCommon.h"
-#include "CharacterRenderedObject.h"
+#include "ModelStaticData.h"
 
 class DeviceManager;
 
-class TestModelObject : public CharacterRenderedObject
+class TestModelObject : public ModelStaticData
 {
 public:
 	TestModelObject();

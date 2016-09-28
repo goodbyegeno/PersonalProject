@@ -4,10 +4,10 @@
 #include <d3d11_4.h>
 */
 #include "CoreEngineCommon.h"
-#include "ICameraMovement.h"
+#include "CameraMovementBase.h"
 #include "CustomVector.h"
 #include "CustomMatrix.h"
-
+#include <unordered_map>
 class CoreSystem;
 class ICameraBase
 {
@@ -21,8 +21,7 @@ public:
 	virtual const ORBITFLOAT3& GetDirection() const = 0;
 	virtual const ORBITFLOAT3& GetUpVector() const = 0;
 	virtual const ORBITFLOAT3& GetRightVector() const = 0;
-	virtual CoreEngine::PROJECTIONMODE GetProjectionMode() = 0;
-
+	virtual CoreEngine::PROJECTIONMODE GetProjectionMode() const = 0;
 };
 
 class CameraBase : public ICameraBase
@@ -45,7 +44,9 @@ public:
 	virtual const ORBITFLOAT3& GetDirection() const			{ return _direction; }
 	virtual const ORBITFLOAT3& GetUpVector() const			{ return _upVector; }
 	virtual const ORBITFLOAT3& GetRightVector() const		{ return _rightVector; }
-	virtual CoreEngine::PROJECTIONMODE GetProjectionMode()	{ return _projectionMode; }
+	virtual CoreEngine::PROJECTIONMODE GetProjectionMode()	const { return _projectionMode; }
+	void SetCameraMovementBase(size_t cameraMovementBaseHash);		//{ _CameraMovementBase = CameraMovementBase; }
+	void AddCameraMovementBase(CameraMovementBase* cameraMovementBase); //{ _CameraMovementBase = CameraMovementBase; }
 
 	void SetViewMatrix(ORBITMATRIX4x4& viewMatrix)			{ _viewMatrix = viewMatrix; }
 	void SetProjMatrix(ORBITMATRIX4x4& projectionMatrix)	{ _projectionMatrix = projectionMatrix; }
@@ -67,6 +68,7 @@ private:
 
 	CoreEngine::PROJECTIONMODE _projectionMode;
 
-	ICameraMovement* _cameraMovement;
+	std::unordered_map<size_t, CameraMovementBase*> _cameraMovementBaseMap;
+	CameraMovementBase*							_currentCameraMovementBase;
 
 };

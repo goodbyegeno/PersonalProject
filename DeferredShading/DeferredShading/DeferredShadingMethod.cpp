@@ -5,12 +5,17 @@
 #include "IDeferredShadingMethodImpl.h"
 #include "ModelDynamicData.h"
 #include "ModelStaticData.h"
-#include "IRenderedObject.h"
+#include "IRenderableObject.h"
 #include "CustomMatrix.h"
 #include "ORBITMesh.h"
 #include "ORBITMeshSubset.h"
 #include "DeviceManager.h"
-DeferredShadingMethod::DeferredShadingMethod(RenderingManager* renderingMnanger)
+#include "GraphicsDevice.h"
+
+#include "DeferredShadingMethodDX.h"
+
+DeferredShadingMethod::DeferredShadingMethod(RenderingManager* renderingMnanger) :
+	RenderMethod(L"IndexedDeferredMethod")
 {
 	_renderingMananger = renderingMnanger;
 	_renderingMethodImpl = nullptr;
@@ -18,6 +23,7 @@ DeferredShadingMethod::DeferredShadingMethod(RenderingManager* renderingMnanger)
 	_mSecPerFrame = 0.0f;
 	_currentMSecPerFrame = 0.0f;
 	_FPS = 0;
+
 }
 DeferredShadingMethod::~DeferredShadingMethod()
 {
@@ -27,24 +33,25 @@ DeferredShadingMethod::~DeferredShadingMethod()
 bool DeferredShadingMethod::Initialize()
 {
 	_VSync = _renderingMananger->IsVsyncOn();
-	_FPS = _renderingMananger->GetFPS();
+	_FPS = _renderingMananger->GetTargetFPS();
 	_mSecPerFrame = static_cast<float>(1000) / static_cast<float>(_FPS);
 	_currentMSecPerFrame = 0.0f;
 	_graphicsDevice = _renderingMananger->GetDeviceManager()->GetDevice();
+	CreateRenderingMethodImpl_();
 
 	return true;
 }
 bool DeferredShadingMethod::Reset()
 {
 	_VSync = _renderingMananger->IsVsyncOn();
-	_FPS = _renderingMananger->GetFPS();
+	_FPS = _renderingMananger->GetTargetFPS();
 	_mSecPerFrame = static_cast<float>(1000) / static_cast<float>(_FPS);
 	_currentMSecPerFrame = 0.0f;
 
 	return true;
 }
 
-void DeferredShadingMethod::Render(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject*>& renderRequestObjects, float deltaTime)
+void DeferredShadingMethod::Render(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderableObject*>& renderRequestObjects, float deltaTime)
 {
 	_renderingMethodImpl->SetCameraMatrix();
 
@@ -55,7 +62,7 @@ void DeferredShadingMethod::Render(DeviceManager* deviceManager, ShaderManager* 
 
 }
 
-void DeferredShadingMethod::RenderGBuffer_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject*>& renderRequestObjects, float deltaTime)
+void DeferredShadingMethod::RenderGBuffer_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderableObject*>& renderRequestObjects, float deltaTime)
 {
 	//_renderingMethodImpl->SetConstVariables();
 	_renderingMethodImpl->SettingShaderOptions();
@@ -108,7 +115,21 @@ void DeferredShadingMethod::RenderGBuffer_(DeviceManager* deviceManager, ShaderM
 
 
 }
-void DeferredShadingMethod::RenderLighting_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject*>& renderRequestObjects, float deltaTime)
+void DeferredShadingMethod::RenderLighting_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderableObject*>& renderRequestObjects, float deltaTime)
 {
 	_renderingMethodImpl->RenderLighting(renderRequestObjects);
+}
+
+bool DeferredShadingMethod::CreateRenderingMethodImpl_()
+{
+	switch (_graphicsDevice->GetGraphicsAPIType())
+	{
+	case RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4:
+		_renderingMethodImpl = new DeferredShadingMethodDX();
+		break;
+	case RenderEngine::GRAPHICSAPITYPE::OPENGL:
+		break;
+
+	}
+	return true;
 }

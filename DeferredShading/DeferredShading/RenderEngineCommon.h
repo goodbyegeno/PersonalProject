@@ -7,6 +7,15 @@ namespace RenderEngine
 		OPENGL,
 		MAX
 	};
+	enum class FPSMODE
+	{
+		FLEXIBLE30,
+		FLEXIBLE60,
+		FIXED60,
+		MONITOR,
+		MAX
+	};
+	
 	/*
 	enum class RENDERTARGETTYPE
 	{

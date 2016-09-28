@@ -7,10 +7,9 @@
 #include <vector>
 class DeviceManager;
 class ShaderManager;
-class IRenderedObject;
+class IRenderableObject;
 class ShaderRenderTargetDX;
 class ShaderRenderTarget;
-class IRenderedObject;
 class DXDevice11_4;
 
 struct ShaderConstVariables
@@ -35,6 +34,7 @@ private:
 		int GetIndexStart() const { return _indexStart; }
 		int GetVertexStart() const { return _vertexStart; }
 
+		
 	private:
 		int _indexCount;
 		int _indexStart;
@@ -54,24 +54,27 @@ public:
 
 	virtual RenderEngine::GRAPHICSAPITYPE GetMiddleWareType() { return RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4; }
 
+	virtual bool SetWorldMatrix(const ORBITMATRIX4x4* worldMatrix);
 	virtual bool SetCameraMatrix();
 	virtual bool SettingShaderOptions();
 	virtual bool SetConstVariables();
 	virtual bool SetRenderTarget();
 	virtual bool ResetRenderTarget();
-	virtual bool SetVertexBuffer(ORBITMesh* mesh);
+	virtual bool SetVertexBuffer(const ORBITMesh* mesh) const;
 	virtual bool SetSubsetVBIndicesInfo(const ORBITMeshSubset* subsetData);
 	virtual bool SetMaterial(const ORBITMaterial* material);
 	virtual bool RenderMesh();
-	virtual bool RenderLighting(std::vector<IRenderedObject*>& renderRequestObjects);
+	virtual bool RenderLighting(std::vector<IRenderableObject*>& renderRequestObjects);
 
 private:
-	bool SetShader_(ShaderManager* shaderManager, ID3D11Device3* deviceDX);
+	bool SetShader_(ID3D11Device3* deviceDX, ID3DBlob* psShaderBuffer, ID3DBlob* vsShaderBuffer, ID3DBlob* csShaderBuffer);
+	virtual bool LoadShader_();
+
 private:
 
 	ShaderManager*					_shaderManager;
 	
-	DXDevice11_4*						_deviceWrapper;
+	DXDevice11_4*					_deviceWrapper;
 	ID3D11Device3*					_device;
 	ID3D11DeviceContext3*			_deviceContext;
 	

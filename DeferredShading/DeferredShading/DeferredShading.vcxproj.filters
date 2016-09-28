@@ -37,9 +37,6 @@
     <Filter Include="CustomMath">
       <UniqueIdentifier>{5fb65fa6-82fb-4846-8e46-b770814d392c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RenderEngine\ShaderObjectManage">
-      <UniqueIdentifier>{e5b1cfe2-cab6-4764-8ed8-2b9865ac48ff}</UniqueIdentifier>
-    </Filter>
     <Filter Include="RenderEngine\Device">
       <UniqueIdentifier>{0336d012-8357-4a77-abff-4e74b6c61c77}</UniqueIdentifier>
     </Filter>
@@ -57,6 +54,21 @@
     </Filter>
     <Filter Include="CoreEngine\Header Files">
       <UniqueIdentifier>{cfdb8e64-bf04-4f50-83e9-3b0db39b42bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Surface">
+      <UniqueIdentifier>{c0fa2534-8b53-46fc-8cc8-d6a206467dc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneManager">
+      <UniqueIdentifier>{82b53f18-802f-45ac-9548-503e334b5d15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneManager\Test">
+      <UniqueIdentifier>{eae00370-8c79-46b5-a243-83c834bcd6ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEngine\ShadingMethod\ShaderObjectManage">
+      <UniqueIdentifier>{e5b1cfe2-cab6-4764-8ed8-2b9865ac48ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Surface\Test">
+      <UniqueIdentifier>{39b19451-0726-42f7-bbf6-dae8a405802b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -96,15 +108,6 @@
     <ClInclude Include="TestModelObject.h">
       <Filter>RenderEngine\TestCode</Filter>
     </ClInclude>
-    <ClInclude Include="IRenderedObject.h">
-      <Filter>RenderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterRenderedObject.h">
-      <Filter>RenderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderedObjectManager.h">
-      <Filter>RenderEngine</Filter>
-    </ClInclude>
     <ClInclude Include="DeferredShaderObject.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
@@ -136,10 +139,10 @@
       <Filter>RenderEngine\DXModule</Filter>
     </ClInclude>
     <ClInclude Include="IShaderObejct.h">
-      <Filter>RenderEngine\ShaderObjectManage</Filter>
+      <Filter>RenderEngine\ShadingMethod\ShaderObjectManage</Filter>
     </ClInclude>
     <ClInclude Include="ShaderObjectDX.h">
-      <Filter>RenderEngine\ShaderObjectManage</Filter>
+      <Filter>RenderEngine\ShadingMethod\ShaderObjectManage</Filter>
     </ClInclude>
     <ClInclude Include="RenderHelperDX.h">
       <Filter>RenderEngine\DXModule</Filter>
@@ -177,9 +180,6 @@
     <ClInclude Include="CameraBase.h">
       <Filter>CoreEngine\Source Files\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="ICameraMovement.h">
-      <Filter>CoreEngine\Source Files\Camera\CameraMovement</Filter>
-    </ClInclude>
     <ClInclude Include="TestCamera.h">
       <Filter>CoreEngine\Source Files\Camera\CameraMovement</Filter>
     </ClInclude>
@@ -204,6 +204,72 @@
     <ClInclude Include="RenderingMethod.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
+    <ClInclude Include="IUpdateableObject.h">
+      <Filter>CoreEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraMovementBase.h">
+      <Filter>CoreEngine\Source Files\Camera\CameraMovement</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingOverviewDefault.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomRenderEngineFactory.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingOverviewBase.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderEngineFactoryManager.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderEngineFactoryBase.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="SurfaceMain.h">
+      <Filter>Surface</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderableObject.h">
+      <Filter>CoreEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSceneObject.h">
+      <Filter>SceneManager\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelManager.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderableManager.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemConfigureFileImporter.h">
+      <Filter>CoreEngine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ICustomSystemImporterImpl.h">
+      <Filter>CoreEngine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSystemCongifImporter.h">
+      <Filter>Surface\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSystemConfigureFileImporterSuface.h">
+      <Filter>Surface\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="IGraphicsSystemFacade.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ISceneObjectFactory.h">
+      <Filter>SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSceneObjectFactory.h">
+      <Filter>SceneManager\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneObject.h">
+      <Filter>SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderedObject.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -220,12 +286,6 @@
     </ClCompile>
     <ClCompile Include="TestModelObject.cpp">
       <Filter>RenderEngine\TestCode</Filter>
-    </ClCompile>
-    <ClCompile Include="CharacterRenderedObject.cpp">
-      <Filter>RenderEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderedObjectManager.cpp">
-      <Filter>RenderEngine</Filter>
     </ClCompile>
     <ClCompile Include="ShaderManager.cpp">
       <Filter>RenderEngine</Filter>
@@ -252,7 +312,7 @@
       <Filter>RenderEngine\DXModule</Filter>
     </ClCompile>
     <ClCompile Include="ShaderObjectDX.cpp">
-      <Filter>RenderEngine\ShaderObjectManage</Filter>
+      <Filter>RenderEngine\ShadingMethod\ShaderObjectManage</Filter>
     </ClCompile>
     <ClCompile Include="ModelStaticData.cpp">
       <Filter>RenderEngine\Resources</Filter>
@@ -287,11 +347,56 @@
     <ClCompile Include="TestCamera.cpp">
       <Filter>CoreEngine\Source Files\Camera\CameraMovement</Filter>
     </ClCompile>
-    <ClCompile Include="DeviceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DXDevice11_4.cpp">
       <Filter>RenderEngine\DXModule</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceManager.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingOverviewDefault.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomRenderEngineFactory.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingOverviewBase.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderEngineFactoryManager.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderEngineFactoryBase.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SurfaceMain.cpp">
+      <Filter>Surface</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSceneObject.cpp">
+      <Filter>SceneManager\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelManager.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemConfigureFileImporter.cpp">
+      <Filter>CoreEngine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSystemCongifImporter.cpp">
+      <Filter>Surface\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSystemConfigureFileImporterSuface.cpp">
+      <Filter>Surface\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSceneObjectFactory.cpp">
+      <Filter>SceneManager\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneObject.cpp">
+      <Filter>SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderedObject.cpp">
+      <Filter>RenderEngine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

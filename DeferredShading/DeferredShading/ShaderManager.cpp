@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ShaderManager.h"
-
+#include <d3d11_4.h>
+#include <d3dcompiler.h>
 ShaderManager::ShaderManager(GraphicsSystem* graphicSystem)
 {
 	_shaderObjectMap.clear();
@@ -12,6 +13,7 @@ ShaderManager::~ShaderManager()
 }
 bool ShaderManager::Initialize()
 {
+	//test code
 
 	return true;
 }
@@ -52,4 +54,9 @@ IShaderObject* ShaderManager::GetShaderObject(size_t shaderHash)
 	}
 
 	return result;
+}
+
+void ShaderManager::LoadShaderObject_()
+{
+	
 }

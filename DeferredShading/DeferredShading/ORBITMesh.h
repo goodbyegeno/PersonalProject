@@ -36,7 +36,7 @@ public:
 	int GetIndexCount()	const								{ return _indexCount; }
 	const UINT* GetStrides() const							{ return _strides; }
 	const UINT* GetOffsets() const							{ return _offsets; }
-	ID3D11Buffer* GetIndexBufferDX11()						{ return _indexBuffersDX11; }
+	ID3D11Buffer* GetIndexBufferDX11() const			{ return _indexBuffersDX11; }
 
 	ID3D11Buffer** GetWriteableVertexBuffersDX11() const	{ return _vertexBufferDX11; }
 	int GetWriteableVertexCount() const						{ return _vertexCount; }
@@ -46,7 +46,7 @@ public:
 	
 	SUBSETINDEXMAPPINGTYPE	GetSubsetIndexMappingType() const	{ return _subsetIndexMappingType; }
 	ORBITMeshSubset**	GetSubset()	const					{ return _meshSubset; }
-	RenderEngine::ORBIT_FORMAT	GetIndexBufferFormat()			{ return _indexBufferFormat; }
+	RenderEngine::ORBIT_FORMAT	GetIndexBufferFormat() const { return _indexBufferFormat; }
 private:
 
 	SUBSETINDEXMAPPINGTYPE	_subsetIndexMappingType;

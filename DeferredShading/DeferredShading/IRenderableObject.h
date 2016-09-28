@@ -5,14 +5,15 @@ class ModelStaticData;
 class ModelDynamicData;
 class ORBITMATRIX4x4;
 
-class IRenderedObject
+class IRenderableObject
 {
 
 public:
-	IRenderedObject() {};
-	virtual ~IRenderedObject() {};
-	
+	IRenderableObject() {};
+	virtual ~IRenderableObject() {};
+
 	virtual bool IsGotAlphaBlend() = 0;
+	virtual size_t GetRenderMethodHashCode() = 0;
 	virtual RenderEngine::RENDERTYPE GetRenderedType() = 0;
 	virtual RenderEngine::RENDERINGMODE GetRenderedMode() = 0;
 

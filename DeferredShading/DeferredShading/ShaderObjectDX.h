@@ -6,7 +6,7 @@ class ShaderObjectDX : public IShaderObject
 {
 public:
 
-	ShaderObjectDX(std::string shaderName, ID3D11Device3* deviceDX, ID3DBlob* shaderBuffer, ID3D11DeviceChild* shaderData);
+	ShaderObjectDX(std::wstring shaderName, ID3D11Device3* deviceDX, ID3DBlob* shaderBuffer, ID3D11DeviceChild* shaderData);
 	ShaderObjectDX() = delete;
 	virtual ~ShaderObjectDX();
 	
@@ -17,10 +17,10 @@ public:
 	void* GetBuffer()							{ return _shaderBuffer; }
 	size_t GetHashcode()						{ return _shaderNameHash; }
 	virtual RenderEngine::SHADERTYPE GetShaderType()	{ return RenderEngine::SHADERTYPE::MAX; }
-	const std::string& GetName()				{ return _shaderName; }
+	const std::wstring& GetName()				{ return _shaderName; }
 protected:
 
-	std::string					_shaderName;
+	std::wstring					_shaderName;
 	size_t						_shaderNameHash;
 	ID3D11DeviceChild*			_shaderData;
 	ID3DBlob*					_shaderBuffer;

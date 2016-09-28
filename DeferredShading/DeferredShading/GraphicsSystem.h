@@ -1,29 +1,52 @@
 #pragma once
 #include "RenderEngineCommon.h"
+#include "IUpdateableObject.h"
+#include "IRenderableManager.h"
+#include "IGraphicsSystemFacade.h"
+#include <unordered_map>
 class RenderingManager;
 class DeviceManager;
-class RenderedObjectManager;
+class ModelManager;
 class ShaderManager;
+class RenderEngineFactoryManager;
+class RenderMethod;
+class IRenderableObject;
 
-class  GraphicsSystem
+class  GraphicsSystem : public IUpdateableObject, public IRenderableManager, public IGraphicsSystemFacade
 {
 public:
-	GraphicsSystem();
+
+	struct GraphicsSystemInitialData
+	{
+	public:
+		RenderEngine::GRAPHICSAPITYPE graphicsAPIType;
+	};
+	GraphicsSystem(GraphicsSystemInitialData& data);
+	GraphicsSystem() = delete;
+	GraphicsSystem(const GraphicsSystem&) = delete;
 	virtual ~GraphicsSystem();
 
-	bool Inititalize();
+	bool Initialize();
 	bool Reset();
-	void PreUpdate	(float deltaTime);
-	void Update		(float deltaTime);
-	void PostUpdate	(float deltaTime);
-	void Render(float deltaTime);
+	virtual void PreUpdate	(float deltaTime);
+	virtual void Update		(float deltaTime);
+	virtual void PostUpdate	(float deltaTime);
+	virtual void Render(float deltaTime);
+	virtual void PhaseReady(float deltaTime);
+	virtual void PhaseEnd(float deltaTime);
+
 	bool InitializeSingleton_();
 
 	RenderEngine::GRAPHICSAPITYPE GetGraphicsAPIType()			{ return _graphicsAPIType; }
 	RenderingManager*		GetRenderingManager()				{ return _renderingMananger; }
 	DeviceManager*			GetDeviceManager()					{ return _deviceManager; }
-	RenderedObjectManager*	GetRenderedObjectManager()			{ return _renderedObjectManager; }
+	ModelManager*			GetModelManager()					{ return _modelManager; }
 	ShaderManager*			GetShaderManager()					{ return _shaderManager; }
+	RenderEngineFactoryManager*	GetRenderEngineFactory()		{ return _renderEngineFactory; }
+
+	//From class IGraphicsSystemFacade
+	virtual bool AddRenderingRequest(IRenderableObject* renderObject);
+	virtual ModelStaticData* GetStaticModel(size_t modelHashCode);
 
 private:
 	
@@ -31,6 +54,7 @@ private:
 
 	RenderingManager*		_renderingMananger;
 	DeviceManager*			_deviceManager;
-	RenderedObjectManager*	_renderedObjectManager;
+	ModelManager*			_modelManager;
 	ShaderManager*			_shaderManager;
+	RenderEngineFactoryManager*	_renderEngineFactory;
 };

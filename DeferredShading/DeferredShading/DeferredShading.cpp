@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "DeferredShading.h"
-
+#include "SurfaceMain.h"
 #define MAX_LOADSTRING 100
 
 // Global Variables:
@@ -26,6 +26,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     // TODO: Place code here.
+	SurfaceMain surfaceMain;
 
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -41,6 +42,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_DEFERREDSHADING));
 
     MSG msg;
+	surfaceMain.Initialize();
 
     // Main message loop:
     while (GetMessage(&msg, nullptr, 0, 0))

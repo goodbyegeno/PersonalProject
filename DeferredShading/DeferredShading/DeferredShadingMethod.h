@@ -19,13 +19,14 @@ public:
 	virtual bool	Initialize();
 	virtual bool	Reset();
 
-	virtual void	Render(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject*>& renderRequestObjects, float deltaTime);
+	virtual void	Render(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderableObject*>& renderRequestObjects, float deltaTime);
 	virtual RenderEngine::RENDERINGMODE GetRenderingMode() final { return RenderEngine::RENDERINGMODE::INDEXED_DEFERRED_SHADING; }
 
 private:
-	void	RenderGBuffer_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject*>& renderRequestObjects, float deltaTime);
+	void	RenderGBuffer_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderableObject*>& renderRequestObjects, float deltaTime);
 
-	void	RenderLighting_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderedObject*>& renderRequestObjects, float deltaTime);
+	void	RenderLighting_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderableObject*>& renderRequestObjects, float deltaTime);
+	bool	CreateRenderingMethodImpl_();
 
 private:
 
@@ -36,7 +37,6 @@ private:
 	float						_currentMSecPerFrame;
 	int							_FPS;
 	GraphicsDevice *			_graphicsDevice;
-
 	
 
 	/*

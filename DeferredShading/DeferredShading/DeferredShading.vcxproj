@@ -145,11 +145,12 @@
   <ItemGroup>
     <ClInclude Include="..\CoreSystem\targetver.h" />
     <ClInclude Include="CameraBase.h" />
-    <ClInclude Include="CharacterRenderedObject.h" />
+    <ClInclude Include="RenderedObject.h" />
     <ClInclude Include="CoreEngineCommon.h" />
     <ClInclude Include="CoreSystem.h" />
     <ClInclude Include="CustomMatrix.h" />
     <ClInclude Include="CustomQuarternion.h" />
+    <ClInclude Include="CustomRenderEngineFactory.h" />
     <ClInclude Include="CustomVector.h" />
     <ClInclude Include="DeferredShaderObject.h" />
     <ClInclude Include="DeferredShading.h" />
@@ -159,12 +160,20 @@
     <ClInclude Include="DXDevice11_4.h" />
     <ClInclude Include="DXHelper11.h" />
     <ClInclude Include="GraphicsSystem.h" />
-    <ClInclude Include="ICameraMovement.h" />
+    <ClInclude Include="CameraMovementBase.h" />
+    <ClInclude Include="ICustomSystemImporterImpl.h" />
     <ClInclude Include="IDeferredShadingMethodImpl.h" />
     <ClInclude Include="GraphicsDevice.h" />
+    <ClInclude Include="IGraphicsSystemFacade.h" />
     <ClInclude Include="IORBITReadonlyMesh.h" />
-    <ClInclude Include="IRenderedObject.h" />
+    <ClInclude Include="IRenderableManager.h" />
+    <ClInclude Include="IRenderableObject.h" />
     <ClInclude Include="IRenderHelper.h" />
+    <ClInclude Include="SceneObject.h" />
+    <ClInclude Include="ISceneObjectFactory.h" />
+    <ClInclude Include="IUpdateableObject.h" />
+    <ClInclude Include="RenderEngineFactoryBase.h" />
+    <ClInclude Include="RenderEngineFactoryManager.h" />
     <ClInclude Include="RenderingMethod.h" />
     <ClInclude Include="IShaderObejct.h" />
     <ClInclude Include="IShaderRenderTargetImpl.h" />
@@ -174,29 +183,39 @@
     <ClInclude Include="ORBITMeshSubset.h" />
     <ClInclude Include="ORBITMaterial.h" />
     <ClInclude Include="ORBITVertex.h" />
-    <ClInclude Include="RenderedObjectManager.h" />
+    <ClInclude Include="ModelManager.h" />
     <ClInclude Include="RenderEngineCommon.h" />
     <ClInclude Include="RenderHelperDX.h" />
     <ClInclude Include="RenderingManager.h" />
+    <ClInclude Include="RenderingOverviewBase.h" />
+    <ClInclude Include="RenderingOverviewDefault.h" />
     <ClInclude Include="RenderingSingletonManager.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="ShaderObjectDX.h" />
     <ClInclude Include="ShaderRenderTarget.h" />
     <ClInclude Include="ShaderRenderTargetDX.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="SurfaceMain.h" />
+    <ClInclude Include="SystemConfigureFileImporter.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TempTimer.h" />
     <ClInclude Include="TestCamera.h" />
     <ClInclude Include="TestHeaderCommon.h" />
     <ClInclude Include="TestModelObject.h" />
+    <ClInclude Include="TestSceneObject.h" />
+    <ClInclude Include="TestSceneObjectFactory.h" />
+    <ClInclude Include="TestSystemConfigureFileImporterSuface.h" />
+    <ClInclude Include="TestSystemCongifImporter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraBase.cpp" />
-    <ClCompile Include="CharacterRenderedObject.cpp" />
+    <ClCompile Include="RenderedObject.cpp" />
     <ClCompile Include="CoreSystem.cpp" />
     <ClCompile Include="CustomMatrix.cpp" />
     <ClCompile Include="CustomQuarternion.cpp" />
+    <ClCompile Include="CustomRenderEngineFactory.cpp" />
     <ClCompile Include="CustomVector.cpp" />
     <ClCompile Include="DeferredShading.cpp" />
     <ClCompile Include="DeferredShadingMethod.cpp" />
@@ -210,9 +229,15 @@
     <ClCompile Include="ORBITMesh.cpp" />
     <ClCompile Include="ORBITMeshSubset.cpp" />
     <ClCompile Include="ORBITMaterial.cpp" />
-    <ClCompile Include="RenderedObjectManager.cpp" />
+    <ClCompile Include="ModelManager.cpp" />
+    <ClCompile Include="RenderEngineFactoryBase.cpp" />
+    <ClCompile Include="RenderEngineFactoryManager.cpp" />
     <ClCompile Include="RenderingManager.cpp" />
+    <ClCompile Include="RenderingOverviewBase.cpp" />
+    <ClCompile Include="RenderingOverviewDefault.cpp" />
     <ClCompile Include="RenderingSingletonManager.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="ShaderObjectDX.cpp" />
     <ClCompile Include="ShaderRenderTarget.cpp" />
@@ -223,9 +248,15 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SurfaceMain.cpp" />
+    <ClCompile Include="SystemConfigureFileImporter.cpp" />
+    <ClCompile Include="TestSceneObjectFactory.cpp" />
+    <ClCompile Include="TestSystemConfigureFileImporterSuface.cpp" />
     <ClCompile Include="TempTimer.cpp" />
     <ClCompile Include="TestCamera.cpp" />
     <ClCompile Include="TestModelObject.cpp" />
+    <ClCompile Include="TestSceneObject.cpp" />
+    <ClCompile Include="TestSystemCongifImporter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DeferredShading.rc" />

@@ -1,4 +1,5 @@
 #pragma once
+
 class TimerObject
 {
 public:
@@ -12,8 +13,8 @@ public:
 	bool Reset();
 
 	float GetDeltaTime() { return _deltaTime; }
-
 private:
+
 	float _previousTickTime;
 	float _deltaTime;
 

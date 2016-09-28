@@ -5,15 +5,14 @@
 #include "DXDevice11_4.h"
 
 DeviceManager::DeviceManager(GraphicsSystem* graphicSystem) :
-	_graphicSystem(graphicSystem)
+	_graphicSystem(graphicSystem),
+	_device(nullptr)
 {
-	_device = nullptr;
 }
 DeviceManager::~DeviceManager()
 {
 	if (nullptr != _device)
 		delete _device;
-
 }
 
 bool DeviceManager::Initialize()

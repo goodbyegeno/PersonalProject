@@ -19,6 +19,7 @@ bool TimerObject::Initialize()
 	_previousTickTime = static_cast<float>(currentTime.count());
 	return true;
 }
+
 bool TimerObject::Reset()
 {
 	std::chrono::time_point<std::chrono::system_clock> tempTime = std::chrono::system_clock::now();
@@ -26,6 +27,7 @@ bool TimerObject::Reset()
 	_previousTickTime = static_cast<float>(currentTime.count());
 	return true;
 }
+
 void TimerObject::PreUpdate()
 {
 
@@ -35,6 +37,7 @@ void TimerObject::PreUpdate()
 
 	_previousTickTime = tempTimeFloat - _previousTickTime;
 }
+
 void TimerObject::Update()
 {
 

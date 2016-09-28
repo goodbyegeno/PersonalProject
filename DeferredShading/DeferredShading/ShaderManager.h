@@ -1,11 +1,20 @@
 #pragma once
 #include <unordered_map>
+#include "RenderEngineCommon.h"
 class GraphicsSystem;
 class IShaderObject;
 
 class ShaderManager
 {
+
 public :
+	struct ShaderFileHeader
+	{
+	public:
+		size_t hash;
+		RenderEngine::GRAPHICSAPITYPE apiType;
+		size_t size;
+	};
 	ShaderManager(GraphicsSystem* graphicSystem);
 	virtual ~ShaderManager();
 
@@ -19,6 +28,8 @@ public :
 	void Update(float deltaTime);
 	IShaderObject* GetShaderObject(size_t shaderHash);
 private:
+	void LoadShaderObject_();
+
 	GraphicsSystem* _graphicSystem;
 	std::unordered_map <size_t, IShaderObject*> _shaderObjectMap;
 

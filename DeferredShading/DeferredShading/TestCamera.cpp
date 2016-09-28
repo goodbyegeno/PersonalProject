@@ -4,7 +4,6 @@
 #include "CoreEngineCommon.h"
 TestCamera::TestCamera(CameraBase* cameraBase)
 {
-
 	_cameraBase = cameraBase;
 	_cameraBase->SetProjectionMode(CoreEngine::PROJECTIONMODE::PERSPECTIVE);
 
@@ -33,6 +32,15 @@ TestCamera::~TestCamera()
 
 }
 void TestCamera::Update(float deltaTime)
+{
+
+}
+
+void TestCamera::PreUpdate(float deltaTime)
+{
+
+}
+void TestCamera::PostUpdate(float deltaTime)
 {
 
 }

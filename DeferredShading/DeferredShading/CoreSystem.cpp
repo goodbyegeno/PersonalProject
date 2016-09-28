@@ -1,13 +1,23 @@
 #include "stdafx.h"
 #include "CoreSystem.h"
 #include "CameraBase.h"
+#include "IUpdateableObject.h"
+#include "IRenderableObject.h"
+#include "IRenderableManager.h"
 //for test now. TEST CODE
 CoreSystem* coreSystem;
 
-CoreSystem::CoreSystem() :
-	_cameraObject(nullptr)
+CoreSystem::CoreSystem(CoreSystemInititalData& data) :
+	_cameraObject(nullptr),
+	_updateRateType(CoreEngine::UPDATERATETYPE::CUSTOM_FIXED),
+	_minDeltaTimePerFrame(0.0f),
+	_maxDeltaTimePerFrame(0.0f),
+	_updateableObjectGroupList(data.updateableObjectGroupList),
+	_renderableObjectGroupList(data.renderableObjectGroupList)
 {
 	coreSystem = this;
+	_cameraObject = new CameraBase(this);
+	_entityMap.clear();
 }
 CoreSystem::~CoreSystem()
 {
@@ -16,30 +26,143 @@ CoreSystem::~CoreSystem()
 }
 
 
-bool CoreSystem::Initialzie()
+bool CoreSystem::Initialize()
 {
 	_cameraObject = new CameraBase(this);
 
-	_timeObject.Initialize();
+	if (false == _timeObject.Initialize())
+		return false;
+
+	if (false == _cameraObject->Initialize())
+		return false;
+
 	return true;
 }
 bool CoreSystem::Reset()
 {
 	_timeObject.Reset();
+	_cameraObject->Reset();
 	return true;
 }
-
-void CoreSystem::PreUpdate()
+void CoreSystem::UpdateMain()
 {
 	_timeObject.PreUpdate();
-
-}
-void CoreSystem::Update()
-{
 	float deltaTime = _timeObject.GetDeltaTime();
+
+	_tickElapsedTime += deltaTime;
+	float minDeltaTimePerFrame = _minDeltaTimePerFrame;
+
+	switch (_updateRateType)
+	{
+	case CoreEngine::UPDATERATETYPE::CUSTOM_DYNAMIC:
+	break;
+	case CoreEngine::UPDATERATETYPE::CUSTOM_FIXED:
+	break;
+	case CoreEngine::UPDATERATETYPE::FREE:
+		minDeltaTimePerFrame = 0.0f;
+	break;
+	};
+
+	if (_tickElapsedTime >= _minDeltaTimePerFrame)
+	{
+		PhaseReady_(deltaTime);
+
+		PreUpdate_(deltaTime);
+		Update_(deltaTime);
+		PostUpdate_(deltaTime);
+		Render_(deltaTime);
+
+		PhaseEnd_(deltaTime);
+		_tickElapsedTime = 0.0f;
+	}
 }
-void CoreSystem::PostUpdate()
+void CoreSystem::PreUpdate_(float deltaTime)
 {
+	_cameraObject->PreUpdate(deltaTime);
+	for (int groupIndex = 0; groupIndex < _updateableObjectGroupList.size(); groupIndex++)
+	{
+		for (int objectIndex = 0; objectIndex < _updateableObjectGroupList[groupIndex].size(); objectIndex++)
+		{
+			_updateableObjectGroupList[groupIndex][objectIndex]->PreUpdate(deltaTime);
+		}
+	}
+}
+void CoreSystem::Update_(float deltaTime)
+{
+	_cameraObject->Update(deltaTime);
+	for (int groupIndex = 0; groupIndex < _updateableObjectGroupList.size(); groupIndex++)
+	{
+		for (int objectIndex = 0; objectIndex < _updateableObjectGroupList[groupIndex].size(); objectIndex++)
+		{
+			_updateableObjectGroupList[groupIndex][objectIndex]->Update(deltaTime);
+		}
+	}
+}
+void CoreSystem::PostUpdate_(float deltaTime)
+{
+	_cameraObject->PostUpdate(deltaTime);
+	for (int groupIndex = 0; groupIndex < _updateableObjectGroupList.size(); groupIndex++)
+	{
+		for (int objectIndex = 0; objectIndex < _updateableObjectGroupList[groupIndex].size(); objectIndex++)
+		{
+			_updateableObjectGroupList[groupIndex][objectIndex]->PostUpdate(deltaTime);
+		}
+	}
+}
+void CoreSystem::Render_(float deltaTime)
+{
+	for (int groupIndex = 0; groupIndex < _renderableObjectGroupList.size(); groupIndex++)
+	{
+		for (int objectIndex = 0; objectIndex < _renderableObjectGroupList[groupIndex].size(); objectIndex++)
+		{
+			_renderableObjectGroupList[groupIndex][objectIndex]->Render(deltaTime);
+		}
+	}
+}
+void CoreSystem::PhaseReady_(float deltaTime)
+{
+	for (int groupIndex = 0; groupIndex < _updateableObjectGroupList.size(); groupIndex++)
+	{
+		for (int objectIndex = 0; objectIndex < _updateableObjectGroupList[groupIndex].size(); objectIndex++)
+		{
+			_updateableObjectGroupList[groupIndex][objectIndex]->PhaseReady(deltaTime);
+		}
+	}
+}
+void CoreSystem::PhaseEnd_(float deltaTime)
+{
+	for (int groupIndex = 0; groupIndex < _updateableObjectGroupList.size(); groupIndex++)
+	{
+		for (int objectIndex = 0; objectIndex < _updateableObjectGroupList[groupIndex].size(); objectIndex++)
+		{
+			_updateableObjectGroupList[groupIndex][objectIndex]->PhaseEnd(deltaTime);
+		}
+	}
+}
+/*
+void CoreSystem::AddUpdateableObject(IUpdateableObject* updateableObject, UINT group)
+{
+	size_t addGroupCount = static_cast<size_t>(group) - _updateableObjectGroupList.size();
+	for (size_t addedCount = 0; addedCount < addGroupCount; addedCount++)
+	{
+		_updateableObjectGroupList.push_back(std::vector<IUpdateableObject*>());
+	}
+
+	_updateableObjectGroupList[group].push_back(updateableObject);
+}
+*/
+void CoreSystem::SetCameraImplement(size_t cameraMovementBaseHash)
+{
+	_cameraObject->SetCameraMovementBase(cameraMovementBaseHash);
+}
+SystemConfigureEntity*	CoreSystem::GetConfigValue(size_t hashEntity)
+{
+	std::unordered_map<size_t, SystemConfigureEntity*>::iterator itor = _entityMap.find(hashEntity);
+	if (itor != _entityMap.end())
+	{
+		return itor->second;
+	}
+	return nullptr;
 
 }
 

@@ -1,8 +1,8 @@
 #pragma once
-#include "ICameraMovement.h"
+#include "CameraMovementBase.h"
 class CameraBase;
 
-class TestCamera : public ICameraMovement
+class TestCamera : public CameraMovementBase
 {
 public:
 	TestCamera() = delete;
@@ -10,7 +10,9 @@ public:
 	TestCamera(CameraBase* cameraBase);
 	virtual ~TestCamera();
 
-	virtual void Update(float deltaTime);
+	virtual void PreUpdate(float deltaTime) = 0;
+	virtual void Update(float deltaTime) = 0;
+	virtual void PostUpdate(float deltaTime) = 0;
 private:
 
 	CameraBase* _cameraBase;
