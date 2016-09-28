@@ -4,5 +4,6 @@
 *.ipch
 *.tlog
 *.cso
-DeferredShading/DeferredShading/x64/Debug/
-DeferredShading/x64/Debug/
+RenderingPractice/RenderingPractice/x64/Debug/
+RenderingPractice/x64/Debug/
+/RenderingPractice/RenderingPractice.VC.VC.opendb
