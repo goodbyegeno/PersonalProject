@@ -10,6 +10,7 @@
 #include "RenderingOverviewDefault.h"
 #include "CoreSystem.h"
 #include "SystemConfigureFileImporter.h"
+#include "RenderEngineFactoryBase.h"
 RenderingManager::RenderingManager(GraphicsSystem* graphicSystem) :
 	_graphicsSystem(graphicSystem),
 	_deviceManager(nullptr),
@@ -38,16 +39,18 @@ RenderingManager::~RenderingManager()
 
 bool RenderingManager::Initialize()
 {
+
+	_renderingOverview = _graphicsSystem->GetRenderEngineFactory()->CreateRenderingOverview(_graphicsSystem->GetGraphicsAPIType(), this);
 	SystemConfigureEntity* tempEntity = coreSystem->GetConfigValue(std::hash<std::wstring>{}(L"FPSMode"));
 	if (nullptr != tempEntity)
-		_FPSMode = ConvertToFPSMode_(tempEntity->GetValue());
+		_FPSMode = ConvertToFPSMode_(static_cast<int>(tempEntity->GetValue()));
 	else
 		_FPSMode = RenderEngine::FPSMODE::FLEXIBLE60;
 
 	tempEntity = nullptr;
 	tempEntity = coreSystem->GetConfigValue(std::hash<std::wstring>{}(L"TargetFPS"));
 	if (nullptr != tempEntity)
-		_targetFPS = tempEntity->GetValue();
+		_targetFPS = static_cast<int>(tempEntity->GetValue());
 	else
 		_targetFPS = 60;
 	
@@ -57,15 +60,10 @@ bool RenderingManager::Initialize()
 	_vSync = false;
 	if (nullptr != tempEntity) 
 	{
-		switch (tempEntity->GetValue())
-		{
-		case 0:
+		if (tempEntity->GetValue() == 0.0f)
 			_vSync = false;
-			break;
-		case 1:
+		else
 			_vSync = true;
-			break;
-		};
 	}
 
 	_deviceManager = nullptr;
@@ -81,7 +79,6 @@ bool RenderingManager::Initialize()
 			return false;
 	}
 	//TEST: test code
-	_requestRenderListMap.clear();
 
 	if (false == _renderingOverview->Initialize())
 		return false;
@@ -96,14 +93,14 @@ bool RenderingManager::Reset()
 
 	SystemConfigureEntity* tempEntity = coreSystem->GetConfigValue(std::hash<std::wstring>{}(L"FPSMode"));
 	if (nullptr != tempEntity)
-		_FPSMode = ConvertToFPSMode_(tempEntity->GetValue());
+		_FPSMode = ConvertToFPSMode_(static_cast<int>(tempEntity->GetValue()));
 	else
 		_FPSMode = RenderEngine::FPSMODE::FLEXIBLE60;
 
 	tempEntity = nullptr;
 	tempEntity = coreSystem->GetConfigValue(std::hash<std::wstring>{}(L"TargetFPS"));
 	if (nullptr != tempEntity)
-		_targetFPS = tempEntity->GetValue();
+		_targetFPS = static_cast<int>(tempEntity->GetValue());
 	else
 		_targetFPS = 60;
 
@@ -113,18 +110,12 @@ bool RenderingManager::Reset()
 	_vSync = false;
 	if (nullptr != tempEntity)
 	{
-		switch (tempEntity->GetValue())
-		{
-		case 0:
+		if (0.0f == tempEntity->GetValue())
 			_vSync = false;
-			break;
-		case 1:
+		else
 			_vSync = true;
-			break;
-		};
 	}
 
-	_requestRenderListMap.clear();
 	for (std::unordered_map<size_t, RenderMethod*>::iterator itorMethodMap = _renderingMethodMap.begin(); itorMethodMap != _renderingMethodMap.end(); itorMethodMap++)
 	{
 		if (false == itorMethodMap->second->Reset())
@@ -138,11 +129,9 @@ bool RenderingManager::Reset()
 bool RenderingManager::RequestRender(IRenderableObject* target)
 {
 	//need to be thread-safety
-	if (false == _initialized)
-		return false;
 
 	std::unordered_map<size_t, std::vector<IRenderableObject*>>::iterator itor = _requestRenderListMap.find(target->GetRenderMethodHashCode());
-	if (itor == _requestRenderListMap.end())
+	if (_requestRenderListMap.end() == itor)
 		return false;
 
 	itor->second.push_back(target);
@@ -155,7 +144,7 @@ void RenderingManager::Render(DeviceManager* deviceManager, ShaderManager* shade
 	if (false == _initialized)
 		return;
 
-	if(_renderingOverview)
+	if (_renderingOverview)
 		_renderingOverview->Render(deviceManager, shaderManager, &_requestRenderListMap, &_renderingMethodMap);
 }
 void RenderingManager::PreUpdate(float deltaTime)
@@ -184,7 +173,8 @@ void RenderingManager::PostUpdate(float deltaTime)
 std::vector<IRenderableObject*>* RenderingManager::GetRenderRequestObject(size_t hashCode)
 {
 	std::unordered_map<size_t, std::vector<IRenderableObject*>>::iterator itor = _requestRenderListMap.find(hashCode);
-	if (itor == _requestRenderListMap.end())
+	
+	if (_requestRenderListMap.end() == itor)
 		return nullptr;
 
 	return &(itor->second);
@@ -192,28 +182,14 @@ std::vector<IRenderableObject*>* RenderingManager::GetRenderRequestObject(size_t
 
 bool RenderingManager::AddRenderingMethod(RenderMethod* renderingMethod)
 {
-	if (false == _initialized)
-		return false;
-
 	std::unordered_map<size_t, RenderMethod*>::iterator itorMethodMap = _renderingMethodMap.find(renderingMethod->GetHashcode());
-	if (itorMethodMap != _renderingMethodMap.end())
+	if (_renderingMethodMap.end() != itorMethodMap)
 		return false;
 
 	_requestRenderListMap.insert(std::unordered_map<size_t, std::vector<IRenderableObject*>>::value_type(renderingMethod->GetHashcode(), std::vector<IRenderableObject*>()));
 	_renderingMethodMap.insert(std::unordered_map<size_t, RenderMethod*>::value_type(renderingMethod->GetHashcode(), renderingMethod));
 	return true;
 }
-/*
-bool RenderingManager::SetRenderOverview(RenderingOverview* renderingOverview)
-{
-	if (_renderingOverview)
-		delete _renderingOverview;
-
-	_renderingOverview = renderingOverview;
-
-	return true;
-}
-*/
 
 RenderEngine::FPSMODE RenderingManager::ConvertToFPSMode_(int mode)
 {

@@ -4,14 +4,14 @@ class ICustomSystemImporterImpl;
 class SystemConfigureEntity
 {
 public:
-	SystemConfigureEntity(std::wstring entityString, int entityValue);
+	SystemConfigureEntity(std::wstring entityString, float entityValue);
 	virtual ~SystemConfigureEntity();
 
 	const std::wstring& GetString() { return _entityString; }
-	const int			GetValue()	{ return _entityValue; }
+	const float			GetValue()	{ return _entityValue; }
 private:
 	std::wstring	_entityString;
-	int				_entityValue;
+	float			_entityValue;
 };
 class SystemConfigureFileImporter
 {

@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "TestModelObject.h"
-
-TestModelObject::TestModelObject():
+#include <string>
+TestModelObject::TestModelObject(size_t hashCode, ORBITMesh** meshDatas, int meshCount, size_t renderingMethodHash, RenderEngine::RENDERTYPE _renderType):
 	_isUsePool(false),
 	_vertices(nullptr),
 	_vertexIndices(nullptr),
-	ModelStaticData(0, nullptr, 0, RenderEngine::RENDERINGMODE::DEFERRED_SHADING, RenderEngine::RENDERTYPE::CHARACTER)
+	ModelStaticData(hashCode, meshDatas, meshCount, renderingMethodHash, _renderType)
 {
 	
 }

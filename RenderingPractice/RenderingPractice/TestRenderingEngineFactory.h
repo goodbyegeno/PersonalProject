@@ -1,12 +1,14 @@
 #pragma once
 #include "RenderEngineFactoryBase.h"
-class CustomRenderEngineFactory : public RenderEngineFactoryBase
+class TestRenderingEngineFactory : public RenderEngineFactoryBase
 {
 public:
-	CustomRenderEngineFactory();
-	virtual ~CustomRenderEngineFactory();
+	TestRenderingEngineFactory();
+	virtual ~TestRenderingEngineFactory();
+
 
 	virtual RenderingOverviewBase* CreateRenderingOverview(RenderEngine::GRAPHICSAPITYPE apiType, RenderingManager* renderingManager);
 	virtual bool CreateRenderingMethod(GraphicsSystem* graphicsSystem);
+	virtual IModelImporterImpl* CreateModelImporter();
 
 };

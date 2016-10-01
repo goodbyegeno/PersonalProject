@@ -1,36 +1,29 @@
 #include "stdafx.h"
-#include "DeferredShadingMethod.h"
-#include "RenderingManager.h"
-#include "GraphicsSystem.h"
-#include "IDeferredShadingMethodImpl.h"
+#include "ForwardShadingMethod.h"
+#include "GraphicsDevice.h"
+#include "ForwardShadingMethodDX.h"
 #include "ModelDynamicData.h"
 #include "ModelStaticData.h"
 #include "IRenderableObject.h"
-#include "CustomMatrix.h"
 #include "ORBITMesh.h"
 #include "ORBITMeshSubset.h"
+#include "RenderingManager.h"
 #include "DeviceManager.h"
-#include "GraphicsDevice.h"
-
-#include "DeferredShadingMethodDX.h"
-
-DeferredShadingMethod::DeferredShadingMethod(RenderingManager* renderingMnanger) :
-	RenderMethod(std::hash<std::wstring>{}(L"IndexedDeferredMethod"))
+#include "GraphicsSystem.h"
+ForwardShadingMethod::ForwardShadingMethod(GraphicsSystem* graphicSystem) :
+	_graphicsSystem(graphicSystem),
+	RenderMethod(std::hash<std::wstring>{}(L"ForwardRendering"))
 {
-	_renderingMananger = renderingMnanger;
-	_renderingMethodImpl = nullptr;
-	_VSync = false;
-	_mSecPerFrame = 0.0f;
-	_currentMSecPerFrame = 0.0f;
-	_FPS = 0;
+	_renderingMananger = _graphicsSystem->GetRenderingManager();
 }
-DeferredShadingMethod::~DeferredShadingMethod()
+
+ForwardShadingMethod::~ForwardShadingMethod()
 {
 	if (_renderingMethodImpl)
 		delete _renderingMethodImpl;
 }
 
-bool DeferredShadingMethod::Initialize()
+bool ForwardShadingMethod::Initialize()
 {
 	_VSync = _renderingMananger->IsVsyncOn();
 	_FPS = _renderingMananger->GetTargetFPS();
@@ -38,10 +31,13 @@ bool DeferredShadingMethod::Initialize()
 	_currentMSecPerFrame = 0.0f;
 	_graphicsDevice = _renderingMananger->GetDeviceManager()->GetDevice();
 	CreateRenderingMethodImpl_();
+	if (false == _renderingMethodImpl->Initialize(_renderingMananger->GetDeviceManager(), _graphicsSystem->GetShaderManager()))
+		return false;
+
 
 	return true;
 }
-bool DeferredShadingMethod::Reset()
+bool ForwardShadingMethod::Reset()
 {
 	_VSync = _renderingMananger->IsVsyncOn();
 	_FPS = _renderingMananger->GetTargetFPS();
@@ -50,19 +46,7 @@ bool DeferredShadingMethod::Reset()
 
 	return true;
 }
-
-void DeferredShadingMethod::Render(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderableObject*>& renderRequestObjects, float deltaTime)
-{
-	_renderingMethodImpl->SetCameraMatrix();
-
-	RenderGBuffer_	(deviceManager, shaderManager, renderRequestObjects, deltaTime);
-	RenderLighting_	(deviceManager, shaderManager, renderRequestObjects, deltaTime);
-	
-	_renderingMethodImpl->ResetRenderTarget();
-
-}
-
-void DeferredShadingMethod::RenderGBuffer_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderableObject*>& renderRequestObjects, float deltaTime)
+void ForwardShadingMethod::Render(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderableObject*>& renderRequestObjects, float deltaTime)
 {
 	//_renderingMethodImpl->SetConstVariables();
 	_renderingMethodImpl->SettingShaderOptions();
@@ -77,7 +61,7 @@ void DeferredShadingMethod::RenderGBuffer_(DeviceManager* deviceManager, ShaderM
 
 		_renderingMethodImpl->SetWorldMatrix(worldMatrix);
 		_renderingMethodImpl->SetConstVariables();
-		
+
 		for (int meshIndex = 0; meshIndex < modelStaticData->GetMeshCount(); meshIndex++)
 		{
 			//subset
@@ -98,34 +82,15 @@ void DeferredShadingMethod::RenderGBuffer_(DeviceManager* deviceManager, ShaderM
 					_renderingMethodImpl->RenderMesh();
 				}
 			}
-			/*
-			ID3D11Buffer*  vertexBuffer = static_cast<ID3D11Buffer*>(meshData[meshIndex]->GetVertexBuffer());
-			ID3D11Buffer* const* ppVertexBuffer = &vertexBuffer;
-
-			_deviceContext->IASetVertexBuffers(0, , ppVertexBuffer, , );
-			_deviceContext->IASetIndexBuffer(meshData[meshIndex]->GetIndexBuffer(), _dxHelper->GetIndexBufferFormat(meshData[meshIndex]->GetIndexBufferFormat()), 0);
-			//_deviceWrapper->RenderMesh(meshData[meshIndex]));
-			*/
-			//_renderingMethodImpl->RenderMesh();
 		}
-
 	}
-
-	//_renderingMethodImpl->RenderMesh(renderRequestObjects);
-
-
 }
-void DeferredShadingMethod::RenderLighting_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderableObject*>& renderRequestObjects, float deltaTime)
-{
-	_renderingMethodImpl->RenderLighting(renderRequestObjects);
-}
-
-bool DeferredShadingMethod::CreateRenderingMethodImpl_()
+bool ForwardShadingMethod::CreateRenderingMethodImpl_()
 {
 	switch (_graphicsDevice->GetGraphicsAPIType())
 	{
 	case RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4:
-		_renderingMethodImpl = new DeferredShadingMethodDX();
+		_renderingMethodImpl = new ForwardShadingMethodDX();
 		break;
 	case RenderEngine::GRAPHICSAPITYPE::OPENGL:
 		break;

@@ -12,7 +12,7 @@ public:
 
 	static RenderingSingletonManager* GetInstance()
 	{
-		if (_instance == nullptr)
+		if (nullptr == _instance)
 			_instance = new RenderingSingletonManager();
 		return _instance;
 	}

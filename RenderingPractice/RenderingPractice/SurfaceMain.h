@@ -2,7 +2,6 @@
 
 class CoreSystem;
 class GraphicsSystem;
-class RenderEngineFactoryManager;
 class SceneManager;
 
 class SurfaceMain
@@ -10,7 +9,7 @@ class SurfaceMain
 public:
 	SurfaceMain();
 	virtual ~SurfaceMain();
-	bool Initialize();
+	bool Initialize(HWND hwnd);
 	bool Reset();
 	void Update();
 

@@ -5,30 +5,49 @@
 #include "ModelManager.h"
 #include "ShaderManager.h"
 #include "RenderingSingletonManager.h"
-#include "RenderEngineFactoryManager.h"
+#include "RenderEngineFactoryBase.h"
 GraphicsSystem::GraphicsSystem(GraphicsSystemInitialData& data) :
 	_graphicsAPIType(data.graphicsAPIType),
 	_renderingMananger(nullptr),
 	_deviceManager(nullptr),
 	_modelManager(nullptr),
-	_shaderManager(nullptr)
+	_shaderManager(nullptr),
+	_renderEngineFactory(data.renderEngineFactory)
 {
+	if (nullptr == _renderEngineFactory)
+	{
+		//TODO create default factory 
+	}
+
 	_renderingMananger = new RenderingManager(this);
 	_deviceManager = new DeviceManager(this);
-	_modelManager = new ModelManager(this);
+	_modelManager = new ModelManager(this, _renderEngineFactory->CreateModelImporter());
 	_shaderManager = new ShaderManager(this);
-	_renderEngineFactory = new RenderEngineFactoryManager();
+	
 }
 GraphicsSystem::~GraphicsSystem()
 {
+	if (_renderingMananger)
+		delete _renderingMananger;
+	if (_deviceManager)
+		delete _deviceManager;
+
+	if (_modelManager)
+		delete _modelManager;
+
+	if (_shaderManager)
+		delete _shaderManager;
+
+	if (_renderEngineFactory)
+		delete _renderEngineFactory;
 }
 
-bool GraphicsSystem::Initialize()
+bool GraphicsSystem::Initialize(HWND hwnd)
 {
-	_renderEngineFactory->CreateRenderingMethod(_renderingMananger);
+	_renderEngineFactory->CreateRenderingMethod(this);
 	_renderEngineFactory->CreateRenderingOverview(this->_graphicsAPIType, _renderingMananger);
 
-	_deviceManager		->Initialize();
+	_deviceManager		->Initialize(hwnd);
 	_renderingMananger	->Initialize();
 	_modelManager		->Initialize();
 	_shaderManager		->Initialize();

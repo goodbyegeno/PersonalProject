@@ -51,7 +51,7 @@ void SceneManager::PostUpdate(float deltaTime)
 void SceneManager::PhaseEnd(float deltaTime)
 {
 	//UNDONE
-	for (size_t sceneIndex = _sceneObjectList.size(); sceneIndex >= 0; sceneIndex--)
+	for (int sceneIndex = static_cast<int>(_sceneObjectList.size()) - 1; sceneIndex >= 0; sceneIndex--)
 	{
 		if (_sceneObjectList[sceneIndex]->IsDeleteable())
 		{

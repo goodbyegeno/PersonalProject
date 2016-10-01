@@ -4,11 +4,12 @@
 
 class GraphicsSystem;
 class ModelStaticData;
-
+class IModelImporterImpl;
+class GraphicsDevice;
 class ModelManager
 {
 public:
-	ModelManager(GraphicsSystem* graphicSystem);
+	ModelManager(GraphicsSystem* graphicSystem, IModelImporterImpl*	modelImporter);
 	virtual ~ModelManager();
 
 	bool Initialize();
@@ -27,6 +28,7 @@ private:
 	GraphicsSystem* _graphicSystem;
 
 	//UNDONE modeldata should contained multi layer container? ex) double vector
-	std::unordered_map<size_t, ModelStaticData*> _modelDataMap;
-
+	std::unordered_map<size_t, ModelStaticData*>	_modelDataMap; //<modelHashCode, data>
+	IModelImporterImpl*								_modelImporter;
+	GraphicsDevice*									_graDevice;
 };

@@ -8,7 +8,7 @@ class RenderingManager;
 class DeviceManager;
 class ModelManager;
 class ShaderManager;
-class RenderEngineFactoryManager;
+class RenderEngineFactoryBase;
 class RenderMethod;
 class IRenderableObject;
 
@@ -19,14 +19,15 @@ public:
 	struct GraphicsSystemInitialData
 	{
 	public:
-		RenderEngine::GRAPHICSAPITYPE graphicsAPIType;
+		RenderEngine::GRAPHICSAPITYPE	graphicsAPIType;
+		RenderEngineFactoryBase*		renderEngineFactory;
 	};
 	GraphicsSystem(GraphicsSystemInitialData& data);
 	GraphicsSystem() = delete;
 	GraphicsSystem(const GraphicsSystem&) = delete;
 	virtual ~GraphicsSystem();
 
-	bool Initialize();
+	bool Initialize(HWND hwnd);
 	bool Reset();
 	virtual void PreUpdate	(float deltaTime);
 	virtual void Update		(float deltaTime);
@@ -42,7 +43,7 @@ public:
 	DeviceManager*			GetDeviceManager()					{ return _deviceManager; }
 	ModelManager*			GetModelManager()					{ return _modelManager; }
 	ShaderManager*			GetShaderManager()					{ return _shaderManager; }
-	RenderEngineFactoryManager*	GetRenderEngineFactory()		{ return _renderEngineFactory; }
+	RenderEngineFactoryBase*	GetRenderEngineFactory()		{ return _renderEngineFactory; }
 
 	//From class IGraphicsSystemFacade
 	virtual bool AddRenderingRequest(IRenderableObject* renderObject);
@@ -56,5 +57,5 @@ private:
 	DeviceManager*			_deviceManager;
 	ModelManager*			_modelManager;
 	ShaderManager*			_shaderManager;
-	RenderEngineFactoryManager*	_renderEngineFactory;
+	RenderEngineFactoryBase* _renderEngineFactory;
 };

@@ -2,14 +2,22 @@
 #include "ModelManager.h"
 #include "ModelStaticData.h"
 #include "GraphicsSystem.h"
-ModelManager::ModelManager(GraphicsSystem* graphicSystem)
+#include "TestModelObject.h"
+#include "IModelImporterImpl.h"
+#include "DeviceManager.h"
+ModelManager::ModelManager(GraphicsSystem* graphicSystem, IModelImporterImpl*	modelImporter) :
+	_graphicSystem(graphicSystem),
+	_modelImporter(modelImporter)
 {
-	_graphicSystem = graphicSystem;
-
+	if (nullptr == _modelImporter)
+	{
+		//TODO: default importer
+	}
 }
 ModelManager::~ModelManager()
 {
-
+	if (_modelImporter)
+		delete _modelImporter;
 }
 
 bool ModelManager::Initialize()
@@ -41,7 +49,7 @@ ModelStaticData* ModelManager::GetModelData(size_t hashCode)
 	std::unordered_map<size_t, ModelStaticData*>::iterator itor = _modelDataMap.find(hashCode);
 	ModelStaticData* resultModelData = nullptr;
 
-	if (itor == _modelDataMap.end())
+	if (_modelDataMap.end() == itor)
 	{
 		std::wstring fileName;
 
@@ -52,15 +60,16 @@ ModelStaticData* ModelManager::GetModelData(size_t hashCode)
 		resultModelData = itor->second;
 	}
 	return resultModelData;
-
 }
 
 ModelStaticData* ModelManager::LoadModel_(std::wstring& fileName)
 {
 	//TEST: just temp fuction blahblah
-	//ModelStaticData* tempData = new ModelStaticData(0, nullptr, 0, RenderEngine::RENDERINGMODE::DEFERRED_SHADING, RenderEngine::RENDERTYPE::CHARACTER);
-	ModelStaticData* tempData = new ModelStaticData(0, nullptr, 0, RenderEngine::RENDERINGMODE::FORWARD, RenderEngine::RENDERTYPE::CHARACTER);
-	_modelDataMap.insert(std::unordered_map<size_t, ModelStaticData*>::value_type(tempData->GetHashCode(), tempData));
+	ModelStaticData* tempData;
+	tempData = _modelImporter->LoadModel(fileName, _graphicSystem->GetDeviceManager()->GetDevice());
+
+	if (tempData)
+		_modelDataMap.insert(std::unordered_map<size_t, ModelStaticData*>::value_type(tempData->GetHashCode(), tempData));
 
 	return tempData;
 

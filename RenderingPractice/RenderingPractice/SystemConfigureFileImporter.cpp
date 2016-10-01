@@ -23,7 +23,7 @@ bool SystemConfigureFileImporter::FileImport()
 }
 
 	
-SystemConfigureEntity::SystemConfigureEntity(std::wstring entityString, int entityValue) :
+SystemConfigureEntity::SystemConfigureEntity(std::wstring entityString, float entityValue) :
 	_entityString(entityString),
 	_entityValue(entityValue)
 {

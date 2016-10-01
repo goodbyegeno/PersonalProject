@@ -7,7 +7,7 @@ public:
 	DeviceManager(GraphicsSystem* graphicSystem);
 	virtual ~DeviceManager();
 
-	bool Initialize();
+	bool Initialize(HWND hwnd);
 	bool PostInitialize();
 
 	bool Reset();

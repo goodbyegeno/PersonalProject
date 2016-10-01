@@ -3,8 +3,8 @@
 #include "RenderingManager.h"
 #include "RenderingMethod.h"
 RenderingOverviewDefault::RenderingOverviewDefault(RenderingManager* renderingManager) :
-	_forwardHashCode(std::hash<std::wstring>{}(L"forward")),
-	_deferredHashCode(std::hash<std::wstring>{}(L"deferred")),
+	_forwardHashCode(std::hash<std::wstring>{}(L"ForwardRendering")),
+	_deferredHashCode(std::hash<std::wstring>{}(L"DeferredRendering")),
 	RenderingOverviewBase(renderingManager)
 {
 }
@@ -16,7 +16,7 @@ void RenderingOverviewDefault::Render(DeviceManager* deviceManager, ShaderManage
 	//start Rendering;
 	//std::unordered_map<size_t, RenderMethod*>*	_renderingMethodMap;		//from RenderingManager
 	std::unordered_map<size_t, RenderMethod*>::iterator itorForward = renderingMethodMap->find(_forwardHashCode);
-	if (itorForward != renderingMethodMap->end())
+	if (renderingMethodMap->end() != itorForward)
 	{
 		std::unordered_map<size_t, std::vector<IRenderableObject*>>::iterator itorRequestObject = renderingRequestMap->find(_forwardHashCode);
 		if (itorRequestObject != renderingRequestMap->end())
@@ -26,18 +26,16 @@ void RenderingOverviewDefault::Render(DeviceManager* deviceManager, ShaderManage
 		}
 	}
 	std::unordered_map<size_t, RenderMethod*>::iterator itorDeferred = renderingMethodMap->find(_forwardHashCode);
-	if (itorDeferred != renderingMethodMap->end())
+	if (renderingMethodMap->end() != itorDeferred)
 	{
 		std::unordered_map<size_t, std::vector<IRenderableObject*>>::iterator itorRequestObject = renderingRequestMap->find(_deferredHashCode);
 
-		if (itorRequestObject != renderingRequestMap->end())
+		if (renderingRequestMap->end() != itorRequestObject)
 		{
 			std::vector<IRenderableObject*>& deferredRenderedObject = itorRequestObject->second;
 			itorForward->second->Render(deviceManager, shaderManager, deferredRenderedObject, 0.0f);
-
 		}
 	}
-	
 	//end Rendering
 }
 bool RenderingOverviewDefault::Initialize()

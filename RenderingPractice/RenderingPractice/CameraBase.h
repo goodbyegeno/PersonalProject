@@ -69,6 +69,6 @@ private:
 	CoreEngine::PROJECTIONMODE _projectionMode;
 
 	std::unordered_map<size_t, CameraMovementBase*> _cameraMovementBaseMap;
-	CameraMovementBase*							_currentCameraMovementBase;
+	CameraMovementBase*								_currentCameraMovementBase;
 
 };

@@ -12,7 +12,6 @@ public:
 
 	virtual bool IsGotAlphaBlend();
 	virtual RenderEngine::RENDERTYPE	GetRenderedType() final;// { return RenderEngine::RENDERTYPE::CHARACTER; }
-	virtual RenderEngine::RENDERINGMODE GetRenderedMode() final;// { return _ModelStaticData->GetRenderedMode(); }
 
 	virtual size_t GetRenderMethodHashCode();
 
@@ -20,7 +19,7 @@ public:
 
 	virtual const ModelStaticData*	GetModelStaticData()								{ return _modelStaticData; }
 	virtual const void				SetModelStaticData(ModelStaticData* staticData)		{ _modelStaticData = staticData; }
-	virtual ModelDynamicData* GetModelDynamicData()										{ return &_modelDynamicData; }
+	virtual ModelDynamicData*		GetModelDynamicData()								{ return &_modelDynamicData; }
 
 private:
 	ModelDynamicData		_modelDynamicData;

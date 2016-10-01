@@ -20,8 +20,7 @@ public:
 	virtual bool	Reset();
 
 	virtual void	Render(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderableObject*>& renderRequestObjects, float deltaTime);
-	virtual RenderEngine::RENDERINGMODE GetRenderingMode() final { return RenderEngine::RENDERINGMODE::INDEXED_DEFERRED_SHADING; }
-
+	//virtual RenderEngine::RENDERINGMODE GetRenderingMode() final { return RenderEngine::RENDERINGMODE::INDEXED_DEFERRED_SHADING; }
 private:
 	void	RenderGBuffer_(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderableObject*>& renderRequestObjects, float deltaTime);
 

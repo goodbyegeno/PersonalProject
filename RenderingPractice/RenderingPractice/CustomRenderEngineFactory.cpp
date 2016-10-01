@@ -3,6 +3,9 @@
 #include "RenderingOverviewDefault.h"
 #include "RenderingManager.h"
 #include "DeferredShadingMethod.h"
+#include "ForwardShadingMethod.h"
+#include "GraphicsSystem.h"
+
 CustomRenderEngineFactory::CustomRenderEngineFactory()
 {
 }
@@ -24,9 +27,10 @@ RenderingOverviewBase* CustomRenderEngineFactory::CreateRenderingOverview(Render
 
 }
 
-bool CustomRenderEngineFactory::CreateRenderingMethod(RenderingManager* renderingManager)
+bool CustomRenderEngineFactory::CreateRenderingMethod(GraphicsSystem* graphicsSystem)
 {
-	renderingManager->AddRenderingMethod(new DeferredShadingMethod(renderingManager));
+	//renderingManager->AddRenderingMethod(new DeferredShadingMethod(renderingManager));
+	graphicsSystem->GetRenderingManager()->AddRenderingMethod(new ForwardShadingMethod(graphicsSystem));
 	return true;
 }
 

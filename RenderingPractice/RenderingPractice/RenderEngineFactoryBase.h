@@ -2,6 +2,8 @@
 #include "RenderEngineCommon.h"
 class RenderingOverviewBase;
 class RenderingManager;
+class IModelImporterImpl;
+class GraphicsSystem;
 
 class RenderEngineFactoryBase
 {
@@ -10,6 +12,7 @@ public:
 	virtual ~RenderEngineFactoryBase();
 
 	virtual RenderingOverviewBase* CreateRenderingOverview(RenderEngine::GRAPHICSAPITYPE apiType, RenderingManager* renderingManager);
-	virtual bool CreateRenderingMethod(RenderingManager* renderingManager);
+	virtual bool CreateRenderingMethod(GraphicsSystem* graphicsSystem);
+	virtual IModelImporterImpl* CreateModelImporter() = 0;
 
 };

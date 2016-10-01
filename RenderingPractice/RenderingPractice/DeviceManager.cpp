@@ -15,7 +15,7 @@ DeviceManager::~DeviceManager()
 		delete _device;
 }
 
-bool DeviceManager::Initialize()
+bool DeviceManager::Initialize(HWND hwnd)
 {
 	//create Device 
 	switch (_graphicSystem->GetGraphicsAPIType())
@@ -33,7 +33,7 @@ bool DeviceManager::Initialize()
 	if (nullptr == _device)
 		return false;
 
-	_device->Initialize();
+	_device->Initialize(hwnd);
 
 	return true;
 }

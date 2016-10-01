@@ -21,7 +21,7 @@ CoreSystem::CoreSystem(CoreSystemInititalData& data) :
 }
 CoreSystem::~CoreSystem()
 {
-	if(_cameraObject)
+	if (_cameraObject)
 		delete _cameraObject;
 }
 
@@ -151,9 +151,13 @@ void CoreSystem::AddUpdateableObject(IUpdateableObject* updateableObject, UINT g
 	_updateableObjectGroupList[group].push_back(updateableObject);
 }
 */
-void CoreSystem::SetCameraImplement(size_t cameraMovementBaseHash)
+void CoreSystem::SetCameraMovement(size_t cameraMovementBaseHash)
 {
 	_cameraObject->SetCameraMovementBase(cameraMovementBaseHash);
+}
+void CoreSystem::AddCameraMovement(CameraMovementBase* cameraMovement)
+{
+	_cameraObject->AddCameraMovementBase(cameraMovement);
 }
 SystemConfigureEntity*	CoreSystem::GetConfigValue(size_t hashEntity)
 {

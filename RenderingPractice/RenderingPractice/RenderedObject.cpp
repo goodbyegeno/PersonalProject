@@ -13,16 +13,10 @@ bool RenderedObject::IsGotAlphaBlend()
 { 
 	return false; 
 }
-RenderEngine::RENDERINGMODE RenderedObject::GetRenderedMode()
-{ 
-	if(_modelStaticData)
-		return _modelStaticData->GetRenderedMode(); 
-	else
-		return RenderEngine::RENDERINGMODE::MAX;
-}
+
 RenderEngine::RENDERTYPE RenderedObject::GetRenderedType() 
 {
-	if(_modelStaticData)
+	if (_modelStaticData)
 		return _modelStaticData->GetRenderedType();
 	else
 		return RenderEngine::RENDERTYPE::MAX;

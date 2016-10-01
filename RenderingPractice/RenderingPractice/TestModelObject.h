@@ -8,7 +8,7 @@ class DeviceManager;
 class TestModelObject : public ModelStaticData
 {
 public:
-	TestModelObject();
+	TestModelObject(size_t hashCode, ORBITMesh** meshDatas, int meshCount, size_t renderingMethodHash, RenderEngine::RENDERTYPE _renderType);
 	virtual ~TestModelObject();
 
 	bool Initialize(DeviceManager* deviceManager);

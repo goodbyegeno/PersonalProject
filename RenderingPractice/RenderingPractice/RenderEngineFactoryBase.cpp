@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "RenderEngineFactoryBase.h"
-
+#include "GraphicsSystem.h"
 RenderEngineFactoryBase::RenderEngineFactoryBase()
 {
 }
@@ -13,7 +13,7 @@ RenderingOverviewBase* RenderEngineFactoryBase::CreateRenderingOverview(RenderEn
 	return nullptr;
 }
 
-bool RenderEngineFactoryBase::CreateRenderingMethod(RenderingManager* renderingManager)
+bool RenderEngineFactoryBase::CreateRenderingMethod(GraphicsSystem* graphicsSystem)
 {
 	return false;
 }

@@ -37,7 +37,9 @@ public:
 
 	//void AddUpdateableObject(IUpdateableObject* updateableObject, UINT group);
 
-	void SetCameraImplement(size_t cameraMovementBaseHash);
+	void SetCameraMovement(size_t cameraMovementBaseHash);
+	void AddCameraMovement(CameraMovementBase* cameraMovement);
+	CameraBase* GetCamera() { return _cameraObject; }
 	void SetUpdateRateType(CoreEngine::UPDATERATETYPE updateRateType) { _updateRateType = updateRateType; }
 	void SetTimeWindowPerFrame(float minTime, float maxTile) { _minDeltaTimePerFrame = minTime; _maxDeltaTimePerFrame = maxTile; }
 	std::unordered_map<size_t, SystemConfigureEntity*>* GetConfigEntityMap() { return &_entityMap; }

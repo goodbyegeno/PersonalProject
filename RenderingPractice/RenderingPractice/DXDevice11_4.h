@@ -14,7 +14,7 @@ public:
 	DXDevice11_4();
 	virtual ~DXDevice11_4();
 
-	virtual bool Initialize();
+	virtual bool Initialize(HWND hwnd);
 	virtual bool Reset();
 
 	virtual void* GetShader() { return nullptr; }
@@ -22,9 +22,10 @@ public:
 	virtual void* GetBuffer() { return _device; }
 
 	void DrawPrimitive();
+	ID3D11DeviceContext3* GetDeviceContext() { return _deviceContext; }
 private:
 
-	bool LoadDevice_();// (int screenWidth, int screenHeight);
+	bool LoadDevice_(HWND hwnd);// (int screenWidth, int screenHeight);
 
 private:
 	ID3D11Device3*				_device;

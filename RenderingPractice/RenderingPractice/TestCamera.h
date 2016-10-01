@@ -10,9 +10,9 @@ public:
 	TestCamera(CameraBase* cameraBase);
 	virtual ~TestCamera();
 
-	virtual void PreUpdate(float deltaTime) = 0;
-	virtual void Update(float deltaTime) = 0;
-	virtual void PostUpdate(float deltaTime) = 0;
+	virtual void PreUpdate(float deltaTime);
+	virtual void Update(float deltaTime);
+	virtual void PostUpdate(float deltaTime);
 private:
 
 	CameraBase* _cameraBase;

@@ -55,7 +55,7 @@ bool DeferredShadingMethodDX::Initialize(DeviceManager* deviceManager, ShaderMan
 {
 	_shaderManager = shaderManager;
 	GraphicsDevice* graDevice = deviceManager->GetDevice();
-	if (graDevice == nullptr || graDevice->GetGraphicsAPIType() != RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4)
+	if (nullptr == graDevice || RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4 != graDevice->GetGraphicsAPIType())
 		return false;
 
 	_deviceWrapper = static_cast<DXDevice11_4*>(graDevice);
@@ -83,7 +83,7 @@ bool DeferredShadingMethodDX::Reset(DeviceManager* deviceManager, ShaderManager*
 {
 	_shaderManager = shaderManager;
 	GraphicsDevice* graDevice = deviceManager->GetDevice();
-	if (graDevice == nullptr || graDevice->GetGraphicsAPIType() != RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4)
+	if (nullptr == graDevice || RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4 != graDevice->GetGraphicsAPIType())
 		return false;
 
 	/*
@@ -332,7 +332,7 @@ bool DeferredShadingMethodDX::RenderMesh()
 	//	}
 
 	//}
-
+	//TODO: Chane DrawIndexedInstancedIndirect
 	_deviceContext->DrawIndexed(_drawVariables.GetIndexCount(), _drawVariables.GetIndexStart(), _drawVariables.GetVertexStart());
 
 	return true;
@@ -345,8 +345,6 @@ bool DeferredShadingMethodDX::RenderLighting(std::vector<IRenderableObject*>& re
 	for (int objectsIndex = 0; objectsIndex < renderRequestObjects.size(); objectsIndex++)
 	{
 		renderRequestObjects[objectsIndex];
-
-
 	}
 	return true;
 }
@@ -382,18 +380,7 @@ bool DeferredShadingMethodDX::SetWorldMatrix(const ORBITMATRIX4x4* worldMatrix)
 
 	return true;
 }
-DeferredShadingMethodDX::DrawVariables::~DrawVariables()
-{
 
-}
-
-void DeferredShadingMethodDX::DrawVariables::SetIndexData(int indexCount, int indexStart, int vertexStart)
-{
-	_indexCount = indexCount;
-	_indexStart = indexStart;
-	_vertexStart = vertexStart;
-
-}
 
 
 bool DeferredShadingMethodDX::LoadShader_()
@@ -413,15 +400,12 @@ bool DeferredShadingMethodDX::LoadShader_()
 	if (FAILED(result))
 		return false;
 
-
 	//Load VS
 	_vertexShaderHash = std::hash<std::wstring>{}(L"Render_VS.hlsl");
 	result = D3DCompileFromFile(L"Render_VS.hlsl", NULL, NULL, "main", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0,
 		&tempVSShaderBuffer, &errorMessage);
 	if (FAILED(result))
 		return false;
-
-
 
 	//Load CS
 	_computeShaderHash = std::hash<std::wstring>{}(L"ComputeShader_Composite.hlsl");
@@ -447,3 +431,13 @@ bool DeferredShadingMethodDX::LoadShader_()
 }
 
 
+DeferredShadingMethodDX::DrawVariables::~DrawVariables()
+{
+}
+
+void DeferredShadingMethodDX::DrawVariables::SetIndexData(int indexCount, int indexStart, int vertexStart)
+{
+	_indexCount = indexCount;
+	_indexStart = indexStart;
+	_vertexStart = vertexStart;
+}

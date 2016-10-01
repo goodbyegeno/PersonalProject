@@ -35,7 +35,9 @@ void TimerObject::PreUpdate()
 	std::chrono::duration<double> currentTime = tempTime.time_since_epoch();
 	float tempTimeFloat = static_cast<float>(currentTime.count());
 
-	_previousTickTime = tempTimeFloat - _previousTickTime;
+	_previousTickTime = _deltaTime;
+	_deltaTime = tempTimeFloat - _previousTickTime;
+
 }
 
 void TimerObject::Update()

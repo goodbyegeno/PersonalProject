@@ -2,7 +2,9 @@
 #include "DXDevice11_4.h"
 #include "CameraBase.h"
 #include "ORBITMesh.h"
-
+#include "CoreSystem.h"
+#include <unordered_map>
+#include "SystemConfigureFileImporter.h"
 DXDevice11_4::DXDevice11_4() :
 	_device(nullptr),
 	_deviceContext(nullptr),
@@ -18,7 +20,8 @@ DXDevice11_4::DXDevice11_4() :
 	_screenAspect(0.0f),
 	_screenNear(0.0f),
 	_screenFar(0.0f),
-	_backBufferRTV(nullptr)
+	_backBufferRTV(nullptr),
+	GraphicsDevice(RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4)
 {
 	for( int iRT = 0; iRT < static_cast<UINT>(RenderEngine::INDEXEDDEFERREDSHADINGRT::MAX); iRT++)
 	{ 
@@ -33,14 +36,40 @@ DXDevice11_4::~DXDevice11_4()
 {
 
 }
-bool DXDevice11_4::Initialize()
+bool DXDevice11_4::Initialize(HWND hwnd)
 {
-	_fieldOfView = 3.141592654f / 4.0f;
+	//_fieldOfView = 3.141592654f / 4.0f;
+	SystemConfigureEntity* tempEntity = coreSystem->GetConfigValue(std::hash<std::wstring>{}(L"NativeResolutionWidth"));
+	if(nullptr != tempEntity)
+		_screenWidth = static_cast<int>(tempEntity->GetValue());
+
+	tempEntity = coreSystem->GetConfigValue(std::hash<std::wstring>{}(L"NativeResolutionHeight"));
+	if (nullptr != tempEntity)
+		_screenHeight = static_cast<int>(tempEntity->GetValue());
+
+	tempEntity = coreSystem->GetConfigValue(std::hash<std::wstring>{}(L"ScreenNear"));
+	if (nullptr != tempEntity)
+		_screenNear = tempEntity->GetValue();
+
+	tempEntity = coreSystem->GetConfigValue(std::hash<std::wstring>{}(L"ScreenFar"));
+	if (nullptr != tempEntity)
+		_screenFar = tempEntity->GetValue();
+
+
+	tempEntity = coreSystem->GetConfigValue(std::hash<std::wstring>{}(L"FOV"));
+	float fov = 360.0f;
+	if (nullptr != tempEntity)
+		fov = tempEntity->GetValue();
+
+	_fieldOfView = 3.141592654f * static_cast<float>(fov / 360.0f);
+
 	_screenAspect = static_cast<float>(_screenWidth) / static_cast<float>(_screenHeight);
 	_projectionMatrix = DirectX::XMMatrixPerspectiveFovLH(_fieldOfView, _screenAspect, _screenNear, _screenFar);
 
 
-	LoadDevice_();//(1024, 1024);
+	if (false == LoadDevice_(hwnd))//(1024, 1024);
+		return false;
+	
 	return true;
 }
 
@@ -50,7 +79,7 @@ bool DXDevice11_4::Reset()
 	return true;
 }
 
-bool DXDevice11_4::LoadDevice_()//(int screenWidth, int screenHeight)
+bool DXDevice11_4::LoadDevice_(HWND hwnd)//(int screenWidth, int screenHeight)
 {
 	HRESULT result;
 	IDXGIFactory* factory;
@@ -101,43 +130,41 @@ bool DXDevice11_4::LoadDevice_()//(int screenWidth, int screenHeight)
 
 	_videoCardMem = static_cast<ULONG>(adapterDesc.DedicatedVideoMemory);
 
-	delete[] displayModeList;
-	displayModeList = nullptr;
-
-	adapterOutput->Release();
-	adapterOutput = nullptr;
-
-	adapter->Release();
-	adapter = nullptr;
-
-	factory->Release();
-	factory = nullptr;
-
 	memset(&swapChainDesc, 0, sizeof(swapChainDesc));
 
-	swapChainDesc.BufferCount = 2;
+	
+	swapChainDesc.BufferCount = 1;
 	swapChainDesc.BufferDesc.Width = _screenWidth;
 	swapChainDesc.BufferDesc.Height = _screenHeight;
 
 	swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 
-	swapChainDesc.BufferDesc.RefreshRate.Numerator = 0;
-	swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
+	//vsync
+	swapChainDesc.BufferDesc.RefreshRate.Numerator = numerator;
+	swapChainDesc.BufferDesc.RefreshRate.Denominator = denominator;
 
 	swapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	//SwapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_PROGRESSIVE;
 	swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	swapChainDesc.Windowed = true;
+
+	swapChainDesc.OutputWindow = hwnd;
+	swapChainDesc.SampleDesc.Count = 1;
+	swapChainDesc.SampleDesc.Quality = 0;
 
 	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
 	swapChainDesc.Flags = 0;
 	featureLevel = D3D_FEATURE_LEVEL::D3D_FEATURE_LEVEL_11_1;
-	ID3D11Device* device11 = static_cast<ID3D11Device*>(_device);
-	ID3D11DeviceContext* deviceContext11 = static_cast<ID3D11DeviceContext*>(_deviceContext);
+	ID3D11Device* device11 = nullptr;
+	ID3D11DeviceContext* deviceContext11 = nullptr;
 	result = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, 0, &featureLevel, 1, D3D11_SDK_VERSION, &swapChainDesc, &_swapChain, &device11, nullptr, &deviceContext11);
 	if (FAILED(result))
 		return false;
 	
+	_device = static_cast<ID3D11Device3*>(device11);
+	_deviceContext = static_cast<ID3D11DeviceContext3*>(deviceContext11);
 	result = _swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<LPVOID*>(&backBufferPtr));
 	if (FAILED(result))
 		return false;
@@ -145,9 +172,10 @@ bool DXDevice11_4::LoadDevice_()//(int screenWidth, int screenHeight)
 	result = _device->CreateRenderTargetView(backBufferPtr, nullptr, &_backBufferRTV);
 	if (FAILED(result))
 		return false;
-	backBufferPtr = nullptr;
+
 	backBufferPtr->Release();
-	
+	backBufferPtr = nullptr;
+
 	memset(&depthBufferDesc, 0, sizeof(depthBufferDesc));
 
 	depthBufferDesc.Width = _screenWidth;
@@ -340,6 +368,18 @@ bool DXDevice11_4::LoadDevice_()//(int screenWidth, int screenHeight)
 	if (FAILED(result))
 		return false;
 	
+	delete[] displayModeList;
+	displayModeList = nullptr;
+
+	adapterOutput->Release();
+	adapterOutput = nullptr;
+
+	adapter->Release();
+	adapter = nullptr;
+
+	factory->Release();
+	factory = nullptr;
+
 	return true;
 }
 

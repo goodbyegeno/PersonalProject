@@ -35,6 +35,13 @@ namespace RenderEngine
 		SPECULAR,
 		MAX
 	};
+	enum class FORWARDSHADINGRT
+	{
+		DIFFUSE,
+		MAX
+	};
+
+	/*
 	enum class RENDERINGMODE
 	{
 		DEFERRED_LIGHTING,
@@ -44,7 +51,7 @@ namespace RenderEngine
 		FORWARD_PLUS,
 		MAX
 	};
-
+	*/
 	enum class RENDERTYPE
 	{
 		CHARACTER,
@@ -188,4 +195,5 @@ namespace RenderEngine
 		ORBIT_FORMAT_V408 = 132,
 		ORBIT_FORMAT_FORCE_UINT = 0xffffffff
 	};
+
 };

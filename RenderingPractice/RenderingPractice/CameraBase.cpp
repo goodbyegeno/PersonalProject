@@ -23,16 +23,19 @@ bool CameraBase::Reset()
 }
 void CameraBase::PreUpdate(float deltaTime)
 {
-
+	if (_currentCameraMovementBase)
+		_currentCameraMovementBase->PreUpdate(deltaTime);
 }
 
 void CameraBase::Update(float deltaTime)
 {
-
+	if (_currentCameraMovementBase)
+		_currentCameraMovementBase->Update(deltaTime);
 }
 void CameraBase::PostUpdate(float deltaTime)
 {
-
+	if (_currentCameraMovementBase)
+		_currentCameraMovementBase->PostUpdate(deltaTime);
 }
 
 void CameraBase::SetCameraMovementBase(size_t cameraMovementBaseHash)
@@ -41,7 +44,7 @@ void CameraBase::SetCameraMovementBase(size_t cameraMovementBaseHash)
 	
 	cameraMapItor = _cameraMovementBaseMap.find(cameraMovementBaseHash);
 
-	if (cameraMapItor != _cameraMovementBaseMap.end())
+	if (_cameraMovementBaseMap.end() != cameraMapItor)
 		_currentCameraMovementBase = cameraMapItor->second;
 }
 

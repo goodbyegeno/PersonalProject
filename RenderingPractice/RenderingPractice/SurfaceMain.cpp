@@ -8,14 +8,16 @@
 #include "IRenderableManager.h"
 #include "RenderEngineCommon.h"
 #include "RenderingMethod.h"
-#include "RenderEngineFactoryManager.h"
+#include "RenderEngineFactoryBase.h"
 #include "SceneManager.h"
 #include "SystemConfigureFileImporter.h"
 #include "TestSystemConfigureFileImporterSuface.h"
 #include "TestSceneObjectFactory.h"
+#include "TestRenderingEngineFactory.h"
+#include "TestCamera.h"
+
 #include <vector>
 #include <unordered_map>
-
 //TEST: TEST CLASS!
 SurfaceMain::SurfaceMain() :
 	_coreSystem(nullptr),
@@ -25,12 +27,14 @@ SurfaceMain::SurfaceMain() :
 SurfaceMain::~SurfaceMain()
 {
 }
-bool SurfaceMain::Initialize()
+bool SurfaceMain::Initialize(HWND hwnd)
 {
 
 	GraphicsSystem::GraphicsSystemInitialData tempGraphicsData;
 	tempGraphicsData.graphicsAPIType = RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4;
+	tempGraphicsData.renderEngineFactory = new TestRenderingEngineFactory();
 	_graphicsSystem = new GraphicsSystem(tempGraphicsData);
+
 	TestSceneObjectFactory* testSceneObjectFactory = new TestSceneObjectFactory();
 	_sceneManager = new SceneManager(_graphicsSystem, testSceneObjectFactory);
 
@@ -51,13 +55,14 @@ bool SurfaceMain::Initialize()
 	tempCoreSystemData.renderableObjectGroupList.push_back(tempRenderableVector);
 
 	_coreSystem = new CoreSystem(tempCoreSystemData);
-
+	_coreSystem->AddCameraMovement(new TestCamera(_coreSystem->GetCamera()));
 	TestSystemConfigureFileImporterSuface* systemConfigureFileImporter = new TestSystemConfigureFileImporterSuface(nullptr, L"", _coreSystem->GetConfigEntityMap());
+	systemConfigureFileImporter->FileImport();
 
 	if (false == _coreSystem->Initialize())
 		return false;
 
-	if (false == _graphicsSystem->Initialize())
+	if (false == _graphicsSystem->Initialize(hwnd))
 		return false;
 
 	TestInitialize_();

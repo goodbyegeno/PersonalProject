@@ -2,7 +2,9 @@
 #include "TestCamera.h"
 #include "CameraBase.h"
 #include "CoreEngineCommon.h"
-TestCamera::TestCamera(CameraBase* cameraBase)
+#include <string>
+TestCamera::TestCamera(CameraBase* cameraBase) :
+	CameraMovementBase(std::hash<std::wstring>{}(L"TestCamera"))
 {
 	_cameraBase = cameraBase;
 	_cameraBase->SetProjectionMode(CoreEngine::PROJECTIONMODE::PERSPECTIVE);
