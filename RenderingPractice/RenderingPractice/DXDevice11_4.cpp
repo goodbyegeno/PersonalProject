@@ -174,7 +174,7 @@ bool DXDevice11_4::LoadDevice_(HWND hwnd)//(int screenWidth, int screenHeight)
 	swapChainDesc.SampleDesc.Quality = 0;
 	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	swapChainDesc.Flags = 0;
-	featureLevel = D3D_FEATURE_LEVEL::D3D_FEATURE_LEVEL_11_1;
+	featureLevel = D3D_FEATURE_LEVEL::D3D_FEATURE_LEVEL_11_0;
 	
 	ID3D11Device* device11 = nullptr;
 	ID3D11DeviceContext* deviceContext11 = nullptr;
@@ -275,6 +275,20 @@ bool DXDevice11_4::LoadDevice_(HWND hwnd)//(int screenWidth, int screenHeight)
 
 	D3D11_BLEND_DESC1 blendDesc;
 	D3D11_RENDER_TARGET_BLEND_DESC1 renderTargetBlendDesc;
+	/*renderTargetBlendDesc.BlendEnable = false;
+	renderTargetBlendDesc.SrcBlend = D3D11_BLEND::D3D11_BLEND_ONE;
+	renderTargetBlendDesc.SrcBlendAlpha = D3D11_BLEND::D3D11_BLEND_ONE;
+	renderTargetBlendDesc.DestBlend = D3D11_BLEND::D3D11_BLEND_ZERO;
+	renderTargetBlendDesc.DestBlendAlpha = D3D11_BLEND::D3D11_BLEND_ZERO;
+	renderTargetBlendDesc.BlendOp = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
+	renderTargetBlendDesc.BlendOpAlpha = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
+	renderTargetBlendDesc.LogicOp = D3D11_LOGIC_OP::D3D11_LOGIC_OP_CLEAR;
+	renderTargetBlendDesc.LogicOpEnable = false;
+	renderTargetBlendDesc.RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	blendDesc.AlphaToCoverageEnable = false;
+	blendDesc.IndependentBlendEnable = false;
+	*/
 	renderTargetBlendDesc.BlendEnable = true;
 	renderTargetBlendDesc.SrcBlend = D3D11_BLEND::D3D11_BLEND_SRC_COLOR;
 	renderTargetBlendDesc.SrcBlendAlpha = D3D11_BLEND::D3D11_BLEND_SRC_ALPHA;
@@ -284,7 +298,7 @@ bool DXDevice11_4::LoadDevice_(HWND hwnd)//(int screenWidth, int screenHeight)
 	renderTargetBlendDesc.BlendOpAlpha = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
 	renderTargetBlendDesc.LogicOp = D3D11_LOGIC_OP::D3D11_LOGIC_OP_CLEAR;
 	renderTargetBlendDesc.LogicOpEnable = false;
-	renderTargetBlendDesc.RenderTargetWriteMask = 0xffffff;
+	renderTargetBlendDesc.RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
 	blendDesc.AlphaToCoverageEnable = true;
 	blendDesc.IndependentBlendEnable = true;
@@ -292,7 +306,9 @@ bool DXDevice11_4::LoadDevice_(HWND hwnd)//(int screenWidth, int screenHeight)
 	{
 		blendDesc.RenderTarget[renderTargetIndex] = renderTargetBlendDesc;
 	}
-	_device->CreateBlendState1(&blendDesc, &_blendState);
+	result = _device->CreateBlendState1(&blendDesc, &_blendState);
+	if (FAILED(result))
+		return false;
 	/*
 	D3D11_TEXTURE2D_DESC normalRTTexDesc;
 	normalRTTexDesc.Width = _renderingResoWidth;
@@ -513,4 +529,17 @@ bool	DXDevice11_4::UpdateBackBufferResolution()
 		_swapChain->ResizeBuffers(1, _screenResoWidth, _screenResoHeight, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
 	}
 	return true;
+}
+void	DXDevice11_4::BegineScene()
+{
+
+}
+
+void DXDevice11_4::EndScene()
+{
+	//TODO VSYNC?
+	//if()
+	{
+		_swapChain->Present(0, 0);
+	}
 }

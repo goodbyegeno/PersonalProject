@@ -415,7 +415,8 @@ bool DeferredShadingMethodDX::LoadShader_()
 	if (FAILED(result))
 		return false;
 
-	SetShader_(_device, tempPSShaderBuffer, tempVSShaderBuffer, tempCSShaderBuffer);
+	if (false == SetShader_(_device, tempPSShaderBuffer, tempVSShaderBuffer, tempCSShaderBuffer))
+		return false;
 
 	tempPSShaderBuffer->Release();
 	tempPSShaderBuffer = nullptr;

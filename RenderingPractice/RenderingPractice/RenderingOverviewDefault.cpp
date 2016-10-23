@@ -2,6 +2,8 @@
 #include "RenderingOverviewDefault.h"
 #include "RenderingManager.h"
 #include "RenderingMethod.h"
+#include "DeviceManager.h"
+#include "GraphicsDevice.h"
 RenderingOverviewDefault::RenderingOverviewDefault(RenderingManager* renderingManager) :
 	_forwardHashCode(std::hash<std::wstring>{}(L"ForwardRendering")),
 	_deferredHashCode(std::hash<std::wstring>{}(L"DeferredRendering")),
@@ -16,7 +18,7 @@ void RenderingOverviewDefault::Render(DeviceManager* deviceManager, ShaderManage
 	//start Rendering;
 	//std::unordered_map<size_t, RenderMethod*>*	_renderingMethodMap;		//from RenderingManager
 	std::unordered_map<size_t, RenderMethod*>::iterator itorForward = renderingMethodMap->find(_forwardHashCode);
-
+	GraphicsDevice* device = deviceManager->GetDevice();
 	device->BegineScene();
 
 	if (renderingMethodMap->end() != itorForward)

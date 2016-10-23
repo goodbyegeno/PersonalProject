@@ -13,6 +13,9 @@ public:
 	
 	virtual void*	GetShader() = 0;
 	virtual void*	GetBuffer() = 0;
+	virtual void	BegineScene() = 0;
+	virtual void	EndScene() = 0;
+
 	virtual bool	UpdateRenderResolution() = 0;
 	virtual bool	UpdateBackBufferResolution() = 0;
 	RenderEngine::GRAPHICSAPITYPE GetGraphicsAPIType() { return _graphcisAPIType; }

@@ -22,6 +22,8 @@ public:
 
 	virtual void* GetShader() { return nullptr; }
 	virtual void* GetBuffer() { return _device; }
+	virtual void BegineScene();
+	virtual void EndScene();
 
 	void DrawPrimitive();
 	ID3D11DeviceContext3*		GetDeviceContext()		{ return _deviceContext; }

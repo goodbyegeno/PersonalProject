@@ -9,7 +9,6 @@ class ORBITMeshSubset;
 class ORBITMaterial;
 class ShaderManager;
 class RenderTargetManager;
-class ID3D11BlendState;
 
 #include <vector>
 

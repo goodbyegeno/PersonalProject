@@ -33,7 +33,8 @@ bool DeviceManager::Initialize(HWND hwnd)
 	if (nullptr == _device)
 		return false;
 
-	_device->Initialize(hwnd);
+	if (false == _device->Initialize(hwnd))
+		return false;
 
 	return true;
 }

@@ -7,15 +7,15 @@ cbuffer MatrixBuffer
 
 struct VertexInputType
 {
-	float4 position : POSITION;
-	float4 color : COLOR;
+	float3 position : POSITION0;
 	float2 texcoord : TEXCOORD0;
+	float3 normal	: NORMAL0;
 };
 
 struct PixelInputType
 {
 	float4 position : SV_POSITION;
-	float4 color : COLOR;
+	float2 texcoord : TEXCOORD0;
 };
 
 PixelInputType main(VertexInputType input)
@@ -24,7 +24,7 @@ PixelInputType main(VertexInputType input)
 
 
 	// Change the position vector to be 4 units for proper matrix calculations.
-	input.position.w = 1.0f;
+	//input.position.w = 1.0f;
 
 	// Calculate the position of the vertex against the world, view, and projection matrices.
 	output.position = mul(input.position, worldMatrix);
@@ -32,7 +32,7 @@ PixelInputType main(VertexInputType input)
 	output.position = mul(output.position, projectionMatrix);
 
 	// Store the input color for the pixel shader to use.
-	output.color = input.color;
+	output.texcoord = input.texcoord;
 
 	return output;
 }

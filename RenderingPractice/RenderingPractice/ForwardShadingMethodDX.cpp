@@ -140,6 +140,7 @@ bool ForwardShadingMethodDX::InitRenderTargets(RenderTargetManager* renderTarget
 		shaderRenderTarget = new ShaderRenderTarget(new ShaderRenderTargetDX(renderTargetTex, shaderResourceView, renderingTargetView));
 	}
 	shaderRenderTargetDX = static_cast<ShaderRenderTargetDX*>(shaderRenderTarget->GetData());
+	_renderTargetCount = 1;
 
 	_renderTargets[static_cast<int>(FORWARDSHADINGRT::DIFFUSE)] = shaderRenderTargetDX;
 	_renderTargetTex[static_cast<int>(FORWARDSHADINGRT::DIFFUSE)] = shaderRenderTargetDX->GetTexture();
@@ -231,7 +232,8 @@ bool ForwardShadingMethodDX::SetRenderTarget()
 	_deviceContext->ClearDepthStencilView(_depthStencilView, D3D10_CLEAR_DEPTH, 0.0f, 0);
 
 	_deviceContext->OMSetRenderTargets(_renderTargetCount, _renderingTargetView, _depthStencilView);
-	_deviceContext->OMSetBlendState(_deviceWrapper->GetBlendState(), nullptr, 0xFFFFFFFF);
+	ID3D11BlendState* blendState = _deviceWrapper->GetBlendState();
+	_deviceContext->OMSetBlendState(blendState, nullptr, 0xffffffff);
 
 	return true;
 }
@@ -239,8 +241,11 @@ bool ForwardShadingMethodDX::SetRenderTarget()
 bool ForwardShadingMethodDX::SetVertexBuffer(const ORBITMesh* mesh) const
 {
 	ID3D11Buffer* const* vertexBuffers = mesh->GetVertexBuffersDX11();
+	int bufferCount = mesh->GetVertexBufferCount();
+	const UINT* strides = mesh->GetStrides();
+	const UINT* offsets = mesh->GetOffsets();
 
-	_deviceContext->IASetVertexBuffers(0, mesh->GetVertexBufferCount(), vertexBuffers, mesh->GetStrides(), mesh->GetOffsets());
+	_deviceContext->IASetVertexBuffers(0, bufferCount, vertexBuffers, strides, offsets);
 	_deviceContext->IASetIndexBuffer(mesh->GetIndexBufferDX11(), RenderingSingletonManager::GetInstance()->GetDXHelper11()->GetIndexBufferFormat(mesh->GetIndexBufferFormat()), 0);
 	//_deviceWrapper->RenderMesh(meshData[meshIndex]));
 
@@ -324,7 +329,8 @@ bool ForwardShadingMethodDX::LoadShader_()
 	if (FAILED(result))
 		return false;
 
-	SetShader_(_device, tempPSShaderBuffer, tempVSShaderBuffer);
+	if (false == SetShader_(_device, tempPSShaderBuffer, tempVSShaderBuffer))
+		return false;
 
 	tempPSShaderBuffer->Release();
 	tempPSShaderBuffer = nullptr;
@@ -346,29 +352,31 @@ bool ForwardShadingMethodDX::SetShader_(ID3D11Device3* deviceDX, ID3DBlob* psSha
 	D3D11_INPUT_ELEMENT_DESC polygonLayout[3];
 	UINT numElements = sizeof(polygonLayout) / sizeof(polygonLayout[0]);
 
-	polygonLayout[0].SemanticName = "position";
+	polygonLayout[0].SemanticName = "POSITION";
 	polygonLayout[0].SemanticIndex = 0;
-	polygonLayout[0].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	polygonLayout[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
 	polygonLayout[0].InputSlot = 0;
 	polygonLayout[0].AlignedByteOffset = 0;
 	polygonLayout[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	polygonLayout[0].InstanceDataStepRate = 0;
 
-	polygonLayout[1].SemanticName = "normal";
+	polygonLayout[1].SemanticName = "TEXCOORD";
 	polygonLayout[1].SemanticIndex = 0;
-	polygonLayout[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	polygonLayout[1].Format = DXGI_FORMAT_R32G32_FLOAT;
 	polygonLayout[1].InputSlot = 0;
 	polygonLayout[1].AlignedByteOffset = 12;
 	polygonLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	polygonLayout[1].InstanceDataStepRate = 0;
 
-	polygonLayout[2].SemanticName = "texcoord";
+	polygonLayout[2].SemanticName = "NORMAL";
 	polygonLayout[2].SemanticIndex = 0;
-	polygonLayout[2].Format = DXGI_FORMAT_R32G32_FLOAT;
+	polygonLayout[2].Format = DXGI_FORMAT_R32G32B32_FLOAT;
 	polygonLayout[2].InputSlot = 0;
-	polygonLayout[2].AlignedByteOffset = 24;
+	polygonLayout[2].AlignedByteOffset = 20;
 	polygonLayout[2].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	polygonLayout[2].InstanceDataStepRate = 0;
+
+
 
 	resultValue = deviceDX->CreateInputLayout(polygonLayout, numElements, vertexShaderBuffer->GetBufferPointer(),
 		vertexShaderBuffer->GetBufferSize(), &_inputLayout);
@@ -385,19 +393,22 @@ bool ForwardShadingMethodDX::SetShader_(ID3D11Device3* deviceDX, ID3DBlob* psSha
 	bufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 	bufferDesc.MiscFlags = 0;
 	bufferDesc.StructureByteStride = 0;
-	bufferDesc.CPUAccessFlags = 0;
+	bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
-	_device->CreateBuffer(&bufferDesc, 0, &_vsConstVariableBuffer);
+	resultValue = _device->CreateBuffer(&bufferDesc, 0, &_vsConstVariableBuffer);
+	if (FAILED(resultValue))
+		return false;
 
 	bufferDesc.ByteWidth = sizeof(ShaderConstVariables);
 	bufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	bufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 	bufferDesc.MiscFlags = 0;
 	bufferDesc.StructureByteStride = 0;
-	bufferDesc.CPUAccessFlags = 0;
+	bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
-	_device->CreateBuffer(&bufferDesc, 0, &_psConstVariableBuffer);
-
+	resultValue = _device->CreateBuffer(&bufferDesc, 0, &_psConstVariableBuffer);
+	if (FAILED(resultValue))
+		return false;
 	return true;
 }
 bool ForwardShadingMethodDX::ResetRenderTarget()

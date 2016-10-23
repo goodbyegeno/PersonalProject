@@ -15,6 +15,7 @@ TestStaticModelImporter::~TestStaticModelImporter()
 
 ModelStaticData* TestStaticModelImporter::LoadModel(std::wstring modelName, GraphicsDevice* graphicDevice)
 {
+	//TODO Load isn't working what i expected. should fix
 	ORBITMesh::MeshInitialData initData;
 	if (false == TestModelRawData_(graphicDevice, initData))
 		return nullptr;
