@@ -173,6 +173,7 @@
     <ClInclude Include="IRenderableManager.h" />
     <ClInclude Include="IRenderableObject.h" />
     <ClInclude Include="IRenderHelper.h" />
+    <ClInclude Include="RenderTargetManager.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="ISceneObjectFactory.h" />
     <ClInclude Include="IUpdateableObject.h" />
@@ -242,6 +243,7 @@
     <ClCompile Include="RenderingOverviewBase.cpp" />
     <ClCompile Include="RenderingOverviewDefault.cpp" />
     <ClCompile Include="RenderingSingletonManager.cpp" />
+    <ClCompile Include="RenderTargetManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="ShaderManager.cpp" />

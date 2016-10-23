@@ -300,6 +300,9 @@
     <ClInclude Include="RenderedObject.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
+    <ClInclude Include="RenderTargetManager.h">
+      <Filter>RenderEngine\Managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -436,6 +439,9 @@
     </ClCompile>
     <ClCompile Include="ORBITMeshSubset.cpp">
       <Filter>RenderEngine\ResourcesDataStructure</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTargetManager.cpp">
+      <Filter>RenderEngine\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

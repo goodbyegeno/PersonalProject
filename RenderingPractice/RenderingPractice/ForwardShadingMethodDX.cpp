@@ -2,6 +2,7 @@
 #include "ForwardShadingMethodDX.h"
 #include "CoreEngineCommon.h"
 #include "ShaderManager.h"
+#include "RenderTargetManager.h"
 #include "IShaderObejct.h"
 #include "DeviceManager.h"
 #include "GraphicsDevice.h"
@@ -26,15 +27,18 @@
 #include <DirectXMath.h>
 #include <cstring>
 
-ForwardShadingMethodDX::ForwardShadingMethodDX()
+ForwardShadingMethodDX::ForwardShadingMethodDX() : 
+	_renderTargetHash(std::hash<std::wstring>{}(L"Albedo"))
 {
 }
 ForwardShadingMethodDX::~ForwardShadingMethodDX()
 {
 }
-bool ForwardShadingMethodDX::Initialize(DeviceManager* deviceManager, ShaderManager* shaderManager)
+bool ForwardShadingMethodDX::Initialize(DeviceManager* deviceManager, ShaderManager* shaderManager, RenderTargetManager* renderTargetManager)
 {
 	_shaderManager = shaderManager;
+	_renderTargetManager = renderTargetManager;
+
 	GraphicsDevice* graDevice = deviceManager->GetDevice();
 	if (nullptr == graDevice || RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4 != graDevice->GetGraphicsAPIType())
 		return false;
@@ -55,8 +59,12 @@ bool ForwardShadingMethodDX::Initialize(DeviceManager* deviceManager, ShaderMana
 	_pixelShaderHash = 0;
 	_computeShaderHash = 0;
 
-	if (LoadShader_() == false)
+	if (false == LoadShader_())
 		return false;
+
+	if (false == InitRenderTargets(renderTargetManager))
+		return false;
+	_depthStencilView = _deviceWrapper->GetDepthStencilView();
 
 	return true;
 }
@@ -65,6 +73,9 @@ bool ForwardShadingMethodDX::Reset(DeviceManager* deviceManager, ShaderManager* 
 	_shaderManager = shaderManager;
 	GraphicsDevice* graDevice = deviceManager->GetDevice();
 	if (nullptr == graDevice || RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4 != graDevice->GetGraphicsAPIType())
+		return false;
+
+	if (false == InitRenderTargets(_renderTargetManager))
 		return false;
 
 	return true;
@@ -86,19 +97,54 @@ bool ForwardShadingMethodDX::SetWorldMatrix(const ORBITMATRIX4x4* worldMatrix)
 
 	return true;
 }
-bool ForwardShadingMethodDX::InitRenderTargets(ShaderRenderTarget** renderTargets, int renderTargetNum)
+
+bool ForwardShadingMethodDX::InitRenderTargets(RenderTargetManager* renderTargetManager)
 {
-	if (renderTargetNum < static_cast<int>(RenderEngine::FORWARDSHADINGRT::MAX))
+	ShaderRenderTarget*	shaderRenderTarget = renderTargetManager->GetRenderTarget(_renderTargetHash);
+	ShaderRenderTargetDX * shaderRenderTargetDX = nullptr;
+	if (nullptr == shaderRenderTarget)
 	{
-		for (int index = 0; index < renderTargetNum; index++)
-		{
-			_renderTargets[index] = static_cast<ShaderRenderTargetDX*>(renderTargets[index]->GetData());
-			_renderTargetTex[index] = _renderTargets[index]->GetTexture();
-			_shaderRenderView[index] = _renderTargets[index]->GetShaderResourceView();
-			_renderingTargetView[index] = _renderTargets[index]->GetRenderTargetView();
-		}
-		_renderTargetCount = renderTargetNum;
+		D3D11_TEXTURE2D_DESC AlbedoRTTexDesc;
+		AlbedoRTTexDesc.Width = _deviceWrapper->GetRenderingResolutionWidth();
+		AlbedoRTTexDesc.Height = _deviceWrapper->GetRenderingResolutionHeight();
+		AlbedoRTTexDesc.MipLevels = 1;
+		AlbedoRTTexDesc.ArraySize = 1;
+		AlbedoRTTexDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		AlbedoRTTexDesc.SampleDesc.Count = 1;
+		AlbedoRTTexDesc.SampleDesc.Quality = 0;
+		AlbedoRTTexDesc.Usage = D3D11_USAGE_DEFAULT;
+		AlbedoRTTexDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+		AlbedoRTTexDesc.CPUAccessFlags = 0;
+		AlbedoRTTexDesc.MiscFlags = 0;
+
+		HRESULT result;
+		ID3D11Texture2D* renderTargetTex;
+		result = _device->CreateTexture2D(&AlbedoRTTexDesc, nullptr, &renderTargetTex);
+		if (FAILED(result))
+			return false;
+
+		ID3D11RenderTargetView*	renderingTargetView;
+		result = _device->CreateRenderTargetView(renderTargetTex,
+			nullptr,
+			&renderingTargetView);
+		if (FAILED(result))
+			return false;
+
+		ID3D11ShaderResourceView* shaderResourceView;
+		result = _device->CreateShaderResourceView(renderTargetTex,
+			nullptr,
+			&shaderResourceView);
+		if (FAILED(result))
+			return false;
+
+		shaderRenderTarget = new ShaderRenderTarget(new ShaderRenderTargetDX(renderTargetTex, shaderResourceView, renderingTargetView));
 	}
+	shaderRenderTargetDX = static_cast<ShaderRenderTargetDX*>(shaderRenderTarget->GetData());
+
+	_renderTargets[static_cast<int>(FORWARDSHADINGRT::DIFFUSE)] = shaderRenderTargetDX;
+	_renderTargetTex[static_cast<int>(FORWARDSHADINGRT::DIFFUSE)] = shaderRenderTargetDX->GetTexture();
+	_shaderResourceView[static_cast<int>(FORWARDSHADINGRT::DIFFUSE)] = shaderRenderTargetDX->GetShaderResourceView();
+	_renderingTargetView[static_cast<int>(FORWARDSHADINGRT::DIFFUSE)] = shaderRenderTargetDX->GetRenderTargetView();
 
 	return true;
 }
@@ -142,8 +188,8 @@ bool ForwardShadingMethodDX::SettingShaderOptions()
 	_deviceContext->PSSetShader(_pixelShader, nullptr, 0);
 	_deviceContext->GSSetShader(nullptr, nullptr, 0);
 
-	_deviceContext->RSSetViewports(1, _viewPort);
-	_deviceContext->OMSetDepthStencilState(_depthStencilState, 0);
+	//_deviceContext->RSSetViewports(1, _viewPort);
+	//_deviceContext->OMSetDepthStencilState(_depthStencilState, 0);
 
 	//set shaderResources
 
@@ -178,17 +224,18 @@ bool ForwardShadingMethodDX::SetConstVariables()
 bool ForwardShadingMethodDX::SetRenderTarget()
 {
 	const float zeros[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-	for (int renderTargetIndex = 0; renderTargetIndex < static_cast<int>(RenderEngine::FORWARDSHADINGRT::MAX); renderTargetIndex++)
+	for (int renderTargetIndex = 0; renderTargetIndex < static_cast<int>(FORWARDSHADINGRT::MAX); renderTargetIndex++)
 	{
 		_deviceContext->ClearRenderTargetView(_renderingTargetView[renderTargetIndex], zeros);
 	}
 	_deviceContext->ClearDepthStencilView(_depthStencilView, D3D10_CLEAR_DEPTH, 0.0f, 0);
 
 	_deviceContext->OMSetRenderTargets(_renderTargetCount, _renderingTargetView, _depthStencilView);
-	_deviceContext->OMSetBlendState(_blendState, nullptr, 0xFFFFFFFF);
+	_deviceContext->OMSetBlendState(_deviceWrapper->GetBlendState(), nullptr, 0xFFFFFFFF);
 
 	return true;
 }
+
 bool ForwardShadingMethodDX::SetVertexBuffer(const ORBITMesh* mesh) const
 {
 	ID3D11Buffer* const* vertexBuffers = mesh->GetVertexBuffersDX11();

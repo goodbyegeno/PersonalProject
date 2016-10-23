@@ -9,6 +9,8 @@
 
 class DeviceManager;
 class ShaderManager;
+class RenderTargetManager;
+
 class IRenderableObject;
 class ShaderRenderTargetDX;
 class ShaderRenderTarget;
@@ -36,6 +38,13 @@ private:
 	};
 
 public:
+	enum class FORWARDSHADINGRT
+	{
+		DIFFUSE,
+		MAX
+	};
+
+
 	struct ShaderConstVariables
 	{
 		DirectX::XMMATRIX				_worldMatrix;
@@ -47,7 +56,7 @@ public:
 	ForwardShadingMethodDX();
 	virtual ~ForwardShadingMethodDX();
 
-	bool Initialize(DeviceManager* deviceManager, ShaderManager* shaderManager);
+	bool Initialize(DeviceManager* deviceManager, ShaderManager* shaderManager, RenderTargetManager* renderTargetManager);
 	bool Reset(DeviceManager* deviceManager, ShaderManager* shaderManager);
 
 	bool SetWorldMatrix(const ORBITMATRIX4x4* worldMatrix);
@@ -60,23 +69,23 @@ public:
 	bool SetMaterial(const ORBITMaterial* material);
 	bool RenderMesh();
 	bool ResetRenderTarget();
-	bool InitRenderTargets(ShaderRenderTarget** renderTargets, int renderTargetNum);
-
+	bool InitRenderTargets(RenderTargetManager* renderTargetManager);
 private:
 	bool							LoadShader_();
 	bool							SetShader_(ID3D11Device3* deviceDX, ID3DBlob* psShaderBuffer, ID3DBlob* vsShaderBuffer);
 
 	ShaderManager*					_shaderManager;
+	RenderTargetManager*			_renderTargetManager;
 
 	DXDevice11_4*					_deviceWrapper;
 	ID3D11Device3*					_device;
 	ID3D11DeviceContext3*			_deviceContext;
 
-	ShaderRenderTargetDX*			_renderTargets[static_cast<int>(RenderEngine::INDEXEDDEFERREDSHADINGRT::MAX)];
+	ShaderRenderTargetDX*			_renderTargets[static_cast<int>(FORWARDSHADINGRT::MAX)];
 
-	ID3D11Texture2D*				_renderTargetTex[static_cast<int>(INDEXEDDEFERREDSHADINGRT::MAX)];
-	ID3D11ShaderResourceView*		_shaderRenderView[static_cast<int>(INDEXEDDEFERREDSHADINGRT::MAX)];
-	ID3D11RenderTargetView*			_renderingTargetView[static_cast<int>(INDEXEDDEFERREDSHADINGRT::MAX)];
+	ID3D11Texture2D*				_renderTargetTex[static_cast<int>(FORWARDSHADINGRT::MAX)];
+	ID3D11ShaderResourceView*		_shaderResourceView[static_cast<int>(FORWARDSHADINGRT::MAX)];
+	ID3D11RenderTargetView*			_renderingTargetView[static_cast<int>(FORWARDSHADINGRT::MAX)];
 	ID3D11DepthStencilView*			_depthStencilView;
 	ID3D11DepthStencilState*		_depthStencilState;
 
@@ -104,5 +113,6 @@ private:
 	int								_srSpecularSlot;
 	int								_srNormalSlot;
 
+	size_t							_renderTargetHash;
 
 };

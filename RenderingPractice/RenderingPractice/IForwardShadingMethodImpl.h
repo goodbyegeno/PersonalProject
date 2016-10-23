@@ -8,15 +8,20 @@ class ORBITMesh;
 class ORBITMeshSubset;
 class ORBITMaterial;
 class ShaderManager;
+class RenderTargetManager;
+class ID3D11BlendState;
+
 #include <vector>
+
 
 class IForwardShadingMethodImpl
 {
 public:
+
 	IForwardShadingMethodImpl() {}
 	virtual ~IForwardShadingMethodImpl() {}
 
-	virtual bool Initialize(DeviceManager* deviceManager, ShaderManager* shaderManager) = 0;
+	virtual bool Initialize(DeviceManager* deviceManager, ShaderManager* shaderManager, RenderTargetManager* renderTargetManager) = 0;
 	virtual bool Reset(DeviceManager* deviceManager, ShaderManager* shaderManager) = 0;
 
 	virtual bool SetWorldMatrix(const ORBITMATRIX4x4* worldMatrix) = 0;

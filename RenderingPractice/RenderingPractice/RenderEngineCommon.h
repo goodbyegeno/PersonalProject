@@ -27,6 +27,7 @@ namespace RenderEngine
 		MAX
 	};
 	*/
+	/*
 	enum class INDEXEDDEFERREDSHADINGRT
 	{
 		ALBEDO,
@@ -40,7 +41,7 @@ namespace RenderEngine
 		DIFFUSE,
 		MAX
 	};
-
+	*/
 	/*
 	enum class RENDERINGMODE
 	{

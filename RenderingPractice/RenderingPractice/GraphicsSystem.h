@@ -8,6 +8,8 @@ class RenderingManager;
 class DeviceManager;
 class ModelManager;
 class ShaderManager;
+class RenderTargetManager;
+
 class RenderEngineFactoryBase;
 class RenderMethod;
 class IRenderableObject;
@@ -43,6 +45,7 @@ public:
 	DeviceManager*			GetDeviceManager()					{ return _deviceManager; }
 	ModelManager*			GetModelManager()					{ return _modelManager; }
 	ShaderManager*			GetShaderManager()					{ return _shaderManager; }
+	RenderTargetManager*	GetRenderTargetManger()				{ return _renderTargetManager; }
 	RenderEngineFactoryBase*	GetRenderEngineFactory()		{ return _renderEngineFactory; }
 
 	//From class IGraphicsSystemFacade
@@ -57,5 +60,6 @@ private:
 	DeviceManager*			_deviceManager;
 	ModelManager*			_modelManager;
 	ShaderManager*			_shaderManager;
+	RenderTargetManager*	_renderTargetManager;
 	RenderEngineFactoryBase* _renderEngineFactory;
 };

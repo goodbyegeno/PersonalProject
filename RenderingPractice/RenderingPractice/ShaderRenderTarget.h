@@ -4,7 +4,7 @@ class IShaderRenderTargetImpl;
 class ShaderRenderTarget
 {
 public:
-	ShaderRenderTarget();
+	ShaderRenderTarget(IShaderRenderTargetImpl* renderTargetImpl);
 	virtual ~ShaderRenderTarget();
 
 	IShaderRenderTargetImpl*	GetData() { return _shaderRenderTargetImpl;  }

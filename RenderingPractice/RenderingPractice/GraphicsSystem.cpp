@@ -6,6 +6,7 @@
 #include "ShaderManager.h"
 #include "RenderingSingletonManager.h"
 #include "RenderEngineFactoryBase.h"
+#include "RenderTargetManager.h"
 GraphicsSystem::GraphicsSystem(GraphicsSystemInitialData& data) :
 	_graphicsAPIType(data.graphicsAPIType),
 	_renderingMananger(nullptr),
@@ -23,12 +24,15 @@ GraphicsSystem::GraphicsSystem(GraphicsSystemInitialData& data) :
 	_deviceManager = new DeviceManager(this);
 	_modelManager = new ModelManager(this, _renderEngineFactory->CreateModelImporter());
 	_shaderManager = new ShaderManager(this);
+	_renderTargetManager = new RenderTargetManager();
+
 	
 }
 GraphicsSystem::~GraphicsSystem()
 {
 	if (_renderingMananger)
 		delete _renderingMananger;
+	
 	if (_deviceManager)
 		delete _deviceManager;
 
@@ -40,6 +44,10 @@ GraphicsSystem::~GraphicsSystem()
 
 	if (_renderEngineFactory)
 		delete _renderEngineFactory;
+	
+	if (_renderTargetManager)
+		delete _renderTargetManager;
+
 }
 
 bool GraphicsSystem::Initialize(HWND hwnd)
@@ -51,6 +59,7 @@ bool GraphicsSystem::Initialize(HWND hwnd)
 	_renderingMananger	->Initialize();
 	_modelManager		->Initialize();
 	_shaderManager		->Initialize();
+	_renderTargetManager->Initialize();
 
 	return true;
 }
@@ -60,7 +69,7 @@ bool GraphicsSystem::Reset()
 	_renderingMananger		->Reset();
 	_modelManager			->Reset();
 	_shaderManager			->Reset();
-
+	_renderTargetManager	->Reset();
 	return true;
 }
 bool GraphicsSystem::InitializeSingleton_()
@@ -96,7 +105,7 @@ void GraphicsSystem::Update(float deltaTime)
 }
 void GraphicsSystem::Render(float deltaTime)
 {
-	_renderingMananger->Render(_deviceManager, _shaderManager, deltaTime);
+	_renderingMananger	->Render(_deviceManager, _shaderManager, deltaTime);
 
 }
 

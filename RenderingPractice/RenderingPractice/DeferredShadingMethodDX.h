@@ -35,6 +35,15 @@ private:
 	};
 
 public:
+	enum class INDEXEDDEFERREDSHADINGRT
+	{
+		ALBEDO,
+		NORMAL,
+		POSITION,
+		SPECULAR,
+		MAX
+	};
+
 	struct ShaderConstVariables
 	{
 		DirectX::XMMATRIX				_worldMatrix;

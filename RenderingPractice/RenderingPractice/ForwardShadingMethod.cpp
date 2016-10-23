@@ -31,7 +31,7 @@ bool ForwardShadingMethod::Initialize()
 	_currentMSecPerFrame = 0.0f;
 	_graphicsDevice = _renderingMananger->GetDeviceManager()->GetDevice();
 	CreateRenderingMethodImpl_();
-	if (false == _renderingMethodImpl->Initialize(_renderingMananger->GetDeviceManager(), _graphicsSystem->GetShaderManager()))
+	if (false == _renderingMethodImpl->Initialize(_renderingMananger->GetDeviceManager(), _graphicsSystem->GetShaderManager(), _graphicsSystem->GetRenderTargetManger()))
 		return false;
 
 

@@ -16,6 +16,9 @@ void RenderingOverviewDefault::Render(DeviceManager* deviceManager, ShaderManage
 	//start Rendering;
 	//std::unordered_map<size_t, RenderMethod*>*	_renderingMethodMap;		//from RenderingManager
 	std::unordered_map<size_t, RenderMethod*>::iterator itorForward = renderingMethodMap->find(_forwardHashCode);
+
+	device->BegineScene();
+
 	if (renderingMethodMap->end() != itorForward)
 	{
 		std::unordered_map<size_t, std::vector<IRenderableObject*>>::iterator itorRequestObject = renderingRequestMap->find(_forwardHashCode);
@@ -36,7 +39,9 @@ void RenderingOverviewDefault::Render(DeviceManager* deviceManager, ShaderManage
 			itorForward->second->Render(deviceManager, shaderManager, deferredRenderedObject, 0.0f);
 		}
 	}
+
 	//end Rendering
+	device->EndScene();
 }
 bool RenderingOverviewDefault::Initialize()
 {
