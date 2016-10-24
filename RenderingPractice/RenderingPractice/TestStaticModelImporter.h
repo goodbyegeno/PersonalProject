@@ -2,6 +2,7 @@
 #include "IModelImporterImpl.h"
 #include "ORBITMesh.h"
 class GraphicsDevice;
+class RenderMethod;
 
 class TestStaticModelImporter : public IModelImporterImpl
 {
@@ -9,10 +10,9 @@ public:
 	TestStaticModelImporter();
 	virtual ~TestStaticModelImporter();
 
-	virtual ModelStaticData* LoadModel(std::wstring modelName, GraphicsDevice* graphicsDevice);
+	virtual ModelStaticData* LoadModel(std::wstring modelName, RenderingManager* renderingManager);
 
 private:
-	bool TestModelRawData_(GraphicsDevice* graphicsDevice, ORBITMesh::MeshInitialData& outData);
-	bool CreateBufferDX_(GraphicsDevice* graphicsDevice, int vertexCount, int indexCount, ORBITVertex* vertices, UINT* indices, ORBITMesh::MeshInitialData* dataOut);
+	bool TestModelRawData_(int vertexCount, int indexCount, RenderMethod* renderMethod, ORBITMesh* outData);
 
 };

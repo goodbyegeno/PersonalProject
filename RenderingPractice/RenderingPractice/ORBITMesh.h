@@ -9,31 +9,23 @@ class ORBITMesh
 {
 
 public:
-	struct MeshInitialData
-	{
-		union
-		{
-			ID3D11Buffer** vertexBuffersDX11;
-		};
-		union
-		{
-			ID3D11Buffer* indexBuffersDX;
-		};
-		int		vertexBufferCount;
-		int		vertexCount;
-		UINT*	indices;
-		int				indexCount;
-		UINT*	strides;
-		UINT*	offsets;
-		int				subsetCount;
-		ORBITMeshSubset** meshSubset;
-		RenderEngine::ORBIT_FORMAT indexBufferFormat;
-
-	};
 	enum class SUBSETINDEXMAPPINGTYPE
 	{
 		LINEAR,
 		STORED,
+	};
+
+	struct MeshInitialData
+	{
+		int				vertexCount;
+		UINT*			indices;
+		int				indexCount;
+		UINT*			strides;
+		UINT*			offsets;
+		int				subsetCount;
+		ORBITMeshSubset** meshSubset;
+		SUBSETINDEXMAPPINGTYPE subsetIndexMappingType;
+
 	};
 
 	ORBITMesh(MeshInitialData& initialData);
@@ -57,6 +49,12 @@ public:
 	SUBSETINDEXMAPPINGTYPE		GetSubsetIndexMappingType() const	{ return _subsetIndexMappingType; }
 	ORBITMeshSubset**			GetSubset()	const					{ return _meshSubset; }
 	RenderEngine::ORBIT_FORMAT	GetIndexBufferFormat() const		{ return _indexBufferFormat; }
+
+	void SetIndexBufferDX11(ID3D11Buffer* indexBuffer)					{ _indexBuffersDX11 = indexBuffer; }
+	void SetVertexBufferDX11(ID3D11Buffer** vertexBuffer)				{ _vertexBuffersDX11 = vertexBuffer; }
+	void SetIndexBufferFormat(RenderEngine::ORBIT_FORMAT indexFormat)	{ _indexBufferFormat = indexFormat; }
+	void SetVertexBufferCount(int vertexBufferCount)					{ _vertexBufferCount = vertexBufferCount; }
+
 private:
 
 	SUBSETINDEXMAPPINGTYPE	_subsetIndexMappingType;

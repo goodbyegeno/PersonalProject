@@ -22,6 +22,7 @@
 #include "DXDevice11_4.h"
 #include "DXHelper11.h"
 #include "RenderingSingletonManager.h"
+#include "ORBITVertex.h"
 #include <d3d11_4.h>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
@@ -299,6 +300,7 @@ bool ForwardShadingMethodDX::RenderMesh()
 
 	//}
 	//TODO: Chane DrawIndexedInstancedIndirect
+	_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	_deviceContext->DrawIndexed(_drawVariables.GetIndexCount(), _drawVariables.GetIndexStart(), _drawVariables.GetVertexStart());
 
 	return true;
@@ -417,6 +419,79 @@ bool ForwardShadingMethodDX::ResetRenderTarget()
 	return true;
 }
 
+bool ForwardShadingMethodDX::CreateVertexBuffer(int vertexCount, int indexCount, ORBITVertex* verticesOrigin, UINT* indicesOrigin, ORBITMesh* outMeshData)
+{
+	ID3D11Device* deviceDX = _device;
+
+	HRESULT result;
+	D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc;
+	D3D11_SUBRESOURCE_DATA vertexData, indexData;
+
+	// Set up the description of the static vertex buffer.
+	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	vertexBufferDesc.ByteWidth = sizeof(ShaderVertexInput) * vertexCount;
+	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	vertexBufferDesc.CPUAccessFlags = 0;
+	vertexBufferDesc.MiscFlags = 0;
+	vertexBufferDesc.StructureByteStride = 0;
+	
+	ShaderVertexInput* vertices = new ShaderVertexInput[vertexCount];
+	for (int verticesIndex = 0; verticesIndex < vertexCount; verticesIndex++)
+	{
+		vertices[verticesIndex]._position.x = verticesOrigin[verticesIndex].GetPosition()._x;
+		vertices[verticesIndex]._position.y = verticesOrigin[verticesIndex].GetPosition()._y;
+		vertices[verticesIndex]._position.z = verticesOrigin[verticesIndex].GetPosition()._z;
+
+		vertices[verticesIndex]._normal.x = verticesOrigin[verticesIndex].GetNormal()._x;
+		vertices[verticesIndex]._normal.y = verticesOrigin[verticesIndex].GetNormal()._y;
+		vertices[verticesIndex]._normal.z = verticesOrigin[verticesIndex].GetNormal()._z;
+		
+		vertices[verticesIndex]._texcoord.x = verticesOrigin[verticesIndex].GetUV()._x;
+		vertices[verticesIndex]._texcoord.y = verticesOrigin[verticesIndex].GetUV()._y;
+	}
+	// Give the subresource structure a pointer to the vertex data.
+	vertexData.pSysMem = vertices;
+	vertexData.SysMemPitch = 0;
+	vertexData.SysMemSlicePitch = 0;
+
+	ID3D11Buffer *vertexBuffer, *indexBuffer;
+
+	// Now create the vertex buffer.
+	result = deviceDX->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	// Set up the description of the static index buffer.
+	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	indexBufferDesc.ByteWidth = sizeof(UINT) * indexCount;
+	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	indexBufferDesc.CPUAccessFlags = 0;
+	indexBufferDesc.MiscFlags = 0;
+	indexBufferDesc.StructureByteStride = 0;
+
+	// Give the subresource structure a pointer to the index data.
+	indexData.pSysMem = indicesOrigin;
+	indexData.SysMemPitch = 0;
+	indexData.SysMemSlicePitch = 0;
+
+	// Create the index buffer.
+	result = deviceDX->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	outMeshData->SetIndexBufferDX11(vertexBuffer);
+	outMeshData->SetIndexBufferDX11(indexBuffer);
+	outMeshData->SetIndexBufferFormat(RenderEngine::ORBIT_FORMAT::ORBIT_FORMAT_R32_UINT);
+	outMeshData->SetVertexBufferCount(1);
+
+	delete[] vertices;
+
+	return true;
+}
 
 
 

@@ -78,7 +78,9 @@ void ForwardShadingMethod::Render(DeviceManager* deviceManager, ShaderManager* s
 				}
 				else if (ORBITMesh::SUBSETINDEXMAPPINGTYPE::LINEAR == meshData[meshIndex]->GetSubsetIndexMappingType())
 				{
-					_renderingMethodImpl->SetMaterial(meshSubsets[subsetIndex]->GetMaterial());
+					//TEST dont need meterial null check. just text code.
+					if (meshSubsets[subsetIndex]->GetMaterial())
+						_renderingMethodImpl->SetMaterial(meshSubsets[subsetIndex]->GetMaterial());
 					_renderingMethodImpl->RenderMesh();
 				}
 			}

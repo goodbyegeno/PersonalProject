@@ -53,23 +53,33 @@ public:
 		DirectX::XMMATRIX				_viewProjMatrix;
 	};
 
+	struct ShaderVertexInput
+	{
+		DirectX::XMFLOAT3				_position;
+		DirectX::XMFLOAT2				_texcoord;
+		DirectX::XMFLOAT3				_normal;
+
+	};
 	ForwardShadingMethodDX();
 	virtual ~ForwardShadingMethodDX();
 
-	bool Initialize(DeviceManager* deviceManager, ShaderManager* shaderManager, RenderTargetManager* renderTargetManager);
-	bool Reset(DeviceManager* deviceManager, ShaderManager* shaderManager);
+	virtual bool Initialize(DeviceManager* deviceManager, ShaderManager* shaderManager, RenderTargetManager* renderTargetManager);
+	virtual bool Reset(DeviceManager* deviceManager, ShaderManager* shaderManager);
+		    
+	virtual bool SetWorldMatrix(const ORBITMATRIX4x4* worldMatrix);
+	virtual bool SetCameraMatrix();
+	virtual bool SettingShaderOptions();
+	virtual bool SetConstVariables();
+	virtual bool SetRenderTarget();
+	virtual bool SetVertexBuffer(const ORBITMesh* mesh) const;
+	virtual bool SetSubsetVBIndicesInfo(const ORBITMeshSubset* subsetData);
+	virtual bool SetMaterial(const ORBITMaterial* material);
+	virtual bool RenderMesh();
+	virtual bool ResetRenderTarget();
+	virtual bool CreateVertexBuffer(int vertexCount, int indexCount, ORBITVertex* verticesOrigin, UINT* indicesOrigin, ORBITMesh* outMeshData);
 
-	bool SetWorldMatrix(const ORBITMATRIX4x4* worldMatrix);
-	bool SetCameraMatrix();
-	bool SettingShaderOptions();
-	bool SetConstVariables();
-	bool SetRenderTarget();
-	bool SetVertexBuffer(const ORBITMesh* mesh) const;
-	bool SetSubsetVBIndicesInfo(const ORBITMeshSubset* subsetData);
-	bool SetMaterial(const ORBITMaterial* material);
-	bool RenderMesh();
-	bool ResetRenderTarget();
 	bool InitRenderTargets(RenderTargetManager* renderTargetManager);
+
 private:
 	bool							LoadShader_();
 	bool							SetShader_(ID3D11Device3* deviceDX, ID3DBlob* psShaderBuffer, ID3DBlob* vsShaderBuffer);

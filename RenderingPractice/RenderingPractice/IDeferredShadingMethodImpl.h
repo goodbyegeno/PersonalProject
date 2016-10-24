@@ -40,6 +40,8 @@ public:
 	virtual bool RenderMesh() = 0;
 	virtual bool RenderLighting(std::vector<IRenderableObject*>& renderRequestObjects) = 0;
 	virtual bool ResetRenderTarget() = 0;
+	virtual bool CreateVertexBuffer(int vertexCount, int indexCount, ORBITVertex* verticesOrigin, UINT* indicesOrigin, ORBITMesh::MeshInitialData* dataOut) = 0;
+
 
 private:
 
