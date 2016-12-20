@@ -179,6 +179,14 @@ std::vector<IRenderableObject*>* RenderingManager::GetRenderRequestObject(size_t
 
 	return &(itor->second);
 }
+RenderMethod* RenderingManager::GetRenderingMethod(size_t hashCode) 
+{
+	std::unordered_map<size_t, RenderMethod*>::iterator itor = _renderingMethodMap.find(hashCode);
+	if (itor != _renderingMethodMap.end())
+		return itor->second;
+
+	return nullptr;
+}
 
 bool RenderingManager::AddRenderingMethod(RenderMethod* renderingMethod)
 {

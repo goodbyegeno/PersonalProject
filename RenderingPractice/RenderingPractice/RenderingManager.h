@@ -29,7 +29,8 @@ public:
 	void PostUpdate(float deltaTime);
 	bool RequestRender(IRenderableObject* target);
 	std::vector<IRenderableObject*>* GetRenderRequestObject(size_t hashCode);
-	std::unordered_map<size_t, RenderMethod*>* GetRenderingMethodMap() { return &_renderingMethodMap; }	
+	std::unordered_map<size_t, RenderMethod*>* GetRenderingMethodMap() { return &_renderingMethodMap; }
+	RenderMethod* GetRenderingMethod(size_t hashCode);
 	DeviceManager* GetDeviceManager() { return _deviceManager; }
 
 	bool AddRenderingMethod(RenderMethod* renderingMethod);

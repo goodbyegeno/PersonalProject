@@ -66,8 +66,9 @@ ModelStaticData* ModelManager::LoadModel_(std::wstring& fileName)
 {
 	//TEST: just temp fuction blahblah
 	ModelStaticData* tempData;
-	tempData = _modelImporter->LoadModel(fileName, _graphicSystem->GetDeviceManager()->GetDevice());
+	tempData = _modelImporter->LoadModel(fileName, _graphicSystem->GetRenderingManager());
 
+	//TODO: temp 데이터가 변조됨. 쉘로우 카피?
 	if (tempData)
 		_modelDataMap.insert(std::unordered_map<size_t, ModelStaticData*>::value_type(tempData->GetHashCode(), tempData));
 

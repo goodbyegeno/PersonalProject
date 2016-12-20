@@ -74,6 +74,8 @@ public:
 	virtual bool SetMaterial(const ORBITMaterial* material);
 	virtual bool RenderMesh();
 	virtual bool RenderLighting(std::vector<IRenderableObject*>& renderRequestObjects);
+	virtual bool CreateVertexBuffer(int vertexCount, int indexCount, ORBITVertex* verticesOrigin, UINT* indicesOrigin, ORBITMesh* outMeshData);
+
 
 private:
 	bool SetShader_(ID3D11Device3* deviceDX, ID3DBlob* psShaderBuffer, ID3DBlob* vsShaderBuffer, ID3DBlob* csShaderBuffer);

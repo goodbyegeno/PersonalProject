@@ -78,13 +78,20 @@ void ForwardShadingMethod::Render(DeviceManager* deviceManager, ShaderManager* s
 				}
 				else if (ORBITMesh::SUBSETINDEXMAPPINGTYPE::LINEAR == meshData[meshIndex]->GetSubsetIndexMappingType())
 				{
-					_renderingMethodImpl->SetMaterial(meshSubsets[subsetIndex]->GetMaterial());
+					//TEST dont need meterial null check. just text code.
+					if (meshSubsets[subsetIndex]->GetMaterial())
+						_renderingMethodImpl->SetMaterial(meshSubsets[subsetIndex]->GetMaterial());
 					_renderingMethodImpl->RenderMesh();
 				}
 			}
 		}
 	}
 }
+bool ForwardShadingMethod::CreateVertexBuffer(int vertexCount, int indexCount, ORBITVertex* verticesOrigin, UINT* indicesOrigin, ORBITMesh* outMeshData)
+{
+	return _renderingMethodImpl->CreateVertexBuffer(vertexCount, indexCount, verticesOrigin, indicesOrigin, outMeshData);
+}
+
 bool ForwardShadingMethod::CreateRenderingMethodImpl_()
 {
 	switch (_graphicsDevice->GetGraphicsAPIType())

@@ -11,7 +11,7 @@ public:
 
 	int					GetVertexStart() const		{ return _vertexStart; }
 	int					GetIndexCount() const		{ return _indexCount; }
-	int					GetIndexStart() const		{ return _indexCount; }
+	int					GetIndexStart() const		{ return _indexStart; }
 	/*
 	const int*			GetVertexIndices() const	{ return _vertexIndices; }
 	*/

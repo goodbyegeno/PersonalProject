@@ -113,7 +113,7 @@ bool DeferredShadingMethodDX::SetShader_(ID3D11Device3* deviceDX, ID3DBlob* psSh
 	D3D11_INPUT_ELEMENT_DESC polygonLayout[3];
 	UINT numElements = sizeof(polygonLayout) / sizeof(polygonLayout[0]);
 
-	polygonLayout[0].SemanticName = "position";
+	polygonLayout[0].SemanticName = "POSITION";
 	polygonLayout[0].SemanticIndex = 0;
 	polygonLayout[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
 	polygonLayout[0].InputSlot = 0;
@@ -121,7 +121,7 @@ bool DeferredShadingMethodDX::SetShader_(ID3D11Device3* deviceDX, ID3DBlob* psSh
 	polygonLayout[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	polygonLayout[0].InstanceDataStepRate = 0;
 
-	polygonLayout[1].SemanticName = "normal";
+	polygonLayout[1].SemanticName = "NORMAL";
 	polygonLayout[1].SemanticIndex = 0;
 	polygonLayout[1].Format = DXGI_FORMAT_R32G32B32_FLOAT;
 	polygonLayout[1].InputSlot = 0;
@@ -129,7 +129,7 @@ bool DeferredShadingMethodDX::SetShader_(ID3D11Device3* deviceDX, ID3DBlob* psSh
 	polygonLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	polygonLayout[1].InstanceDataStepRate = 0;
 
-	polygonLayout[2].SemanticName = "texcoord";
+	polygonLayout[2].SemanticName = "TEXCOORD";
 	polygonLayout[2].SemanticIndex = 0;
 	polygonLayout[2].Format = DXGI_FORMAT_R32G32_FLOAT;
 	polygonLayout[2].InputSlot = 0;
@@ -348,6 +348,11 @@ bool DeferredShadingMethodDX::RenderLighting(std::vector<IRenderableObject*>& re
 	}
 	return true;
 }
+bool DeferredShadingMethodDX::CreateVertexBuffer(int vertexCount, int indexCount, ORBITVertex* verticesOrigin, UINT* indicesOrigin, ORBITMesh* outMeshData)
+{
+	return false;
+}
+
 bool DeferredShadingMethodDX::ResetRenderTarget()
 {
 	_deviceContext->OMSetRenderTargets(0, nullptr, nullptr);

@@ -2,6 +2,7 @@
 #include <string>
 class ModelStaticData;
 class GraphicsDevice;
+class RenderingManager;
 
 class IModelImporterImpl
 {
@@ -9,6 +10,6 @@ public:
 	IModelImporterImpl() {}
 	virtual ~IModelImporterImpl() {}
 
-	virtual ModelStaticData* LoadModel(std::wstring modelName, GraphicsDevice* graphicsDevice) = 0;
+	virtual ModelStaticData* LoadModel(std::wstring modelName, RenderingManager* renderingManager) = 0;
 
 };
