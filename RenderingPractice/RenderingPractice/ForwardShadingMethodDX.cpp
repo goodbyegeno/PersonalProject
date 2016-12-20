@@ -298,7 +298,7 @@ bool ForwardShadingMethodDX::RenderMesh()
 	//	}
 
 	//}
-	//TODO: Chane DrawIndexedInstancedIndirect
+	//TODO: Change DrawIndexedInstancedIndirect
 	_deviceContext->DrawIndexed(_drawVariables.GetIndexCount(), _drawVariables.GetIndexStart(), _drawVariables.GetVertexStart());
 
 	return true;
