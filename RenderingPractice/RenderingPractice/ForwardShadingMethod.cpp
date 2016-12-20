@@ -87,6 +87,11 @@ void ForwardShadingMethod::Render(DeviceManager* deviceManager, ShaderManager* s
 		}
 	}
 }
+bool ForwardShadingMethod::CreateVertexBuffer(int vertexCount, int indexCount, ORBITVertex* verticesOrigin, UINT* indicesOrigin, ORBITMesh* outMeshData)
+{
+	return _renderingMethodImpl->CreateVertexBuffer(vertexCount, indexCount, verticesOrigin, indicesOrigin, outMeshData);
+}
+
 bool ForwardShadingMethod::CreateRenderingMethodImpl_()
 {
 	switch (_graphicsDevice->GetGraphicsAPIType())

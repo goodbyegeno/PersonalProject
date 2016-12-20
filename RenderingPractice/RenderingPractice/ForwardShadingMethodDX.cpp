@@ -16,6 +16,7 @@
 #include "IRenderableObject.h"
 #include "ModelDynamicData.h"
 #include "ModelStaticData.h"
+#include "ORBITVertex.h"
 #include "ORBITMesh.h"
 #include "ORBITMeshSubset.h"
 #include "ORBITMaterial.h"
@@ -418,7 +419,6 @@ bool ForwardShadingMethodDX::ResetRenderTarget()
 	_deviceContext->OMSetRenderTargets(0, nullptr, nullptr);
 	return true;
 }
-
 bool ForwardShadingMethodDX::CreateVertexBuffer(int vertexCount, int indexCount, ORBITVertex* verticesOrigin, UINT* indicesOrigin, ORBITMesh* outMeshData)
 {
 	ID3D11Device* deviceDX = _device;
@@ -483,7 +483,7 @@ bool ForwardShadingMethodDX::CreateVertexBuffer(int vertexCount, int indexCount,
 		return false;
 	}
 
-	outMeshData->SetIndexBufferDX11(vertexBuffer);
+	outMeshData->SetVertexBufferDX11(&vertexBuffer);
 	outMeshData->SetIndexBufferDX11(indexBuffer);
 	outMeshData->SetIndexBufferFormat(RenderEngine::ORBIT_FORMAT::ORBIT_FORMAT_R32_UINT);
 	outMeshData->SetVertexBufferCount(1);

@@ -10,11 +10,11 @@
 class DeviceManager;
 class ShaderManager;
 class RenderTargetManager;
-
 class IRenderableObject;
 class ShaderRenderTargetDX;
 class ShaderRenderTarget;
 class DXDevice11_4;
+class ORBITVertex;
 
 class ForwardShadingMethodDX : public IForwardShadingMethodImpl
 {

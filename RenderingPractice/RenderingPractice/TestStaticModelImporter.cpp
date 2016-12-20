@@ -90,21 +90,14 @@ bool TestStaticModelImporter::TestModelRawData_(int vertexCount, int indexCount,
 	indices[1] = 1;  // Top middle.
 	indices[2] = 2;  // Bottom right.
 
-	if (false == renderMethod->CreateVertexBuffer(vertexCount, indexCount, vertices, indices, outData))
-	{
-		delete[] vertices;
-		vertices = 0;
-
-		delete[] indices;
-		indices = 0;
-		return false;
-	}
+	bool result = renderMethod->CreateVertexBuffer(vertexCount, indexCount, vertices, indices, outData);
+	
 	// Release the arrays now that the vertex and index buffers have been created and loaded.
 	delete[] vertices;
 	vertices = 0;
 
 	delete[] indices;
 	indices = 0;
-	return true;
+	return result;
 }
 

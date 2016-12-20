@@ -19,6 +19,7 @@ public:
 	virtual bool Initialize();
 	virtual bool Reset();
 	virtual void Render(DeviceManager* deviceManager, ShaderManager* shaderManager, std::vector<IRenderableObject*>& renderRequestObjects, float deltaTime);
+	virtual bool CreateVertexBuffer(int vertexCount, int indexCount, ORBITVertex* verticesOrigin, UINT* indicesOrigin, ORBITMesh* outMeshData);
 
 private:
 	bool	CreateRenderingMethodImpl_();

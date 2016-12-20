@@ -4,6 +4,7 @@ class IShaderRenderTargetImpl;
 class IRenderableObject;
 class ORBITMATRIX4x4;
 class ModelStaticData;
+class ORBITVertex;
 class ORBITMesh;
 class ORBITMeshSubset;
 class ORBITMaterial;
