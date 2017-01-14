@@ -298,6 +298,7 @@ bool ForwardShadingMethodDX::RenderMesh()
 	//}
 	//TODO: Chane DrawIndexedInstancedIndirect
 	_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
 	_deviceContext->DrawIndexed(_drawVariables.GetIndexCount(), _drawVariables.GetIndexStart(), _drawVariables.GetVertexStart());
 
 	return true;

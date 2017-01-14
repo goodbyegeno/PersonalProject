@@ -21,13 +21,13 @@ bool SystemConfigureFileImporter::FileImport()
 	//TODO: NEED IMPLEMENT FILEIMPORT!
 	return true;
 }
-
 	
 SystemConfigureEntity::SystemConfigureEntity(std::wstring entityString, float entityValue) :
 	_entityString(entityString),
 	_entityValue(entityValue)
 {
 }
+
 SystemConfigureEntity::~SystemConfigureEntity()
 {
 }
