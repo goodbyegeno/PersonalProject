@@ -16,8 +16,6 @@
 #include "TestRenderingEngineFactory.h"
 #include "TestCamera.h"
 
-#include <vector>
-#include <unordered_map>
 //TEST: TEST CLASS!
 SurfaceMain::SurfaceMain() :
 	_coreSystem(nullptr),

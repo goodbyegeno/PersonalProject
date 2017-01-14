@@ -2,7 +2,6 @@
 #include "TestCamera.h"
 #include "CameraBase.h"
 #include "CoreEngineCommon.h"
-#include <string>
 TestCamera::TestCamera(CameraBase* cameraBase) :
 	CameraMovementBase(std::hash<std::wstring>{}(L"TestCamera"))
 {

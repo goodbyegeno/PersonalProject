@@ -24,10 +24,6 @@
 #include "DXHelper11.h"
 #include "RenderingSingletonManager.h"
 #include "ORBITVertex.h"
-#include <d3d11_4.h>
-#include <d3dcompiler.h>
-#include <DirectXMath.h>
-#include <cstring>
 
 ForwardShadingMethodDX::ForwardShadingMethodDX() : 
 	_renderTargetHash(std::hash<std::wstring>{}(L"Albedo"))

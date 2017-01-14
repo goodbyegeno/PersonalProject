@@ -1,7 +1,5 @@
 #pragma once
 #include "RenderEngineCommon.h"
-#include <vector>
-#include <unordered_map>
 
 class GraphicsSystem;
 class DeviceManager;

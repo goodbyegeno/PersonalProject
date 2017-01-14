@@ -3,8 +3,6 @@
 #include "CustomMatrix.h"
 #include "CustomVector.h"
 #include "TempTimer.h"
-#include <vector>
-#include <unordered_map>
 class CameraBase;
 class ICameraBase;
 class CameraMovementBase;

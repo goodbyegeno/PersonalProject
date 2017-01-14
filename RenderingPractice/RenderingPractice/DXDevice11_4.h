@@ -1,11 +1,7 @@
 #pragma once
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "dxgi.lib")
-#pragma comment(lib, "d3dcompiler.lib")
+
 #include "RenderEngineCommon.h"
-#include <d3d11_4.h>
-#include <directxmath.h>
-#include <unordered_map>
+
 #include "GraphicsDevice.h"
 class ORBITMesh;
 class DXDevice11_4 : public GraphicsDevice

@@ -1,5 +1,4 @@
 #pragma once
-#include <unordered_map>
 class RenderingManager;
 class DeviceManager;
 class ShaderManager;

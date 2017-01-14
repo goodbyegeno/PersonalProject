@@ -1,13 +1,8 @@
 #pragma once
-/*
-#include <directxmath.h>
-#include <d3d11_4.h>
-*/
 #include "CoreEngineCommon.h"
 #include "CameraMovementBase.h"
 #include "CustomVector.h"
 #include "CustomMatrix.h"
-#include <unordered_map>
 class CoreSystem;
 class ICameraBase
 {

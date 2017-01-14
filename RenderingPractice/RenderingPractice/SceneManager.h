@@ -1,6 +1,5 @@
 #pragma once
 #include "IUpdateableObject.h"
-#include <vector>
 
 class SceneObject;
 class IGraphicsSystemFacade;

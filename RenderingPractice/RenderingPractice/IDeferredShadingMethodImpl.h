@@ -1,5 +1,4 @@
 #pragma once
-#include <vector>
 class DeviceManager;
 class IShaderRenderTargetImpl;
 class IRenderableObject;

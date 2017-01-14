@@ -1,5 +1,4 @@
 #pragma once
-#include <unordered_map>
 class ICustomSystemImporterImpl;
 class SystemConfigureEntity
 {
