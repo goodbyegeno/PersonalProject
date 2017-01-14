@@ -16,13 +16,31 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
+#include <cstring>
+#include <Windows.h>
+#include <chrono>
+#include <ctime>
 
-// TODO: reference additional headers your program requires here
-#include <string>
-#include <directxmath.h>
+#include <vector>
 #include <unordered_map>
 
+//#include <string>
+
+//dx
+#include <d3d11_4.h>
+#include <d3dcompiler.h>
+#include <directxmath.h>
+
+// TODO: reference additional headers your program requires here
 #include "RenderEngineCommon.h"
+
 #include "CustomMatrix.h"
 #include "CustomVector.h"
 #include "CustomQuarternion.h"
+
+//lib
+
+//3rd party lib
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib, "d3dcompiler.lib")

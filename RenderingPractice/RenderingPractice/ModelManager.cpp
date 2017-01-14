@@ -13,7 +13,7 @@ ModelManager::ModelManager(GraphicsSystem* graphicSystem, IModelImporterImpl*	mo
 	{
 		//TODO: default importer
 	}
-}
+} 
 ModelManager::~ModelManager()
 {
 	if (_modelImporter)

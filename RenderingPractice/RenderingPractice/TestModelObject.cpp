@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "TestModelObject.h"
-#include <string>
+#include <ctime>
+
 TestModelObject::TestModelObject(size_t hashCode, ORBITMesh** meshDatas, int meshCount, size_t renderingMethodHash, RenderEngine::RENDERTYPE _renderType):
 	_isUsePool(false),
 	_vertices(nullptr),

@@ -3,7 +3,6 @@
 #include "CameraBase.h"
 #include "ORBITMesh.h"
 #include "CoreSystem.h"
-#include <unordered_map>
 #include "SystemConfigureFileImporter.h"
 DXDevice11_4::DXDevice11_4() :
 	_device(nullptr),

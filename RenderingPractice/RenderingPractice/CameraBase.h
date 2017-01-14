@@ -1,8 +1,4 @@
 #pragma once
-/*
-#include <directxmath.h>
-#include <d3d11_4.h>
-*/
 #include "CoreEngineCommon.h"
 //#include "CameraMovementBase.h"
 class CameraMovementBase;

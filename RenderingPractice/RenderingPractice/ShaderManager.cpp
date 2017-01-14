@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "ShaderManager.h"
-#include <d3d11_4.h>
-#include <d3dcompiler.h>
 ShaderManager::ShaderManager(GraphicsSystem* graphicSystem)
 {
 	_shaderObjectMap.clear();

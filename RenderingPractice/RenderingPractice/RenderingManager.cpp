@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include <cstring>
 #include "IRenderableObject.h"
 #include "RenderingManager.h"
 #include "DeferredShadingMethod.h"

@@ -1,7 +1,5 @@
 #include "stdafx.h"
-#include <Windows.h>
-#include <chrono>
-#include <ctime>
+
 #include "TempTimer.h"
 
 

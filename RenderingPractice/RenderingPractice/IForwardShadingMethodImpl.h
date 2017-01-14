@@ -11,7 +11,6 @@ class ORBITMaterial;
 class ShaderManager;
 class RenderTargetManager;
 
-#include <vector>
 
 
 class IForwardShadingMethodImpl

@@ -1,8 +1,4 @@
 #pragma once
-namespace DirectX
-{
-	class XMFLOAT4X4;
-};
 class ORBITMATRIX4x4
 {
 public:

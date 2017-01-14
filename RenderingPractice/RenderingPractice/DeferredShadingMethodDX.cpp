@@ -19,10 +19,6 @@
 #include "DXDevice11_4.h"
 #include "DXHelper11.h"
 #include "RenderingSingletonManager.h"
-#include <d3d11_4.h>
-#include <d3dcompiler.h>
-#include <DirectXMath.h>
-#include <cstring>
 
 DeferredShadingMethodDX::DeferredShadingMethodDX() :
 	_device(nullptr),

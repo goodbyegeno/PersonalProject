@@ -3,9 +3,6 @@
 #include "CoreEngineCommon.h"
 #include "RenderEngineCommon.h"
 #include "IDeferredShadingMethodImpl.h"
-#include <d3d11_4.h>
-#include <DirectXMath.h>
-#include <vector>
 
 class DeviceManager;
 class ShaderManager;

@@ -1,6 +1,5 @@
 #pragma once
 #include "IShaderRenderTargetImpl.h"
-#include <d3d11_4.h>
 
 class ShaderRenderTargetDX : public IShaderRenderTargetImpl
 {

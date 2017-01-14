@@ -1,6 +1,5 @@
 #pragma once
 #include "RenderEngineCommon.h"
-#include <vector>
 
 class ShaderManager;
 class DeviceManager;

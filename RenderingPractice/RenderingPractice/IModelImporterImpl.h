@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 class ModelStaticData;
 class GraphicsDevice;
 class RenderingManager;
