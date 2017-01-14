@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{36F58620-9903-4E29-AFFB-1B427E9AC06C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>DeferredShading</RootNamespace>
+    <RootNamespace>RENDERINGPRACTICE</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -146,18 +146,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\CoreSystem\targetver.h" />
-    <ClInclude Include="CameraBase.h" />
     <ClInclude Include="ForwardShadingMethod.h" />
     <ClInclude Include="ForwardShadingMethodDX.h" />
     <ClInclude Include="IForwardShadingMethodImpl.h" />
     <ClInclude Include="IModelImporterImpl.h" />
+    <ClInclude Include="IORBITReadonlyMesh.h" />
+    <ClInclude Include="IShaderRenderTargetImpl.h" />
+    <ClInclude Include="ModelDynamicData.h" />
+    <ClInclude Include="ModelStaticData.h" />
+    <ClInclude Include="ORBITMaterial.h" />
+    <ClInclude Include="ORBITMesh.h" />
+    <ClInclude Include="ORBITMeshSubset.h" />
+    <ClInclude Include="ORBITVertex.h" />
     <ClInclude Include="RenderedObject.h" />
     <ClInclude Include="CoreEngineCommon.h" />
     <ClInclude Include="CoreSystem.h" />
-    <ClInclude Include="CustomMatrix.h" />
-    <ClInclude Include="CustomQuarternion.h" />
     <ClInclude Include="CustomRenderEngineFactory.h" />
-    <ClInclude Include="CustomVector.h" />
     <ClInclude Include="DeferredShaderObject.h" />
     <ClInclude Include="RenderingPractice.h" />
     <ClInclude Include="DeferredShadingMethod.h" />
@@ -166,12 +170,10 @@
     <ClInclude Include="DXDevice11_4.h" />
     <ClInclude Include="DXHelper11.h" />
     <ClInclude Include="GraphicsSystem.h" />
-    <ClInclude Include="CameraMovementBase.h" />
     <ClInclude Include="ICustomSystemImporterImpl.h" />
     <ClInclude Include="IDeferredShadingMethodImpl.h" />
     <ClInclude Include="GraphicsDevice.h" />
     <ClInclude Include="IGraphicsSystemFacade.h" />
-    <ClInclude Include="IORBITReadonlyMesh.h" />
     <ClInclude Include="IRenderableManager.h" />
     <ClInclude Include="IRenderableObject.h" />
     <ClInclude Include="IRenderHelper.h" />
@@ -182,13 +184,6 @@
     <ClInclude Include="RenderEngineFactoryBase.h" />
     <ClInclude Include="RenderingMethod.h" />
     <ClInclude Include="IShaderObejct.h" />
-    <ClInclude Include="IShaderRenderTargetImpl.h" />
-    <ClInclude Include="ModelDynamicData.h" />
-    <ClInclude Include="ModelStaticData.h" />
-    <ClInclude Include="ORBITMesh.h" />
-    <ClInclude Include="ORBITMeshSubset.h" />
-    <ClInclude Include="ORBITMaterial.h" />
-    <ClInclude Include="ORBITVertex.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="RenderEngineCommon.h" />
     <ClInclude Include="RenderHelperDX.h" />
@@ -207,7 +202,6 @@
     <ClInclude Include="SystemConfigureFileImporter.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TimerObject.h" />
-    <ClInclude Include="TestCamera.h" />
     <ClInclude Include="TestHeaderCommon.h" />
     <ClInclude Include="TestModelObject.h" />
     <ClInclude Include="TestRenderingEngineFactory.h" />
@@ -218,16 +212,17 @@
     <ClInclude Include="TestSystemCongifImporter.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CameraBase.cpp" />
     <ClCompile Include="ForwardShadingMethod.cpp" />
     <ClCompile Include="ForwardShadingMethodDX.cpp" />
     <ClCompile Include="GraphicsDevice.cpp" />
+    <ClCompile Include="ModelDynamicData.cpp" />
+    <ClCompile Include="ModelStaticData.cpp" />
+    <ClCompile Include="ORBITMaterial.cpp" />
+    <ClCompile Include="ORBITMesh.cpp" />
+    <ClCompile Include="ORBITMeshSubset.cpp" />
     <ClCompile Include="RenderedObject.cpp" />
     <ClCompile Include="CoreSystem.cpp" />
-    <ClCompile Include="CustomMatrix.cpp" />
-    <ClCompile Include="CustomQuarternion.cpp" />
     <ClCompile Include="CustomRenderEngineFactory.cpp" />
-    <ClCompile Include="CustomVector.cpp" />
     <ClCompile Include="RenderingPractice.cpp" />
     <ClCompile Include="DeferredShadingMethod.cpp" />
     <ClCompile Include="DeferredShadingMethodDX.cpp" />
@@ -235,11 +230,6 @@
     <ClCompile Include="DXDevice11_4.cpp" />
     <ClCompile Include="DXHelper11.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
-    <ClCompile Include="ModelDynamicData.cpp" />
-    <ClCompile Include="ModelStaticData.cpp" />
-    <ClCompile Include="ORBITMesh.cpp" />
-    <ClCompile Include="ORBITMeshSubset.cpp" />
-    <ClCompile Include="ORBITMaterial.cpp" />
     <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="RenderEngineFactoryBase.cpp" />
     <ClCompile Include="RenderingManager.cpp" />
@@ -265,11 +255,10 @@
     <ClCompile Include="TestSceneObjectFactory.cpp" />
     <ClCompile Include="TestStaticModelImporter.cpp" />
     <ClCompile Include="TestSystemConfigureFileImporterSuface.cpp" />
-    <ClCompile Include="TempTimer.cpp" />
-    <ClCompile Include="TestCamera.cpp" />
     <ClCompile Include="TestModelObject.cpp" />
     <ClCompile Include="TestSceneObject.cpp" />
     <ClCompile Include="TestSystemCongifImporter.cpp" />
+    <ClCompile Include="TimerObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="RenderingPractice.rc" />

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <FxCompile Include="ComputeShader_Composite.hlsl" />
+    <FxCompile Include="DeferredVS.hlsl" />
+    <FxCompile Include="ForwardRender_PS.hlsl" />
+    <FxCompile Include="ForwardRender_VS.hlsl" />
+    <FxCompile Include="Render_PS.hlsl" />
+    <FxCompile Include="Render_VS.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CustomRenderEngineFactory.cpp" />
+    <ClCompile Include="DeferredShadingMethod.cpp" />
+    <ClCompile Include="DeferredShadingMethodDX.cpp" />
+    <ClCompile Include="DXHelper11.cpp" />
+    <ClCompile Include="ForwardShadingMethod.cpp" />
+    <ClCompile Include="ForwardShadingMethodDX.cpp" />
+    <ClCompile Include="GraphicsSystem.cpp" />
+    <ClCompile Include="RenderedObject.cpp" />
+    <ClCompile Include="RenderEngineFactoryBase.cpp" />
+    <ClCompile Include="RenderingManager.cpp" />
+    <ClCompile Include="RenderingOverviewBase.cpp" />
+    <ClCompile Include="RenderingOverviewDefault.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SceneObject.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CustomRenderEngineFactory.h" />
+    <ClInclude Include="DeferredShaderObject.h" />
+    <ClInclude Include="DeferredShadingMethod.h" />
+    <ClInclude Include="DeferredShadingMethodDX.h" />
+    <ClInclude Include="DXHelper11.h" />
+    <ClInclude Include="ForwardShadingMethod.h" />
+    <ClInclude Include="ForwardShadingMethodDX.h" />
+    <ClInclude Include="GraphicsSystem.h" />
+    <ClInclude Include="IDeferredShadingMethodImpl.h" />
+    <ClInclude Include="IForwardShadingMethodImpl.h" />
+    <ClInclude Include="IModelImporterImpl.h" />
+    <ClInclude Include="IRenderableManager.h" />
+    <ClInclude Include="IRenderHelper.h" />
+    <ClInclude Include="ISceneObjectFactory.h" />
+    <ClInclude Include="RenderedObject.h" />
+    <ClInclude Include="RenderEngineFactoryBase.h" />
+    <ClInclude Include="RenderHelperDX.h" />
+    <ClInclude Include="RenderingManager.h" />
+    <ClInclude Include="RenderingMethod.h" />
+    <ClInclude Include="RenderingOverviewBase.h" />
+    <ClInclude Include="RenderingOverviewDefault.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SceneObject.h" />
+  </ItemGroup>
+</Project>

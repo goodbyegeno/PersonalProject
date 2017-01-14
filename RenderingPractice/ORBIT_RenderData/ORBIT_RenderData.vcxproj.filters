@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="IORBITReadonlyMesh.h" />
+    <ClInclude Include="IRenderableObject.h" />
+    <ClInclude Include="IShaderObejct.h" />
+    <ClInclude Include="ModelStaticData.h" />
+    <ClInclude Include="ORBITMaterial.h" />
+    <ClInclude Include="ORBITMesh.h" />
+    <ClInclude Include="ORBITMeshSubset.h" />
+    <ClInclude Include="ORBITVertex.h" />
+    <ClInclude Include="IShaderRenderTargetImpl.h" />
+    <ClInclude Include="ModelDynamicData.h" />
+    <ClInclude Include="ModelManager.h" />
+    <ClInclude Include="RenderTargetManager.h" />
+    <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="ShaderObjectDX.h" />
+    <ClInclude Include="ShaderObjIdxDfdGbufferCSDX.h" />
+    <ClInclude Include="ShaderObjIdxDfdGbufferPSDX.h" />
+    <ClInclude Include="ShaderObjIdxDfdGbufferVSDX.h" />
+    <ClInclude Include="ShaderRenderTarget.h" />
+    <ClInclude Include="ShaderRenderTargetDX.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ModelStaticData.cpp" />
+    <ClCompile Include="ORBITMaterial.cpp" />
+    <ClCompile Include="ORBITMesh.cpp" />
+    <ClCompile Include="ORBITMeshSubset.cpp" />
+    <ClCompile Include="ModelDynamicData.cpp" />
+    <ClCompile Include="ModelManager.cpp" />
+    <ClCompile Include="RenderTargetManager.cpp" />
+    <ClCompile Include="ShaderManager.cpp" />
+    <ClCompile Include="ShaderObjectDX.cpp" />
+    <ClCompile Include="ShaderObjIdxDfdGbufferCSDX.cpp" />
+    <ClCompile Include="ShaderObjIdxDfdGbufferPSDX.h.cpp" />
+    <ClCompile Include="ShaderObjIdxDfdGbufferVSDX.cpp" />
+    <ClCompile Include="ShaderRenderTarget.cpp" />
+    <ClCompile Include="ShaderRenderTargetDX.cpp" />
+  </ItemGroup>
+</Project>

@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -31,26 +23,11 @@
     <Filter Include="RenderEngine\ShadingMethod\Indexed_Deferred">
       <UniqueIdentifier>{7a61739c-4c89-4a71-b0b9-4d1057fd67db}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CustomMath">
-      <UniqueIdentifier>{5fb65fa6-82fb-4846-8e46-b770814d392c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="RenderEngine\Device">
       <UniqueIdentifier>{0336d012-8357-4a77-abff-4e74b6c61c77}</UniqueIdentifier>
     </Filter>
     <Filter Include="CoreEngine">
       <UniqueIdentifier>{cd427370-186c-4264-8ed1-d76030fca456}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CoreEngine\Source Files">
-      <UniqueIdentifier>{6bd9e017-64c3-41db-b2a7-a04e01b5af85}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CoreEngine\Source Files\Camera">
-      <UniqueIdentifier>{cfc39f94-dc2b-40e5-9d34-e826ff7f67a4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CoreEngine\Source Files\Camera\CameraMovement">
-      <UniqueIdentifier>{be299954-3fbf-49d3-bf95-916dbf2e1d40}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CoreEngine\Header Files">
-      <UniqueIdentifier>{cfdb8e64-bf04-4f50-83e9-3b0db39b42bf}</UniqueIdentifier>
     </Filter>
     <Filter Include="Surface">
       <UniqueIdentifier>{c0fa2534-8b53-46fc-8cc8-d6a206467dc9}</UniqueIdentifier>
@@ -70,12 +47,6 @@
     <Filter Include="RenderEngine\ShadingMethod\Forward">
       <UniqueIdentifier>{50ffdd10-845f-4bab-9d4c-b032e8b40574}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CoreEngine\Source Files\Camera\CameraMovement\Test">
-      <UniqueIdentifier>{780efc86-9a0a-4c31-befe-ad17b7340f37}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderEngine\ResourcesDataStructure">
-      <UniqueIdentifier>{194d639e-000a-4203-9c23-3e76798ae50b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="RenderEngine\Managers">
       <UniqueIdentifier>{0c780e9d-af00-48b4-b23e-fc810b9e8b2a}</UniqueIdentifier>
     </Filter>
@@ -85,20 +56,14 @@
     <Filter Include="RenderEngine\FileIO">
       <UniqueIdentifier>{cc197b7b-2c35-424b-accd-bc144794c156}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RenderEngine\ResourcesDataStructure">
+      <UniqueIdentifier>{08b76120-9882-4a36-8bbc-219a2382ebbb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GraphicsSystem.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
@@ -114,23 +79,8 @@
     <ClInclude Include="DeferredShadingMethod.h">
       <Filter>RenderEngine\ShadingMethod\Indexed_Deferred</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderRenderTarget.h">
-      <Filter>RenderEngine\ResourcesDataStructure</Filter>
-    </ClInclude>
     <ClInclude Include="DeferredShadingMethodDX.h">
       <Filter>RenderEngine\DXModule</Filter>
-    </ClInclude>
-    <ClInclude Include="CustomVector.h">
-      <Filter>CustomMath</Filter>
-    </ClInclude>
-    <ClInclude Include="CustomMatrix.h">
-      <Filter>CustomMath</Filter>
-    </ClInclude>
-    <ClInclude Include="CustomQuarternion.h">
-      <Filter>CustomMath</Filter>
-    </ClInclude>
-    <ClInclude Include="IShaderRenderTargetImpl.h">
-      <Filter>RenderEngine\ResourcesDataStructure</Filter>
     </ClInclude>
     <ClInclude Include="ShaderRenderTargetDX.h">
       <Filter>RenderEngine\DXModule</Filter>
@@ -147,41 +97,8 @@
     <ClInclude Include="IRenderHelper.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
-    <ClInclude Include="ORBITMesh.h">
-      <Filter>RenderEngine\ResourcesDataStructure</Filter>
-    </ClInclude>
-    <ClInclude Include="ORBITVertex.h">
-      <Filter>RenderEngine\ResourcesDataStructure</Filter>
-    </ClInclude>
-    <ClInclude Include="IORBITReadonlyMesh.h">
-      <Filter>RenderEngine\ResourcesDataStructure</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelDynamicData.h">
-      <Filter>RenderEngine\ResourcesDataStructure</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelStaticData.h">
-      <Filter>RenderEngine\ResourcesDataStructure</Filter>
-    </ClInclude>
-    <ClInclude Include="ORBITMeshSubset.h">
-      <Filter>RenderEngine\ResourcesDataStructure</Filter>
-    </ClInclude>
-    <ClInclude Include="ORBITMaterial.h">
-      <Filter>RenderEngine\ResourcesDataStructure</Filter>
-    </ClInclude>
     <ClInclude Include="DXHelper11.h">
       <Filter>RenderEngine\DXModule</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraBase.h">
-      <Filter>CoreEngine\Source Files\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="CoreEngineCommon.h">
-      <Filter>CoreEngine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CoreSystem.h">
-      <Filter>CoreEngine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CoreSystem\targetver.h">
-      <Filter>CoreEngine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsDevice.h">
       <Filter>RenderEngine\Device</Filter>
@@ -191,9 +108,6 @@
     </ClInclude>
     <ClInclude Include="IUpdateableObject.h">
       <Filter>CoreEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraMovementBase.h">
-      <Filter>CoreEngine\Source Files\Camera\CameraMovement</Filter>
     </ClInclude>
     <ClInclude Include="SurfaceMain.h">
       <Filter>Surface</Filter>
@@ -209,12 +123,6 @@
     </ClInclude>
     <ClInclude Include="IRenderableManager.h">
       <Filter>RenderEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="SystemConfigureFileImporter.h">
-      <Filter>CoreEngine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ICustomSystemImporterImpl.h">
-      <Filter>CoreEngine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TestSystemCongifImporter.h">
       <Filter>Surface\Test</Filter>
@@ -251,12 +159,6 @@
     </ClInclude>
     <ClInclude Include="TestRenderingEngineFactory.h">
       <Filter>RenderEngine\TestCode</Filter>
-    </ClInclude>
-    <ClInclude Include="TestCamera.h">
-      <Filter>CoreEngine\Source Files\Camera\CameraMovement\Test</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderingPractice.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DeviceManager.h">
       <Filter>RenderEngine\Managers</Filter>
@@ -300,14 +202,57 @@
     <ClInclude Include="RenderTargetManager.h">
       <Filter>RenderEngine\Managers</Filter>
     </ClInclude>
+    <ClInclude Include="CoreEngineCommon.h">
+      <Filter>CoreEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreSystem.h">
+      <Filter>CoreEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ICustomSystemImporterImpl.h">
+      <Filter>CoreEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemConfigureFileImporter.h">
+      <Filter>CoreEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CoreSystem\targetver.h">
+      <Filter>CoreEngine</Filter>
+    </ClInclude>
     <ClInclude Include="TimerObject.h">
-      <Filter>CoreEngine\Header Files</Filter>
+      <Filter>CoreEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingPractice.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="ShaderRenderTarget.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="IORBITReadonlyMesh.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="IShaderRenderTargetImpl.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelDynamicData.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelStaticData.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ORBITMaterial.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ORBITMesh.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ORBITMeshSubset.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ORBITVertex.h">
+      <Filter>RenderEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GraphicsSystem.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
@@ -317,20 +262,8 @@
     <ClCompile Include="DeferredShadingMethod.cpp">
       <Filter>RenderEngine\ShadingMethod\Indexed_Deferred</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderRenderTarget.cpp">
-      <Filter>RenderEngine\ResourcesDataStructure</Filter>
-    </ClCompile>
     <ClCompile Include="DeferredShadingMethodDX.cpp">
       <Filter>RenderEngine\DXModule</Filter>
-    </ClCompile>
-    <ClCompile Include="CustomVector.cpp">
-      <Filter>CustomMath</Filter>
-    </ClCompile>
-    <ClCompile Include="CustomMatrix.cpp">
-      <Filter>CustomMath</Filter>
-    </ClCompile>
-    <ClCompile Include="CustomQuarternion.cpp">
-      <Filter>CustomMath</Filter>
     </ClCompile>
     <ClCompile Include="ShaderRenderTargetDX.cpp">
       <Filter>RenderEngine\DXModule</Filter>
@@ -338,26 +271,8 @@
     <ClCompile Include="ShaderObjectDX.cpp">
       <Filter>RenderEngine\ShadingMethod\ShaderObjectManage</Filter>
     </ClCompile>
-    <ClCompile Include="ModelStaticData.cpp">
-      <Filter>RenderEngine\ResourcesDataStructure</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelDynamicData.cpp">
-      <Filter>RenderEngine\ResourcesDataStructure</Filter>
-    </ClCompile>
-    <ClCompile Include="ORBITMaterial.cpp">
-      <Filter>RenderEngine\ResourcesDataStructure</Filter>
-    </ClCompile>
     <ClCompile Include="DXHelper11.cpp">
       <Filter>RenderEngine\DXModule</Filter>
-    </ClCompile>
-    <ClCompile Include="CoreSystem.cpp">
-      <Filter>CoreEngine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TempTimer.cpp">
-      <Filter>CoreEngine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraBase.cpp">
-      <Filter>CoreEngine\Source Files\Camera</Filter>
     </ClCompile>
     <ClCompile Include="DXDevice11_4.cpp">
       <Filter>RenderEngine\DXModule</Filter>
@@ -370,9 +285,6 @@
     </ClCompile>
     <ClCompile Include="TestSceneObject.cpp">
       <Filter>SceneManager\Test</Filter>
-    </ClCompile>
-    <ClCompile Include="SystemConfigureFileImporter.cpp">
-      <Filter>CoreEngine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TestSystemCongifImporter.cpp">
       <Filter>Surface\Test</Filter>
@@ -397,12 +309,6 @@
     </ClCompile>
     <ClCompile Include="TestStaticModelImporter.cpp">
       <Filter>RenderEngine\TestCode</Filter>
-    </ClCompile>
-    <ClCompile Include="TestCamera.cpp">
-      <Filter>CoreEngine\Source Files\Camera\CameraMovement\Test</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderingPractice.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DeviceManager.cpp">
       <Filter>RenderEngine\Managers</Filter>
@@ -434,17 +340,40 @@
     <ClCompile Include="RenderedObject.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
-    <ClCompile Include="ORBITMeshSubset.cpp">
-      <Filter>RenderEngine\ResourcesDataStructure</Filter>
-    </ClCompile>
     <ClCompile Include="RenderTargetManager.cpp">
       <Filter>RenderEngine\Managers</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsDevice.cpp">
       <Filter>RenderEngine\Device</Filter>
     </ClCompile>
+    <ClCompile Include="RenderingPractice.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="CoreSystem.cpp">
+      <Filter>CoreEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemConfigureFileImporter.cpp">
+      <Filter>CoreEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerObject.cpp">
+      <Filter>CoreEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelDynamicData.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelStaticData.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ORBITMaterial.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
     <ClCompile Include="ORBITMesh.cpp">
-      <Filter>RenderEngine\ResourcesDataStructure</Filter>
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ORBITMeshSubset.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderRenderTarget.cpp">
+      <Filter>RenderEngine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
