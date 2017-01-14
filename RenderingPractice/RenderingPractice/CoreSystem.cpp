@@ -1,39 +1,29 @@
 #include "stdafx.h"
 #include "CoreSystem.h"
-#include "CameraBase.h"
+//#include "CameraBase.h"
 #include "IUpdateableObject.h"
 #include "IRenderableObject.h"
 #include "IRenderableManager.h"
 //for test now. TEST CODE
-CoreSystem* coreSystem;
 
 CoreSystem::CoreSystem(CoreSystemInititalData& data) :
-	_cameraObject(nullptr),
 	_updateRateType(CoreEngine::UPDATERATETYPE::CUSTOM_FIXED),
 	_minDeltaTimePerFrame(0.0f),
 	_maxDeltaTimePerFrame(0.0f),
 	_updateableObjectGroupList(data.updateableObjectGroupList),
 	_renderableObjectGroupList(data.renderableObjectGroupList)
 {
-	coreSystem = this;
-	_cameraObject = new CameraBase(this);
 	_entityMap.clear();
 }
 CoreSystem::~CoreSystem()
 {
-	if (_cameraObject)
-		delete _cameraObject;
 }
 
 
 bool CoreSystem::Initialize()
 {
-	_cameraObject = new CameraBase(this);
 
 	if (false == _timeObject.Initialize())
-		return false;
-
-	if (false == _cameraObject->Initialize())
 		return false;
 
 	return true;
@@ -41,7 +31,6 @@ bool CoreSystem::Initialize()
 bool CoreSystem::Reset()
 {
 	_timeObject.Reset();
-	_cameraObject->Reset();
 	return true;
 }
 void CoreSystem::UpdateMain()
@@ -78,7 +67,6 @@ void CoreSystem::UpdateMain()
 }
 void CoreSystem::PreUpdate_(float deltaTime)
 {
-	_cameraObject->PreUpdate(deltaTime);
 	for (int groupIndex = 0; groupIndex < _updateableObjectGroupList.size(); groupIndex++)
 	{
 		for (int objectIndex = 0; objectIndex < _updateableObjectGroupList[groupIndex].size(); objectIndex++)
@@ -89,7 +77,6 @@ void CoreSystem::PreUpdate_(float deltaTime)
 }
 void CoreSystem::Update_(float deltaTime)
 {
-	_cameraObject->Update(deltaTime);
 	for (int groupIndex = 0; groupIndex < _updateableObjectGroupList.size(); groupIndex++)
 	{
 		for (int objectIndex = 0; objectIndex < _updateableObjectGroupList[groupIndex].size(); objectIndex++)
@@ -100,7 +87,6 @@ void CoreSystem::Update_(float deltaTime)
 }
 void CoreSystem::PostUpdate_(float deltaTime)
 {
-	_cameraObject->PostUpdate(deltaTime);
 	for (int groupIndex = 0; groupIndex < _updateableObjectGroupList.size(); groupIndex++)
 	{
 		for (int objectIndex = 0; objectIndex < _updateableObjectGroupList[groupIndex].size(); objectIndex++)
@@ -151,14 +137,6 @@ void CoreSystem::AddUpdateableObject(IUpdateableObject* updateableObject, UINT g
 	_updateableObjectGroupList[group].push_back(updateableObject);
 }
 */
-void CoreSystem::SetCameraMovement(size_t cameraMovementBaseHash)
-{
-	_cameraObject->SetCameraMovementBase(cameraMovementBaseHash);
-}
-void CoreSystem::AddCameraMovement(CameraMovementBase* cameraMovement)
-{
-	_cameraObject->AddCameraMovementBase(cameraMovement);
-}
 SystemConfigureEntity*	CoreSystem::GetConfigValue(size_t hashEntity)
 {
 	std::unordered_map<size_t, SystemConfigureEntity*>::iterator itor = _entityMap.find(hashEntity);
@@ -169,6 +147,6 @@ SystemConfigureEntity*	CoreSystem::GetConfigValue(size_t hashEntity)
 	return nullptr;
 
 }
-
-const ORBITMATRIX4x4& CoreSystem::GetViewMatrix() const { return _cameraObject->GetViewMatrix(); }
-const ORBITMATRIX4x4& CoreSystem::GetProjMatrix() const { return _cameraObject->GetProjMatrix(); }
+//
+//const ORBITMATRIX4x4& CoreSystem::GetViewMatrix() const { return _cameraObject->GetViewMatrix(); }
+//const ORBITMATRIX4x4& CoreSystem::GetProjMatrix() const { return _cameraObject->GetProjMatrix(); }

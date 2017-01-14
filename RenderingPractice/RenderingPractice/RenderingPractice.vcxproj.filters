@@ -180,9 +180,6 @@
     <ClInclude Include="CoreSystem.h">
       <Filter>CoreEngine\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TempTimer.h">
-      <Filter>CoreEngine\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\CoreSystem\targetver.h">
       <Filter>CoreEngine\Header Files</Filter>
     </ClInclude>
@@ -303,6 +300,9 @@
     <ClInclude Include="RenderTargetManager.h">
       <Filter>RenderEngine\Managers</Filter>
     </ClInclude>
+    <ClInclude Include="TimerObject.h">
+      <Filter>CoreEngine\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -349,9 +349,6 @@
     </ClCompile>
     <ClCompile Include="DXHelper11.cpp">
       <Filter>RenderEngine\DXModule</Filter>
-    </ClCompile>
-    <ClCompile Include="ORBITMesh.cpp">
-      <Filter>RenderEngine\Device</Filter>
     </ClCompile>
     <ClCompile Include="CoreSystem.cpp">
       <Filter>CoreEngine\Source Files</Filter>
@@ -442,6 +439,12 @@
     </ClCompile>
     <ClCompile Include="RenderTargetManager.cpp">
       <Filter>RenderEngine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsDevice.cpp">
+      <Filter>RenderEngine\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="ORBITMesh.cpp">
+      <Filter>RenderEngine\ResourcesDataStructure</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -50,16 +50,7 @@ private:
 	ID3D11RasterizerState*		_rasterState;
 	ID3D11BlendState1*			_blendState;
 	ULONG						_videoCardMem;
-	int							_renderingResoWidth;
-	int							_renderingResoHeight;
 	
-	int							_screenResoWidth;
-	int							_screenResoHeight;
-
-	float						_fieldOfView;
-	float						_viewScreenAspect;
-	float						_frustumNear;
-	float						_frustumFar;
 	DirectX::XMMATRIX			_projectionMatrix;
 
 	HWND						_hwnd;

@@ -8,8 +8,6 @@
 #include "GraphicsDevice.h"
 #include "CoreSystem.h"
 #include "CameraBase.h"
-#include "CustomMatrix.h"
-#include "CustomVector.h"
 #include "ShaderRenderTarget.h"
 #include "ShaderRenderTargetDX.h"
 #include "IShaderRenderTargetImpl.h"
@@ -242,12 +240,12 @@ bool ForwardShadingMethodDX::SetRenderTarget()
 
 bool ForwardShadingMethodDX::SetVertexBuffer(const ORBITMesh* mesh) const
 {
-	ID3D11Buffer* const* vertexBuffers = mesh->GetVertexBuffersDX11();
+	ID3D11Buffer* vertexBuffers = mesh->GetVertexBuffersDX11();
 	int bufferCount = mesh->GetVertexBufferCount();
 	const UINT* strides = mesh->GetStrides();
 	const UINT* offsets = mesh->GetOffsets();
 
-	_deviceContext->IASetVertexBuffers(0, bufferCount, vertexBuffers, strides, offsets);
+	_deviceContext->IASetVertexBuffers(0, bufferCount, &vertexBuffers, strides, offsets);
 	_deviceContext->IASetIndexBuffer(mesh->GetIndexBufferDX11(), RenderingSingletonManager::GetInstance()->GetDXHelper11()->GetIndexBufferFormat(mesh->GetIndexBufferFormat()), 0);
 	//_deviceWrapper->RenderMesh(meshData[meshIndex]));
 
@@ -484,7 +482,7 @@ bool ForwardShadingMethodDX::CreateVertexBuffer(int vertexCount, int indexCount,
 		return false;
 	}
 
-	outMeshData->SetVertexBufferDX11(&vertexBuffer);
+	outMeshData->SetVertexBufferDX11(vertexBuffer);
 	outMeshData->SetIndexBufferDX11(indexBuffer);
 	outMeshData->SetIndexBufferFormat(RenderEngine::ORBIT_FORMAT::ORBIT_FORMAT_R32_UINT);
 	outMeshData->SetVertexBufferCount(1);

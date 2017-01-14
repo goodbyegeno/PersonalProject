@@ -44,7 +44,7 @@ ModelStaticData* TestStaticModelImporter::LoadModel(std::wstring modelName, Rend
 	ORBITMesh** meshs;
 	meshs = new ORBITMesh*[1];
 	meshs[0] = new ORBITMesh(initData);
-	
+
 	if (false == TestModelRawData_(initData.vertexCount, initData.indexCount, renderMethod, meshs[0]))
 		return nullptr;
 

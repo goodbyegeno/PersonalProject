@@ -14,14 +14,6 @@ DXDevice11_4::DXDevice11_4() :
 	_depthStencilView(nullptr),
 	_rasterState(nullptr),
 	_videoCardMem(0),
-	_renderingResoWidth(0),
-	_renderingResoHeight(0),
-	_screenResoWidth(0),
-	_screenResoHeight(0),
-	_fieldOfView(0.0f),
-	_viewScreenAspect(0.0f),
-	_frustumNear(0.0f),
-	_frustumFar(0.0f),
 	_backBufferRTV(nullptr),
 	GraphicsDevice(RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4)
 {
@@ -66,11 +58,11 @@ bool DXDevice11_4::Initialize(HWND hwnd)
 	if (nullptr != tempEntity)
 		_screenResoHeight = static_cast<int>(tempEntity->GetValue());
 
-	tempEntity = coreSystem->GetConfigValue(std::hash<std::wstring>{}(L"FrustumNear"));
+	tempEntity = coreSystem->GetConfigValue(std::hash<std::wstring>{}(L"FrustumNearDefault"));
 	if (nullptr != tempEntity)
 		_frustumNear = tempEntity->GetValue();
 
-	tempEntity = coreSystem->GetConfigValue(std::hash<std::wstring>{}(L"FrustumFar"));
+	tempEntity = coreSystem->GetConfigValue(std::hash<std::wstring>{}(L"FrustumFarDefault"));
 	if (nullptr != tempEntity)
 		_frustumFar = tempEntity->GetValue();
 

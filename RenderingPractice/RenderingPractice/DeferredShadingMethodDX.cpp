@@ -7,8 +7,6 @@
 #include "GraphicsDevice.h"
 #include "CoreSystem.h"
 #include "CameraBase.h"
-#include "CustomMatrix.h"
-#include "CustomVector.h"
 #include "ShaderRenderTarget.h"
 #include "ShaderRenderTargetDX.h"
 #include "IShaderRenderTargetImpl.h"
@@ -277,9 +275,9 @@ bool DeferredShadingMethodDX::SetRenderTarget()
 }
 bool DeferredShadingMethodDX::SetVertexBuffer(const ORBITMesh* mesh) const
 {
-	ID3D11Buffer* const* vertexBuffers = mesh->GetVertexBuffersDX11();
+	ID3D11Buffer* vertexBuffers = mesh->GetVertexBuffersDX11();
 
-	_deviceContext->IASetVertexBuffers(0, mesh->GetVertexBufferCount(), vertexBuffers, mesh->GetStrides(), mesh->GetOffsets());
+	_deviceContext->IASetVertexBuffers(0, mesh->GetVertexBufferCount(), &vertexBuffers, mesh->GetStrides(), mesh->GetOffsets());
 	_deviceContext->IASetIndexBuffer(mesh->GetIndexBufferDX11(), RenderingSingletonManager::GetInstance()->GetDXHelper11()->GetIndexBufferFormat(mesh->GetIndexBufferFormat()), 0);
 	//_deviceWrapper->RenderMesh(meshData[meshIndex]));
 

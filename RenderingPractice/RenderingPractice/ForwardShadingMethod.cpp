@@ -51,6 +51,7 @@ void ForwardShadingMethod::Render(DeviceManager* deviceManager, ShaderManager* s
 	//_renderingMethodImpl->SetConstVariables();
 	_renderingMethodImpl->SettingShaderOptions();
 	_renderingMethodImpl->SetRenderTarget();
+	_renderingMethodImpl->SetCameraMatrix();
 
 	for (int objectsIndex = 0; objectsIndex < renderRequestObjects.size(); objectsIndex++)
 	{
@@ -68,7 +69,7 @@ void ForwardShadingMethod::Render(DeviceManager* deviceManager, ShaderManager* s
 			ORBITMeshSubset** meshSubsets = meshData[meshIndex]->GetSubset();
 			int subsetCount = meshData[meshIndex]->GetSubsetCount();
 			_renderingMethodImpl->SetVertexBuffer(meshData[meshIndex]);
-			for (int subsetIndex = 0; subsetIndex < subsetCount; subsetIndex++)
+			for (int subsetIndex = 0; subsetIndex < subsetCount; ++subsetIndex)
 			{
 				_renderingMethodImpl->SetSubsetVBIndicesInfo(meshSubsets[subsetIndex]);
 				if (ORBITMesh::SUBSETINDEXMAPPINGTYPE::STORED == meshData[meshIndex]->GetSubsetIndexMappingType())

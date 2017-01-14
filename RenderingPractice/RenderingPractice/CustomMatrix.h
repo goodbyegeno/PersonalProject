@@ -1,5 +1,8 @@
 #pragma once
-#include <cstring>
+namespace DirectX
+{
+	class XMFLOAT4X4;
+};
 class ORBITMATRIX4x4
 {
 public:
@@ -27,45 +30,11 @@ public:
 		float m[4][4];
 	};
 
+	void ConvertTo(DirectX::XMFLOAT4X4& lMatrix);
+	ORBITMATRIX4x4 operator=(const ORBITMATRIX4x4& rMatrix);
+	ORBITMATRIX4x4 operator=(const DirectX::XMFLOAT4X4& rMatrix);
+	ORBITMATRIX4x4 operator+(const ORBITMATRIX4x4& rMatrix) const;
+	ORBITMATRIX4x4 operator-(const ORBITMATRIX4x4& rMatrix) const;
+	
 
-	ORBITMATRIX4x4 operator=(const ORBITMATRIX4x4& rMatrix)
-	{
-		//### should change later.
-		ORBITMATRIX4x4 temp;
-		memcpy(this->m, rMatrix.m, sizeof(float) * 16);
-
-		/*for (int matrixFirstIndex = 0; matrixFirstIndex < 4; matrixFirstIndex++)
-		{
-			for (int matrixSecondIndex = 0; matrixSecondIndex < 4; matrixSecondIndex++)
-			{
-				temp.m[matrixFirstIndex][matrixSecondIndex] = m[matrixFirstIndex][matrixSecondIndex] + rMatrix.m[matrixFirstIndex][matrixSecondIndex];
-			}
-		}*/
-		return temp;
-	}
-	ORBITMATRIX4x4 operator+(const ORBITMATRIX4x4& rMatrix) const
-	{
-		ORBITMATRIX4x4 temp;
-		for (int matrixFirstIndex = 0; matrixFirstIndex < 4; matrixFirstIndex++)
-		{
-			for (int matrixSecondIndex = 0; matrixSecondIndex < 4; matrixSecondIndex++)
-			{
-				temp.m[matrixFirstIndex][matrixSecondIndex] = m[matrixFirstIndex][matrixSecondIndex] + rMatrix.m[matrixFirstIndex][matrixSecondIndex];
-			}
-		}
-		return temp;
-	}
-
-	ORBITMATRIX4x4 operator-(const ORBITMATRIX4x4& rMatrix) const
-	{
-		ORBITMATRIX4x4 temp;
-		for (int matrixFirstIndex = 0; matrixFirstIndex < 4; matrixFirstIndex++)
-		{
-			for (int matrixSecondIndex = 0; matrixSecondIndex < 4; matrixSecondIndex++)
-			{
-				temp.m[matrixFirstIndex][matrixSecondIndex] = m[matrixFirstIndex][matrixSecondIndex] - rMatrix.m[matrixFirstIndex][matrixSecondIndex];
-			}
-		}
-		return temp;
-	}
 };

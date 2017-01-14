@@ -6,7 +6,6 @@
 #include "ModelDynamicData.h"
 #include "ModelStaticData.h"
 #include "IRenderableObject.h"
-#include "CustomMatrix.h"
 #include "ORBITMesh.h"
 #include "ORBITMeshSubset.h"
 #include "DeviceManager.h"

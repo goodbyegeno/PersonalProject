@@ -17,6 +17,12 @@
 #include <memory.h>
 #include <tchar.h>
 
-
 // TODO: reference additional headers your program requires here
+#include <string>
+#include <directxmath.h>
+#include <unordered_map>
+
 #include "RenderEngineCommon.h"
+#include "CustomMatrix.h"
+#include "CustomVector.h"
+#include "CustomQuarternion.h"

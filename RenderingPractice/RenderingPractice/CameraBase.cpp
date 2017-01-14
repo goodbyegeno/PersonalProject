@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "CameraBase.h" 
-#include "CoreSystem.h"
-CameraBase::CameraBase(CoreSystem* coreSystem) :
-	_coreSystem(coreSystem),
+#include "CameraMovementBase.h"
+#include "GraphicsDevice.h"
+CameraBase::CameraBase(RenderEngine::GraphicsDevice* graphicsDevice) :
+	_graphicsDevice(graphicsDevice),
 	_currentCameraMovementBase(nullptr)
 {
 	_cameraMovementBaseMap.clear();

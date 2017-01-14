@@ -204,7 +204,7 @@
     <ClInclude Include="SurfaceMain.h" />
     <ClInclude Include="SystemConfigureFileImporter.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="TempTimer.h" />
+    <ClInclude Include="TimerObject.h" />
     <ClInclude Include="TestCamera.h" />
     <ClInclude Include="TestHeaderCommon.h" />
     <ClInclude Include="TestModelObject.h" />
@@ -219,6 +219,7 @@
     <ClCompile Include="CameraBase.cpp" />
     <ClCompile Include="ForwardShadingMethod.cpp" />
     <ClCompile Include="ForwardShadingMethodDX.cpp" />
+    <ClCompile Include="GraphicsDevice.cpp" />
     <ClCompile Include="RenderedObject.cpp" />
     <ClCompile Include="CoreSystem.cpp" />
     <ClCompile Include="CustomMatrix.cpp" />

@@ -3,7 +3,6 @@
 #include "IUpdateableObject.h"
 #include "IRenderableManager.h"
 #include "IGraphicsSystemFacade.h"
-#include <unordered_map>
 class RenderingManager;
 class DeviceManager;
 class ModelManager;
