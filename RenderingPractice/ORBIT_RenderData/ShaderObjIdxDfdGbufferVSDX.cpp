@@ -1,8 +1,9 @@
+#include "stdafx.h"
 #include "ShaderObjIdxDfdGbufferVSDX.h"
 
 
-ShaderObjIdxDfdGbufferVSDX::ShaderObjIdxDfdGbufferVSDX(std::string shaderName, ID3D11Device* deviceDX, ID3DBlob* shaderBuffer) :
-	ShaderObjectDX(shaderName, deviceDX, shaderBuffer)
+ShaderObjIdxDfdGbufferVSDX::ShaderObjIdxDfdGbufferVSDX(std::wstring shaderName, ID3D11Device3* deviceDX, ID3DBlob* shaderBuffer, ID3D11DeviceChild* shaderData) :
+	ShaderObjectDX(shaderName, deviceDX, shaderBuffer, shaderData)
 {
 	ID3D11VertexShader* shader = nullptr;
 

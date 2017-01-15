@@ -1,24 +1,27 @@
 #pragma once
-class GraphicsDevice;
-class GraphicsSystem;
-class DeviceManager
+class SystemConfig;
+namespace RenderEngine
 {
-public:
-	DeviceManager(GraphicsSystem* graphicSystem);
-	virtual ~DeviceManager();
+	class GraphicsDevice;
+	class DeviceManager
+	{
+	public:
+		DeviceManager();
+		virtual ~DeviceManager();
 
-	bool Initialize(HWND hwnd);
-	bool PostInitialize();
+		bool Initialize(HWND hwnd, GRAPHICSAPITYPE apiType, SystemConfig* systemConfig);
+		bool PostInitialize();
 
-	bool Reset();
-	bool PostReset();
-	void PreUpdate(float deltaTime);
-	void PostUpdate(float deltaTime);
-	void Update(float deltaTime);
+		bool Reset();
+		bool PostReset();
+		void PreUpdate(float deltaTime);
+		void PostUpdate(float deltaTime);
+		void Update(float deltaTime);
 
-	GraphicsDevice* GetDevice() { return _device; }
-private:
+		GraphicsDevice* GetDevice() { return _device; }
+	private:
 
-	GraphicsDevice* _device;
-	GraphicsSystem* _graphicSystem;
-};
+		GraphicsDevice* _device;
+		//GraphicsSystem* _graphicSystem;
+	};
+}

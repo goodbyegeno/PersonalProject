@@ -1,12 +1,10 @@
 #include "stdafx.h"
 #include "ModelManager.h"
 #include "ModelStaticData.h"
-#include "GraphicsSystem.h"
-#include "TestModelObject.h"
+//#include "TestModelObject.h"
 #include "IModelImporterImpl.h"
-#include "DeviceManager.h"
-ModelManager::ModelManager(GraphicsSystem* graphicSystem, IModelImporterImpl*	modelImporter) :
-	_graphicSystem(graphicSystem),
+//#include "DeviceManager.h"
+ModelManager::ModelManager(IModelImporterImpl*	modelImporter) :
 	_modelImporter(modelImporter)
 {
 	if (nullptr == _modelImporter)
@@ -65,8 +63,8 @@ ModelStaticData* ModelManager::GetModelData(size_t hashCode)
 ModelStaticData* ModelManager::LoadModel_(std::wstring& fileName)
 {
 	//TEST: just temp fuction blahblah
-	ModelStaticData* tempData;
-	tempData = _modelImporter->LoadModel(fileName, _graphicSystem->GetRenderingManager());
+	ModelStaticData* tempData = nullptr;
+	//tempData = _modelImporter->LoadModel(fileName, _graphicSystem->GetRenderingManager());
 
 	//TODO: temp 데이터가 변조됨. 쉘로우 카피?
 	if (tempData)

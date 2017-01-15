@@ -1,6 +1,4 @@
 #pragma once
-#include "RenderEngineCommon.h"
-#include "CoreEngineCommon.h"
 class IShaderObject
 {
 public:

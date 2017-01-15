@@ -71,6 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetExt>.lib</TargetExt>
+    <IncludePath>C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.14393.0\um;C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.14393.0\shared;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -123,7 +124,11 @@
     <ClCompile Include="CustomMatrix.cpp" />
     <ClCompile Include="CustomQuarternion.cpp" />
     <ClCompile Include="CustomVector.cpp" />
-    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Library_ORBIT_Math.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

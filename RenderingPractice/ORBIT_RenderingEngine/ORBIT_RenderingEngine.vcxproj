@@ -145,7 +145,6 @@
     <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="IDeferredShadingMethodImpl.h" />
     <ClInclude Include="IForwardShadingMethodImpl.h" />
-    <ClInclude Include="IModelImporterImpl.h" />
     <ClInclude Include="IRenderableManager.h" />
     <ClInclude Include="IRenderHelper.h" />
     <ClInclude Include="ISceneObjectFactory.h" />

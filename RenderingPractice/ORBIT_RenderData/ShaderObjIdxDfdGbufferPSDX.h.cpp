@@ -1,8 +1,9 @@
+#include "stdafx.h"
 #include "ShaderObjIdxDfdGbufferPSDX.h"
 
 
-ShaderObjIdxDfdGbufferPSDX::ShaderObjIdxDfdGbufferPSDX(std::string shaderName, ID3D11Device* deviceDX, ID3DBlob* shaderBuffer) :
-	ShaderObjectDX(shaderName, deviceDX, shaderBuffer)
+ShaderObjIdxDfdGbufferPSDX::ShaderObjIdxDfdGbufferPSDX(std::wstring shaderName, ID3D11Device3* deviceDX, ID3DBlob* shaderBuffer, ID3D11DeviceChild* shaderData) :
+	ShaderObjectDX(shaderName, deviceDX, shaderBuffer, shaderData)
 {
 	ID3D11PixelShader* shader = nullptr;
 

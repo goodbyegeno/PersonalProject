@@ -1,14 +1,13 @@
 #pragma once
 
 
-class GraphicsSystem;
 class ModelStaticData;
 class IModelImporterImpl;
 class GraphicsDevice;
 class ModelManager
 {
 public:
-	ModelManager(GraphicsSystem* graphicSystem, IModelImporterImpl*	modelImporter);
+	ModelManager(IModelImporterImpl*	modelImporter);
 	virtual ~ModelManager();
 
 	bool Initialize();
@@ -23,8 +22,6 @@ public:
 
 private:
 	ModelStaticData* LoadModel_(std::wstring& fileName);
-
-	GraphicsSystem* _graphicSystem;
 
 	//UNDONE modeldata should contained multi layer container? ex) double vector
 	std::unordered_map<size_t, ModelStaticData*>	_modelDataMap; //<modelHashCode, data>

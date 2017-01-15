@@ -20,6 +20,10 @@
     <ClInclude Include="ShaderObjIdxDfdGbufferVSDX.h" />
     <ClInclude Include="ShaderRenderTarget.h" />
     <ClInclude Include="ShaderRenderTargetDX.h" />
+    <ClInclude Include="stdafx.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="IModelImporterImpl.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModelStaticData.cpp" />
@@ -36,5 +40,13 @@
     <ClCompile Include="ShaderObjIdxDfdGbufferVSDX.cpp" />
     <ClCompile Include="ShaderRenderTarget.cpp" />
     <ClCompile Include="ShaderRenderTargetDX.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Etc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Etc">
+      <UniqueIdentifier>{fe6fb381-9412-4e9d-b9a1-0c7e03b85f11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

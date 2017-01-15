@@ -1,5 +1,4 @@
 #pragma once
-#include "CustomVector.h"
 
 class ORBITVertex
 {

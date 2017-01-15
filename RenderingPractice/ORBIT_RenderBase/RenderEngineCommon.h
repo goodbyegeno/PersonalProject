@@ -53,6 +53,12 @@ namespace RenderEngine
 		MAX
 	};
 	*/
+	enum class PROJECTIONMODE
+	{
+		ISOMETRIC,
+		PERSPECTIVE,
+		MAX
+	};
 	enum class RENDERTYPE
 	{
 		CHARACTER,

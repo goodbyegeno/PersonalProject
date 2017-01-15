@@ -6,8 +6,8 @@ public:
 	SystemConfigureEntity(std::wstring entityString, float entityValue);
 	virtual ~SystemConfigureEntity();
 
-	const std::wstring& GetString() { return _entityString; }
-	const float			GetValue()	{ return _entityValue; }
+	const std::wstring& GetString() const { return _entityString; }
+	const float			GetValue()	const { return _entityValue; }
 private:
 	std::wstring	_entityString;
 	float			_entityValue;
@@ -20,7 +20,7 @@ public:
 
 	bool FileImport();
 
-protected:
+private:
 	std::wstring _fileName;
 	std::unordered_map<size_t, SystemConfigureEntity*>* _entityMap;
 	ICustomSystemImporterImpl* _customImporter;

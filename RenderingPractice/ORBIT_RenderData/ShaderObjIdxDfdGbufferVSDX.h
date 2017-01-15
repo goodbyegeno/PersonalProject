@@ -4,7 +4,7 @@
 class ShaderObjIdxDfdGbufferVSDX : public ShaderObjectDX
 {
 public:
-	ShaderObjIdxDfdGbufferVSDX(std::string shaderName, ID3D11Device* deviceDX, ID3DBlob* shaderBuffer);
+	ShaderObjIdxDfdGbufferVSDX(std::wstring shaderName, ID3D11Device3* deviceDX, ID3DBlob* shaderBuffer, ID3D11DeviceChild* shaderData);
 	ShaderObjIdxDfdGbufferVSDX() = delete;
 	virtual ~ShaderObjIdxDfdGbufferVSDX();
 

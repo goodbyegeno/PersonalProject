@@ -1,6 +1,6 @@
 #pragma once
-#include "RenderEngineCommon.h"
 class ORBITMesh;
+class SystemConfig;
 namespace RenderEngine
 {
 	class GraphicsDevice
@@ -10,7 +10,7 @@ namespace RenderEngine
 		GraphicsDevice(const GraphicsDevice&) = delete;
 		virtual ~GraphicsDevice() {};
 
-		virtual bool	Initialize(HWND hwnd) = 0;
+		virtual bool	Initialize(HWND hwnd, const SystemConfig* systemConfig) = 0;
 		virtual bool	Reset()			= 0;
 
 		virtual void*	GetShader()		= 0;
@@ -18,8 +18,8 @@ namespace RenderEngine
 		virtual void	BegineScene()	= 0;
 		virtual void	EndScene()		= 0;
 
-		virtual bool	UpdateRenderResolution()		= 0;
-		virtual bool	UpdateBackBufferResolution()	= 0;
+		virtual bool	UpdateRenderResolution(const SystemConfig* systemConfig)		= 0;
+		virtual bool	UpdateBackBufferResolution(const SystemConfig* systemConfig)	= 0;
 
 		float	GetFoV()					{ return _fieldOfView; }
 		float	GetFrustumNearDefault()		{ return _frustumNear; }

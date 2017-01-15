@@ -1,70 +1,72 @@
 #include "stdafx.h"
 #include "DeviceManager.h"
 #include "GraphicsDevice.h"
-#include "GraphicsSystem.h"
+//#include "GraphicsSystem.h"
 #include "DXDevice11_4.h"
-
-DeviceManager::DeviceManager(GraphicsSystem* graphicSystem) :
-	_graphicSystem(graphicSystem),
-	_device(nullptr)
+namespace RenderEngine
 {
-}
-DeviceManager::~DeviceManager()
-{
-	if (nullptr != _device)
-		delete _device;
-}
-
-bool DeviceManager::Initialize(HWND hwnd)
-{
-	//create Device 
-	switch (_graphicSystem->GetGraphicsAPIType())
+	DeviceManager::DeviceManager() :
+		_device(nullptr)
 	{
-	case RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4:
-		_device = new DXDevice11_4();
-		break;
+	}
+	DeviceManager::~DeviceManager()
+	{
+		if (nullptr != _device)
+			delete _device;
+	}
 
-	case RenderEngine::GRAPHICSAPITYPE::OPENGL:
-		break;
-	case RenderEngine::GRAPHICSAPITYPE::MAX:
-		return false;
-		break;
-	};
-	if (nullptr == _device)
-		return false;
+	bool DeviceManager::Initialize(HWND hwnd, GRAPHICSAPITYPE apiType, SystemConfig* systemConfig)
+	{
+		//create Device 
+		switch (apiType)
+		{
+		case RenderEngine::GRAPHICSAPITYPE::DIRECTX11_4:
+			_device = new DXDevice11_4();
+			break;
 
-	if (false == _device->Initialize(hwnd))
-		return false;
+		case RenderEngine::GRAPHICSAPITYPE::OPENGL:
+			break;
+		case RenderEngine::GRAPHICSAPITYPE::MAX:
+			return false;
+			break;
+		};
+		if (nullptr == _device)
+			return false;
 
-	return true;
-}
+		if (false == _device->Initialize(hwnd, systemConfig))
+			return false;
 
-bool DeviceManager::PostInitialize()
-{
-	return true;
-}
+		return true;
+	}
 
-bool DeviceManager::Reset()
-{
-	if (false == _device->Reset())
-		return false;
+	bool DeviceManager::PostInitialize()
+	{
+		return true;
+	}
 
-	return true;
-}
+	bool DeviceManager::Reset()
+	{
+		if (false == _device->Reset())
+			return false;
 
-bool DeviceManager::PostReset() 
-{
-	return true;
-}
+		return true;
+	}
 
-void DeviceManager::PreUpdate(float deltaTime)
-{
-}
+	bool DeviceManager::PostReset()
+	{
+		return true;
+	}
 
-void DeviceManager::PostUpdate(float deltaTime)
-{
-}
+	void DeviceManager::PreUpdate(float deltaTime)
+	{
+	}
 
-void DeviceManager::Update(float deltaTime)
-{
+	void DeviceManager::PostUpdate(float deltaTime)
+	{
+	}
+
+	void DeviceManager::Update(float deltaTime)
+	{
+	}
+
 }

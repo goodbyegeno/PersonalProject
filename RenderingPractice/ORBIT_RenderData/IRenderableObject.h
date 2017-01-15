@@ -1,5 +1,4 @@
 #pragma once
-#include "RenderEngineCommon.h"
 
 class ModelStaticData;
 class ModelDynamicData;

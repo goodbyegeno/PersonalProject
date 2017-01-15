@@ -119,6 +119,7 @@
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SystemConfig.cpp" />
     <ClCompile Include="SystemConfigureFileImporter.cpp" />
     <ClCompile Include="TimerObject.cpp" />
     <ClCompile Include="WindowObject.cpp" />
@@ -127,9 +128,11 @@
   <ItemGroup>
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="CoreEngineCommon.h" />
+    <ClInclude Include="GameInitializeStruct.h" />
     <ClInclude Include="ICustomSystemImporterImpl.h" />
     <ClInclude Include="IUpdateableObject.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="SystemConfig.h" />
     <ClInclude Include="SystemConfigureFileImporter.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TimerObject.h" />

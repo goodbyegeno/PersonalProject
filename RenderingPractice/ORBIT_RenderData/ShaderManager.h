@@ -1,5 +1,4 @@
 #pragma once
-#include "RenderEngineCommon.h"
 class GraphicsSystem;
 class IShaderObject;
 

@@ -1,6 +1,5 @@
 #pragma once
 #include "IORBITReadonlyMesh.h"
-#include "RenderEngineCommon.h"
 class ORBITVertex;
 class ORBITMeshSubset;
 
