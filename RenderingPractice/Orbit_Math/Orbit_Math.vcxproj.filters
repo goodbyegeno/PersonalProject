@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="CustomMatrix.h" />
+    <ClInclude Include="CustomQuarternion.h" />
+    <ClInclude Include="CustomVector.h" />
+    <ClInclude Include="stdafx.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CustomMatrix.cpp" />
+    <ClCompile Include="CustomQuarternion.cpp" />
+    <ClCompile Include="CustomVector.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="Library_ORBIT_Math.cpp">
+      <Filter>Etc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Etc">
+      <UniqueIdentifier>{26b07003-5b47-4b80-95f6-9b4f9c4944b5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Etc">
+      <UniqueIdentifier>{10b95402-da2f-47c3-8ff3-3b410f9b79e7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BaseObject.cpp" />
+    <ClCompile Include="SystemConfigureFileImporter.cpp" />
+    <ClCompile Include="TimerObject.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowObject.cpp" />
+    <ClCompile Include="IWindowObjectImpl.h" />
+    <ClCompile Include="WindowObjectImpl_Windows.cpp" />
+    <ClCompile Include="SystemConfig.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BaseObject.h" />
+    <ClInclude Include="CoreEngineCommon.h" />
+    <ClInclude Include="IUpdateableObject.h" />
+    <ClInclude Include="SystemConfigureFileImporter.h" />
+    <ClInclude Include="TimerObject.h" />
+    <ClInclude Include="ICustomSystemImporterImpl.h" />
+    <ClInclude Include="targetver.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowObject.h" />
+    <ClInclude Include="WindowObjectImpl_Windows.h" />
+    <ClInclude Include="GameInitializeStruct.h" />
+    <ClInclude Include="SystemConfig.h" />
+  </ItemGroup>
+</Project>

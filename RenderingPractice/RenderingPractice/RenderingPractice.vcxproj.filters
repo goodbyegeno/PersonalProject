@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="RenderEngine">
+      <UniqueIdentifier>{962f170d-81dc-4c92-b099-cac9a4a50ff5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEngine\Shader">
+      <UniqueIdentifier>{4ab8c3f8-04b3-4563-91a3-959260083e9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEngine\TestCode">
+      <UniqueIdentifier>{8e7b92ad-7a7c-425f-8a98-b0289ac542b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEngine\DXModule">
+      <UniqueIdentifier>{1083bb26-2a4d-4ec4-b9f6-a5ccdb5bc3d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEngine\ShadingMethod">
+      <UniqueIdentifier>{e03ba4e2-3f12-4c29-b493-ec7fbcba1633}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEngine\ShadingMethod\Indexed_Deferred">
+      <UniqueIdentifier>{7a61739c-4c89-4a71-b0b9-4d1057fd67db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEngine\Device">
+      <UniqueIdentifier>{0336d012-8357-4a77-abff-4e74b6c61c77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CoreEngine">
+      <UniqueIdentifier>{cd427370-186c-4264-8ed1-d76030fca456}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Surface">
+      <UniqueIdentifier>{c0fa2534-8b53-46fc-8cc8-d6a206467dc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneManager">
+      <UniqueIdentifier>{82b53f18-802f-45ac-9548-503e334b5d15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneManager\Test">
+      <UniqueIdentifier>{eae00370-8c79-46b5-a243-83c834bcd6ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEngine\ShadingMethod\ShaderObjectManage">
+      <UniqueIdentifier>{e5b1cfe2-cab6-4764-8ed8-2b9865ac48ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Surface\Test">
+      <UniqueIdentifier>{39b19451-0726-42f7-bbf6-dae8a405802b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEngine\ShadingMethod\Forward">
+      <UniqueIdentifier>{50ffdd10-845f-4bab-9d4c-b032e8b40574}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEngine\Managers">
+      <UniqueIdentifier>{0c780e9d-af00-48b4-b23e-fc810b9e8b2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEngine\Factory">
+      <UniqueIdentifier>{874ac15f-b98b-48a1-b4f5-97e6a7fe713c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEngine\FileIO">
+      <UniqueIdentifier>{cc197b7b-2c35-424b-accd-bc144794c156}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RenderEngine\ResourcesDataStructure">
+      <UniqueIdentifier>{08b76120-9882-4a36-8bbc-219a2382ebbb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GraphicsSystem.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderEngineCommon.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="TestHeaderCommon.h">
+      <Filter>RenderEngine\TestCode</Filter>
+    </ClInclude>
+    <ClInclude Include="TestModelObject.h">
+      <Filter>RenderEngine\TestCode</Filter>
+    </ClInclude>
+    <ClInclude Include="DeferredShadingMethod.h">
+      <Filter>RenderEngine\ShadingMethod\Indexed_Deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="DeferredShadingMethodDX.h">
+      <Filter>RenderEngine\DXModule</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderRenderTargetDX.h">
+      <Filter>RenderEngine\DXModule</Filter>
+    </ClInclude>
+    <ClInclude Include="IShaderObejct.h">
+      <Filter>RenderEngine\ShadingMethod\ShaderObjectManage</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderObjectDX.h">
+      <Filter>RenderEngine\ShadingMethod\ShaderObjectManage</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderHelperDX.h">
+      <Filter>RenderEngine\DXModule</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderHelper.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="DXHelper11.h">
+      <Filter>RenderEngine\DXModule</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsDevice.h">
+      <Filter>RenderEngine\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="DXDevice11_4.h">
+      <Filter>RenderEngine\DXModule</Filter>
+    </ClInclude>
+    <ClInclude Include="IUpdateableObject.h">
+      <Filter>CoreEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="SurfaceMain.h">
+      <Filter>Surface</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderableObject.h">
+      <Filter>CoreEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSceneObject.h">
+      <Filter>SceneManager\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderableManager.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSystemCongifImporter.h">
+      <Filter>Surface\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSystemConfigureFileImporterSuface.h">
+      <Filter>Surface\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="IGraphicsSystemFacade.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ISceneObjectFactory.h">
+      <Filter>SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSceneObjectFactory.h">
+      <Filter>SceneManager\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneObject.h">
+      <Filter>SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ForwardShadingMethod.h">
+      <Filter>RenderEngine\ShadingMethod\Forward</Filter>
+    </ClInclude>
+    <ClInclude Include="IForwardShadingMethodImpl.h">
+      <Filter>RenderEngine\ShadingMethod\Forward</Filter>
+    </ClInclude>
+    <ClInclude Include="IDeferredShadingMethodImpl.h">
+      <Filter>RenderEngine\ShadingMethod\Indexed_Deferred</Filter>
+    </ClInclude>
+    <ClInclude Include="ForwardShadingMethodDX.h">
+      <Filter>RenderEngine\DXModule</Filter>
+    </ClInclude>
+    <ClInclude Include="TestStaticModelImporter.h">
+      <Filter>RenderEngine\TestCode</Filter>
+    </ClInclude>
+    <ClInclude Include="TestRenderingEngineFactory.h">
+      <Filter>RenderEngine\TestCode</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceManager.h">
+      <Filter>RenderEngine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelManager.h">
+      <Filter>RenderEngine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingManager.h">
+      <Filter>RenderEngine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingSingletonManager.h">
+      <Filter>RenderEngine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderManager.h">
+      <Filter>RenderEngine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomRenderEngineFactory.h">
+      <Filter>RenderEngine\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingMethod.h">
+      <Filter>RenderEngine\ShadingMethod</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingOverviewBase.h">
+      <Filter>RenderEngine\ShadingMethod</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingOverviewDefault.h">
+      <Filter>RenderEngine\ShadingMethod</Filter>
+    </ClInclude>
+    <ClInclude Include="DeferredShaderObject.h">
+      <Filter>RenderEngine\ShadingMethod\ShaderObjectManage</Filter>
+    </ClInclude>
+    <ClInclude Include="IModelImporterImpl.h">
+      <Filter>RenderEngine\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderEngineFactoryBase.h">
+      <Filter>RenderEngine\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderedObject.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTargetManager.h">
+      <Filter>RenderEngine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreEngineCommon.h">
+      <Filter>CoreEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreSystem.h">
+      <Filter>CoreEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ICustomSystemImporterImpl.h">
+      <Filter>CoreEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemConfigureFileImporter.h">
+      <Filter>CoreEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CoreSystem\targetver.h">
+      <Filter>CoreEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerObject.h">
+      <Filter>CoreEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingPractice.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="ShaderRenderTarget.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="IORBITReadonlyMesh.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="IShaderRenderTargetImpl.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelDynamicData.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelStaticData.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ORBITMaterial.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ORBITMesh.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ORBITMeshSubset.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ORBITVertex.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GraphicsSystem.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="TestModelObject.cpp">
+      <Filter>RenderEngine\TestCode</Filter>
+    </ClCompile>
+    <ClCompile Include="DeferredShadingMethod.cpp">
+      <Filter>RenderEngine\ShadingMethod\Indexed_Deferred</Filter>
+    </ClCompile>
+    <ClCompile Include="DeferredShadingMethodDX.cpp">
+      <Filter>RenderEngine\DXModule</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderRenderTargetDX.cpp">
+      <Filter>RenderEngine\DXModule</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderObjectDX.cpp">
+      <Filter>RenderEngine\ShadingMethod\ShaderObjectManage</Filter>
+    </ClCompile>
+    <ClCompile Include="DXHelper11.cpp">
+      <Filter>RenderEngine\DXModule</Filter>
+    </ClCompile>
+    <ClCompile Include="DXDevice11_4.cpp">
+      <Filter>RenderEngine\DXModule</Filter>
+    </ClCompile>
+    <ClCompile Include="SurfaceMain.cpp">
+      <Filter>Surface</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSceneObject.cpp">
+      <Filter>SceneManager\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSystemCongifImporter.cpp">
+      <Filter>Surface\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSystemConfigureFileImporterSuface.cpp">
+      <Filter>Surface\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSceneObjectFactory.cpp">
+      <Filter>SceneManager\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneObject.cpp">
+      <Filter>SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ForwardShadingMethod.cpp">
+      <Filter>RenderEngine\ShadingMethod\Forward</Filter>
+    </ClCompile>
+    <ClCompile Include="ForwardShadingMethodDX.cpp">
+      <Filter>RenderEngine\DXModule</Filter>
+    </ClCompile>
+    <ClCompile Include="TestRenderingEngineFactory.cpp">
+      <Filter>RenderEngine\TestCode</Filter>
+    </ClCompile>
+    <ClCompile Include="TestStaticModelImporter.cpp">
+      <Filter>RenderEngine\TestCode</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceManager.cpp">
+      <Filter>RenderEngine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelManager.cpp">
+      <Filter>RenderEngine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingManager.cpp">
+      <Filter>RenderEngine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingSingletonManager.cpp">
+      <Filter>RenderEngine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderManager.cpp">
+      <Filter>RenderEngine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomRenderEngineFactory.cpp">
+      <Filter>RenderEngine\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingOverviewBase.cpp">
+      <Filter>RenderEngine\ShadingMethod</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingOverviewDefault.cpp">
+      <Filter>RenderEngine\ShadingMethod</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderEngineFactoryBase.cpp">
+      <Filter>RenderEngine\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderedObject.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTargetManager.cpp">
+      <Filter>RenderEngine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsDevice.cpp">
+      <Filter>RenderEngine\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingPractice.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="CoreSystem.cpp">
+      <Filter>CoreEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemConfigureFileImporter.cpp">
+      <Filter>CoreEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerObject.cpp">
+      <Filter>CoreEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelDynamicData.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelStaticData.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ORBITMaterial.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ORBITMesh.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ORBITMeshSubset.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderRenderTarget.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="RenderingPractice.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RenderingPractice.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Render_PS.hlsl">
+      <Filter>RenderEngine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Render_VS.hlsl">
+      <Filter>RenderEngine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="ComputeShader_Composite.hlsl">
+      <Filter>RenderEngine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="ForwardRender_PS.hlsl">
+      <Filter>RenderEngine\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="ForwardRender_VS.hlsl">
+      <Filter>RenderEngine\Shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>

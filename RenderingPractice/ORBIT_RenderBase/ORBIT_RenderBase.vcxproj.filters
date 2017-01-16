@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Etc">
+      <UniqueIdentifier>{9872af0d-59f0-4858-8451-ffb230958e30}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DeviceManager.cpp" />
+    <ClCompile Include="DXDevice11_4.cpp" />
+    <ClCompile Include="GraphicsDevice.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="Library_ORBIT_Render_Base.cpp">
+      <Filter>Etc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DeviceManager.h" />
+    <ClInclude Include="DXDevice11_4.h" />
+    <ClInclude Include="GraphicsDevice.h" />
+    <ClInclude Include="stdafx.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderEngineCommon.h" />
+  </ItemGroup>
+</Project>
